@@ -8,6 +8,10 @@
   --accent: #19c379;
   --fail: #e0654f;
   --border: #1e2a20;
+  --surface-rgb: 19, 26, 21;
+  --accent-rgb: 25, 195, 121;
+  --fail-rgb: 224, 101, 79;
+  --border-rgb: 30, 42, 32;
   --radius: 2px;
   --dur-fast: 150ms;
   --dur-med: 260ms;
@@ -31,11 +35,53 @@
 }
 
 body {
-  background: var(--bg);
-  background-image: radial-gradient(ellipse 80% 60% at 50% -10%, #12201660, transparent),
-    repeating-linear-gradient(0deg, transparent, transparent 3px, #ffffff03 3px, #ffffff03 4px);
+  background:
+    linear-gradient(90deg, rgba(var(--border-rgb), 0.22) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(var(--border-rgb), 0.18) 1px, transparent 1px),
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(var(--surface-rgb), 0.55), transparent),
+    var(--bg);
+  background-size: 96px 96px, 96px 96px, auto, auto;
   color: var(--text);
   font-family: var(--font-plex-sans);
+}
+
+.ouro-ring-bloom {
+  position: absolute;
+  inset: -13%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(var(--accent-rgb), 0.28),
+    rgba(var(--fail-rgb), 0.08) 38%,
+    transparent 69%
+  );
+  filter: blur(18px);
+  opacity: 0.72;
+}
+
+.ouro-ring-svg {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  filter: drop-shadow(0 0 24px rgba(var(--accent-rgb), 0.16));
+}
+
+.ring-colored-segment,
+.ring-orbit-dot,
+.ring-orbit-halo {
+  filter: drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.4));
+}
+
+.ring-fail-rim,
+.ring-colored-segment[data-verdict="fail"] {
+  filter: drop-shadow(0 0 10px rgba(var(--fail-rgb), 0.36));
+}
+
+.ring-orbit-dot,
+.ring-orbit-halo,
+.ring-trail-dot {
+  fill: var(--accent);
 }
 
 @media (prefers-reduced-motion: no-preference) {

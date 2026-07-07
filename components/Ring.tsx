@@ -9,13 +9,19 @@ const SIZE = 360;
 const R = 140;
 const C = SIZE / 2;
 
+function fixed4(value: number): string {
+  return value.toFixed(4);
+}
+
 function arcPath(startDeg: number, endDeg: number): string {
   const s = ((startDeg - 90) * Math.PI) / 180;
   const e = ((endDeg - 90) * Math.PI) / 180;
   const large = endDeg - startDeg > 180 ? 1 : 0;
-  return `M ${C + R * Math.cos(s)} ${C + R * Math.sin(s)} A ${R} ${R} 0 ${large} 1 ${
-    C + R * Math.cos(e)
-  } ${C + R * Math.sin(e)}`;
+  const startX = fixed4(C + R * Math.cos(s));
+  const startY = fixed4(C + R * Math.sin(s));
+  const endX = fixed4(C + R * Math.cos(e));
+  const endY = fixed4(C + R * Math.sin(e));
+  return `M ${startX} ${startY} A ${R} ${R} 0 ${large} 1 ${endX} ${endY}`;
 }
 
 type RingProps = {
@@ -39,6 +45,11 @@ export default function Ring({
   const n = iterations.length;
   const gap = n > 1 ? Math.min(4, 90 / n) : 0;
   const span = n > 0 ? 360 / n : 0;
+  const orbitTrail = [
+    { angle: -6, radius: 4.25, opacity: 0.28 },
+    { angle: -12, radius: 3.5, opacity: 0.2 },
+    { angle: -18, radius: 2.75, opacity: 0.12 },
+  ];
   const selected =
     selectedIteration === null
       ? null
@@ -143,102 +154,118 @@ export default function Ring({
   return (
     <div className="w-full min-w-0">
       <div className="relative w-full max-w-full md:max-w-90">
-      <svg
-        ref={ringRef}
-        viewBox={`0 0 ${SIZE} ${SIZE}`}
-        className="ring-intro block w-full"
-        aria-hidden="true"
-      >
-        {n === 0 ? (
-          <circle
-            cx={C}
-            cy={C}
-            r={R}
-            fill="none"
-            stroke="var(--border)"
-            strokeWidth="10"
-            strokeDasharray="2 8"
-          />
-        ) : (
-          iterations.map((it, i) => {
-            const d = arcPath(i * span + gap / 2, (i + 1) * span - gap / 2);
-            const active = selectedIteration === it.n;
-            return (
-              <g key={it.n}>
-                <path d={d} fill="none" stroke="transparent" strokeWidth="36" />
-                {it.tests.fail > 0 && (
+        <div className="ouro-ring-bloom" aria-hidden="true" />
+        <svg
+          ref={ringRef}
+          viewBox={`0 0 ${SIZE} ${SIZE}`}
+          className="ring-intro ouro-ring-svg block w-full"
+          aria-hidden="true"
+        >
+          {n === 0 ? (
+            <circle
+              cx={C}
+              cy={C}
+              r={R}
+              fill="none"
+              stroke="var(--border)"
+              strokeWidth="10"
+              strokeDasharray="2 8"
+            />
+          ) : (
+            iterations.map((it, i) => {
+              const d = arcPath(i * span + gap / 2, (i + 1) * span - gap / 2);
+              const active = selectedIteration === it.n;
+              return (
+                <g key={it.n}>
+                  <path d={d} fill="none" stroke="transparent" strokeWidth="36" />
+                  {it.tests.fail > 0 && (
+                    <path
+                      className="ring-fail-rim"
+                      d={d}
+                      fill="none"
+                      stroke="var(--fail)"
+                      strokeWidth="18"
+                      strokeLinecap="butt"
+                    />
+                  )}
                   <path
+                    ref={(node) => {
+                      segmentRefs.current[i] = node;
+                    }}
+                    className="ring-segment-path ring-colored-segment"
                     d={d}
                     fill="none"
-                    stroke="var(--fail)"
-                    strokeWidth="18"
+                    stroke={it.verdict === "pass" ? "var(--accent)" : "var(--fail)"}
+                    strokeWidth={active ? 16 : 10}
                     strokeLinecap="butt"
+                    data-verdict={it.verdict}
+                    style={{ transition: "stroke-width var(--dur-fast) var(--ease-out)" }}
                   />
-                )}
-                <path
-                  ref={(node) => {
-                    segmentRefs.current[i] = node;
-                  }}
-                  className="ring-segment-path"
-                  d={d}
-                  fill="none"
-                  stroke={it.verdict === "pass" ? "var(--accent)" : "var(--fail)"}
-                  strokeWidth={active ? 16 : 10}
-                  strokeLinecap="butt"
-                  style={{ transition: "stroke-width var(--dur-fast) var(--ease-out)" }}
-                />
-              </g>
-            );
-          })
-        )}
-        <g ref={orbitRef} className="ring-orbit orbit">
-          <circle cx={C} cy={C - R} r={5} fill="var(--accent)" />
-          <circle cx={C} cy={C - R} r={9} fill="var(--accent)" opacity={0.25} />
-        </g>
-        <g ref={centerRef} className="ring-center">
-          <text
-            x={C}
-            y={C - 8}
-            textAnchor="middle"
-            fill="var(--text)"
-            fontFamily="var(--font-chakra)"
-            fontSize="44"
-            fontWeight="600"
-          >
-            {n}
-          </text>
-          <text
-            x={C}
-            y={C + 22}
-            textAnchor="middle"
-            fill="var(--muted)"
-            fontFamily="var(--font-plex-mono)"
-            fontSize="12"
-            letterSpacing="2"
-          >
-            ITERATIONS
-          </text>
-        </g>
-      </svg>
-      {iterations.map((it, i) => {
-        const mid = (((i + 0.5) * span - 90) * Math.PI) / 180;
-        const active = selectedIteration === it.n;
-        return (
-          <button
-            key={it.n}
-            type="button"
-            data-testid={`ring-segment-${it.n}`}
-            aria-label={`Open story card for iteration ${it.n} (${it.verdict})`}
-            aria-expanded={active}
-            onClick={() => onSelectIteration(active ? null : it.n)}
-            className="absolute size-11 -translate-x-1/2 -translate-y-1/2 rounded-full cursor-pointer focus-visible:outline focus-visible:outline-accent"
-            style={{
-              left: `${50 + ((Math.cos(mid) * R) / SIZE) * 100}%`,
-              top: `${50 + ((Math.sin(mid) * R) / SIZE) * 100}%`,
-            }}
-          />
-        );
-      })}
+                </g>
+              );
+            })
+          )}
+          <g ref={orbitRef} className="ring-orbit orbit">
+            {orbitTrail.map((dot) => (
+              <circle
+                key={dot.angle}
+                className="ring-trail-dot"
+                cx={C}
+                cy={C - R}
+                r={dot.radius}
+                opacity={dot.opacity}
+                transform={`rotate(${dot.angle} ${C} ${C})`}
+              />
+            ))}
+            <circle className="ring-orbit-dot" cx={C} cy={C - R} r={5} />
+            <circle className="ring-orbit-halo" cx={C} cy={C - R} r={9} opacity={0.25} />
+          </g>
+          <g ref={centerRef} className="ring-center">
+            <text
+              x={C}
+              y={C - 8}
+              textAnchor="middle"
+              fill="var(--text)"
+              fontFamily="var(--font-chakra)"
+              fontSize="44"
+              fontWeight="600"
+            >
+              {n}
+            </text>
+            <text
+              x={C}
+              y={C + 22}
+              textAnchor="middle"
+              fill="var(--muted)"
+              fontFamily="var(--font-plex-mono)"
+              fontSize="12"
+              letterSpacing="2"
+            >
+              ITERATIONS
+            </text>
+          </g>
+        </svg>
+        {iterations.map((it, i) => {
+          const mid = (((i + 0.5) * span - 90) * Math.PI) / 180;
+          const active = selectedIteration === it.n;
+          const left = fixed4(50 + ((Math.cos(mid) * R) / SIZE) * 100);
+          const top = fixed4(50 + ((Math.sin(mid) * R) / SIZE) * 100);
+          return (
+            <button
+              key={it.n}
+              type="button"
+              data-testid={`ring-segment-${it.n}`}
+              aria-label={`Open story card for iteration ${it.n} (${it.verdict})`}
+              aria-expanded={active}
+              onClick={() => onSelectIteration(active ? null : it.n)}
+              className="absolute size-11 -translate-x-1/2 -translate-y-1/2 rounded-full cursor-pointer focus-visible:outline focus-visible:outline-accent"
+              style={{
+                left: `${left}%`,
+                top: `${top}%`,
+              }}
+            />
+          );
+        })}
       </div>
 
       <p
