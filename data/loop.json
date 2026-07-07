@@ -76,6 +76,28 @@
       "broke": "tester clicked the replay diamond ('Seek to iteration 2') instead of the ring arc — look-alike controls",
       "fixed": "accessible names diverged + plan names the widget type (L5); rerun 17/17",
       "lesson": "L5"
+    },
+    {
+      "n": 8,
+      "ts": "2026-07-07T10:55:00Z",
+      "feature": "polish — OG meta, favicon, footer, hook line, mobile pass (5 real bugs fixed)",
+      "maker": "codex",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 0 },
+      "broke": null,
+      "fixed": null,
+      "lesson": null
+    },
+    {
+      "n": 9,
+      "ts": "2026-07-07T11:50:00Z",
+      "feature": "growth regression — intro scaled with data and hid the ring's controls",
+      "maker": "claude",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 2 },
+      "broke": "at 8 iterations the draw-in left arcs invisible 3+ seconds; agent indexed mid-intro and found no clickable ring, then missed SVG-child controls intermittently",
+      "fixed": "intro capped at a 0.9s total budget (L6) + controls hardened into real HTML button hit-targets (L1 update); agent verified 4/4",
+      "lesson": "L6"
     }
   ]
 }

@@ -6,7 +6,7 @@
 TestSprite S3 hackathon — *Build the Loop*.
 
 > **The app is its own build log** · **no fix without a lesson** · **the loop audited its checker**
-> 7+ loop iterations · 3 real failures caught by the cloud checker, each distilled into a lesson before its fix · a 21/21-step replay test · full suite re-verified by CI on every deploy · 1 upstream PR + 1 upstream issue filed on the checker itself
+> 9 loop iterations · 6 lessons (L1–L6), every failure distilled into a rule before its fix · 8 banked cloud tests, suite green · a 21/21-step replay test · 5 mobile bugs caught in one audit · full suite re-verified by CI on every deploy · 1 upstream PR + 1 upstream issue filed on the checker itself
 
 ## The idea
 

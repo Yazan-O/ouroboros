@@ -1,0 +1,18 @@
+{
+  "testId": "215f4e47-f2e1-4be5-b219-2263b9383ef4",
+  "status": "failed",
+  "startedAt": "2026-07-07T15:19:46.700Z",
+  "finishedAt": "2026-07-07T15:22:59.429Z",
+  "videoUrl": "https://testsprite-videos.s3.us-east-1.amazonaws.com/34b81458-2001-704d-1b6e-fc5c5cdb21ee/1783437776023855//tmp/ac989a64-fd8d-4969-944c-67a0b8aae8e5/result.webm",
+  "failureAnalysisUrl": null,
+  "snapshotId": "snap_c040298f1a46008a",
+  "runIdIfAvailable": "bcb5f08a-f47e-4aa4-93b6-bf4fad91d289",
+  "codeVersion": "v1",
+  "targetUrl": "https://ouroboros-phi.vercel.app/",
+  "targetUrlSource": "run",
+  "failedStepIndex": 2,
+  "failureKind": "unknown",
+  "verdict": "failed",
+  "executionStatus": "completed",
+  "summary": "Failed: TEST FAILURE\n\nThe required interaction is not available — the large Loop ring's colored arc segments are not exposed as interactive controls, so the test action (click the ring arc for iteration 2) cannot be performed.\n\nObservations:\n- The Loop ring SVG is present on the page but no per-arc interactive elements (tabIndex or role=button) are exposed in the interactive element list; only the SVG itself is shown without interactive child indexes.\n- The only interactive iteration controls a…"
+}

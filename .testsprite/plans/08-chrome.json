@@ -1,0 +1,19 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Page chrome orients a first-time visitor",
+  "description": "The page explains itself: a hook line under the header invites clicking a ring arc; the footer carries working links to the repo, LOOP.md, and LESSONS.md; the browser tab identifies the app.",
+  "priority": "p2",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    {
+      "type": "assertion",
+      "description": "Verify a small monospace line under the page header explains that every arc is one iteration of the loop that built the page and invites clicking one, and that the browser tab title contains the word Ouroboros"
+    },
+    { "type": "action", "description": "Scroll to the very bottom of the page" },
+    {
+      "type": "assertion",
+      "description": "Verify a footer row reading 'built by its own loop' with three links labeled repo, LOOP.md, and LESSONS.md, each pointing at a github.com URL"
+    }
+  ]
+}
