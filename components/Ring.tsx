@@ -93,11 +93,13 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
 
   return (
     <div className="w-full min-w-0">
+      <div className="relative w-full max-w-full md:max-w-90">
       <svg
         ref={ringRef}
         viewBox={`0 0 ${SIZE} ${SIZE}`}
-        className="ring-intro block w-full max-w-full md:max-w-90"
+        className="ring-intro block w-full"
         aria-label={`Loop ring: ${n} iterations`}
+        aria-hidden="true"
       >
         {n === 0 ? (
           <circle
@@ -117,18 +119,7 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
               <g
                 key={it.n}
                 onClick={() => setSelected(active ? null : it)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSelected(active ? null : it);
-                  }
-                }}
-                className="cursor-pointer focus:outline-1 focus:outline-accent"
-                data-testid={`ring-segment-${it.n}`}
-                role="button"
-                tabIndex={0}
-                aria-label={`Open story card for iteration ${it.n} (${it.verdict})`}
-                aria-expanded={active}
+                className="cursor-pointer"
               >
                 <path d={d} fill="none" stroke="transparent" strokeWidth="36" />
                 <path
@@ -176,6 +167,26 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
           </text>
         </g>
       </svg>
+      {iterations.map((it, i) => {
+        const mid = (((i + 0.5) * span - 90) * Math.PI) / 180;
+        const active = selected?.n === it.n;
+        return (
+          <button
+            key={it.n}
+            type="button"
+            data-testid={`ring-segment-${it.n}`}
+            aria-label={`Open story card for iteration ${it.n} (${it.verdict})`}
+            aria-expanded={active}
+            onClick={() => setSelected(active ? null : it)}
+            className="absolute size-11 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline focus-visible:outline-accent"
+            style={{
+              left: `${50 + ((Math.cos(mid) * R) / SIZE) * 100}%`,
+              top: `${50 + ((Math.sin(mid) * R) / SIZE) * 100}%`,
+            }}
+          />
+        );
+      })}
+      </div>
 
       {selected && (
         <aside

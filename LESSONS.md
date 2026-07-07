@@ -12,6 +12,8 @@ Format per lesson: `## Lx — <one-line pattern>` then **From:** (iteration + fa
 
 **Rule:** every clickable SVG element gets `role="button"` + `tabIndex={0}` + an Enter/Space key handler — and the ancestor `<svg>` must NOT carry `role="img"`, which flattens its whole subtree to presentational and hides the controls from the accessibility tree (what testing agents and screen readers read). Specs for interactive SVG must state this explicitly.
 
+**Update (iteration 9):** even compliant SVG-child controls index *unreliably* in agent tooling — the same DOM was indexed in some runs and invisible in others. The robust pattern: overlay real HTML `<button>` elements on the graphic (absolutely positioned hit-targets) and leave the SVG decorative. Native buttons never miss.
+
 ## L2 — Never cloud-assert continuous ambient motion; assert end-states
 
 **From:** iteration 3 — test "Ring intro completes..." failed only on "verify the dot changes position over time": the cloud browser may run with prefers-reduced-motion (where a static dot is the CORRECT, accessible behavior), and screenshot-sampled motion checks are flaky by construction.
