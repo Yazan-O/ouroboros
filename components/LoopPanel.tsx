@@ -5,6 +5,7 @@ import Ring from "@/components/Ring";
 import Replay from "@/components/Replay";
 import LearningCurve from "@/components/LearningCurve";
 import ShortcutsOverlay from "@/components/ShortcutsOverlay";
+import JudgeMode from "@/components/JudgeMode";
 import { useReplay } from "@/lib/useReplay";
 import type { Iteration, Lesson } from "@/lib/loop";
 
@@ -62,10 +63,12 @@ export default function LoopPanel({
   lessons: Lesson[];
 }) {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const judgeTriggerRef = useRef<HTMLButtonElement | null>(null);
   const initialLinkRead = useRef(false);
   const [selectedIteration, setSelectedIteration] = useState<number | null>(null);
   const [failuresOnly, setFailuresOnly] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const [judgeOpen, setJudgeOpen] = useState(false);
   const replay = useReplay(iterations.length);
   const { step, toggle } = replay;
   const visible = iterations.slice(0, replay.visibleCount);
@@ -92,6 +95,8 @@ export default function LoopPanel({
   // every frame; without this, screen-reader users hear nothing change).
   const liveMessage = shortcutsOpen
     ? "Keyboard shortcuts dialog open"
+    : judgeOpen
+      ? "Judge briefing dialog open"
     : selectedIteration != null
       ? `Story card open for iteration ${selectedIteration}`
       : `Showing ${displayIterations.length} of ${iterations.length} iterations`;
@@ -99,6 +104,17 @@ export default function LoopPanel({
   const selectIteration = useCallback((iteration: number | null) => {
     setSelectedIteration(iteration);
     replaceIterationParam(iteration);
+  }, []);
+
+  const openJudge = useCallback(() => {
+    setJudgeOpen(true);
+  }, []);
+
+  const closeJudge = useCallback(() => {
+    setJudgeOpen(false);
+    window.setTimeout(() => {
+      judgeTriggerRef.current?.focus({ preventScroll: true });
+    }, 0);
   }, []);
 
   useEffect(() => {
@@ -135,6 +151,14 @@ export default function LoopPanel({
 
       const isQuestion = event.key === "?" || (event.shiftKey && event.key === "/");
 
+      if (event.key === "Escape" && judgeOpen) {
+        event.preventDefault();
+        closeJudge();
+        return;
+      }
+
+      if (judgeOpen) return;
+
       if (isQuestion) {
         event.preventDefault();
         setShortcutsOpen((open) => !open);
@@ -156,6 +180,12 @@ export default function LoopPanel({
       }
 
       if (shortcutsOpen) return;
+
+      if (event.key.toLowerCase() === "j") {
+        event.preventDefault();
+        openJudge();
+        return;
+      }
 
       if (event.key === "ArrowLeft") {
         event.preventDefault();
@@ -185,7 +215,16 @@ export default function LoopPanel({
     // native-button-activation guards above prevent hijacking typed input.
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [selectIteration, selectedIteration, shortcutsOpen, step, toggle]);
+  }, [
+    closeJudge,
+    judgeOpen,
+    openJudge,
+    selectIteration,
+    selectedIteration,
+    shortcutsOpen,
+    step,
+    toggle,
+  ]);
 
   return (
     <div ref={rootRef} tabIndex={-1} className="focus:outline-none">
@@ -238,6 +277,16 @@ export default function LoopPanel({
             >
               press ? for keyboard shortcuts
             </button>
+            <button
+              ref={judgeTriggerRef}
+              type="button"
+              data-testid="judge-mode-trigger"
+              aria-label="Start the guided judge briefing"
+              onClick={openJudge}
+              className="border border-border bg-bg px-2 py-1 text-xs text-accent focus:outline-1 focus:outline-accent"
+            >
+              judge mode ▶
+            </button>
           </div>
         </div>
       </section>
@@ -279,6 +328,12 @@ export default function LoopPanel({
       <ShortcutsOverlay
         open={shortcutsOpen}
         onClose={() => setShortcutsOpen(false)}
+      />
+      <JudgeMode
+        open={judgeOpen}
+        iterations={iterations}
+        lessons={lessons}
+        onClose={closeJudge}
       />
     </div>
   );
