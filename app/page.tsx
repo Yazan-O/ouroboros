@@ -33,16 +33,18 @@ export default async function Home() {
                 aria-hidden="true"
               >
                 <path
-                  d="M212 3 C 214 16, 150 21, 70 21 C 26 21, 16 15, 20 7"
+                  d="M214 2 C 218 18, 150 23, 70 23 C 30 23, 18 16, 22 6"
                   stroke="var(--accent)"
-                  strokeWidth="1.5"
+                  strokeWidth="2"
                   strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
-                  d="M20 7 l 9 1 M20 7 l 2 9"
+                  d="M22 6 l 13 3 M22 6 l 3 13"
                   stroke="var(--accent)"
-                  strokeWidth="1.5"
+                  strokeWidth="2"
                   strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </span>
