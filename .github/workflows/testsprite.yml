@@ -1,0 +1,11 @@
+name: testsprite
+on: pull_request
+env:
+  TESTSPRITE_API_KEY: ${{ secrets.TESTSPRITE_API_KEY }}
+  PROJECT_ID: ${{ vars.TESTSPRITE_PROJECT_ID }}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm i -g @testsprite/testsprite-cli
+      - run: testsprite test rerun --all --project "$PROJECT_ID" --wait --output json
