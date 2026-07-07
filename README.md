@@ -8,7 +8,7 @@
 TestSprite S3 hackathon — *Build the Loop*.
 
 > **The app is its own build log** · **no fix without a lesson** · **the loop audited its checker**
-> 13 loop iterations · 7 lessons (L1–L7), every failure distilled into a rule before its fix · 11 banked cloud tests, **full run histories committed** in [`.testsprite/results/`](.testsprite/results) · a 21/21-step replay test · deep-linkable iterations, a failures-only filter, and full keyboard nav · a hostile red-team's findings folded back in as iteration 10 · CI waits until the live site serves the exact commit SHA, then re-runs the whole suite · 2 upstream PRs + 1 issue (5 documented occurrences) on the checker itself
+> 14 loop iterations · 7 lessons (L1–L7), every failure distilled into a rule before its fix · 12 banked cloud tests · press **J** on the live site for a self-narrating briefing that puts the checker on trial, **full run histories committed** in [`.testsprite/results/`](.testsprite/results) · a 21/21-step replay test · deep-linkable iterations, a failures-only filter, and full keyboard nav · a hostile red-team's findings folded back in as iteration 10 · CI waits until the live site serves the exact commit SHA, then re-runs the whole suite · 2 upstream PRs + 1 issue (5 documented occurrences) on the checker itself
 
 ## The idea
 

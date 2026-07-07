@@ -11,5 +11,6 @@
   "10": { "feature": "d23c1a7", "fix": "dfb21f5", "bank": "08c0b17", "test": null, "flag": "bank 08c0b17's CI failed on a build error; dfb21f5 fixed it and passed the full SHA-gated suite against the live commit" },
   "11": { "feature": "baf38ab", "fix": null, "bank": "319e7e0", "test": "877e0b8b-5973-48fe-a198-b9f9f2cf503c" },
   "12": { "feature": "baf38ab", "fix": null, "bank": "319e7e0", "test": "31d2747b-c94b-4f39-a79c-bd7e3bc949ff" },
-  "13": { "feature": "baf38ab", "fix": "319e7e0", "bank": "319e7e0", "test": "0447a447-116e-4866-a9e9-a4d1f4e15139", "flag": "failed first (aria-label masked the hint text — L7), fixed in 319e7e0; rerun agent verdict PASS, status blocked per issue #208, failedStepIndex null" }
+  "13": { "feature": "baf38ab", "fix": "319e7e0", "bank": "319e7e0", "test": "0447a447-116e-4866-a9e9-a4d1f4e15139", "flag": "failed first (aria-label masked the hint text — L7), fixed in 319e7e0; rerun agent verdict PASS, status blocked per issue #208, failedStepIndex null" },
+  "14": { "feature": "186eddc", "fix": null, "bank": "ea6999c", "test": "f6c69559-ad46-4e0b-89b0-52a8e13354e2", "flag": "presentation layer: Judge Mode 186eddc + ring glow 843d0bf + pitch hero 808542f; test passed 21/21" }
 }

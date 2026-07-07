@@ -142,6 +142,17 @@
       "broke": "the 'press ? for shortcuts' hint's aria-label overrode its visible text, hiding the '?' from the a11y-tree-reading cloud tester",
       "fixed": "removed the masking aria-label so the visible text is the accessible name (L7); rerun agent verdict PASS",
       "lesson": "L7"
+    },
+    {
+      "n": 14,
+      "ts": "2026-07-07T22:30:00Z",
+      "feature": "the presentation layer — Judge Mode (press J: a self-narrating briefing climaxing in 'The Checker On Trial'), the ring's glow, and the hero that states the idea",
+      "maker": "codex",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 0 },
+      "broke": null,
+      "fixed": null,
+      "lesson": null
     }
   ]
 }

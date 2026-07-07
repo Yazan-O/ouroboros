@@ -1,0 +1,29 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Judge Mode runs a self-narrating briefing that puts the checker on trial",
+  "description": "A 'judge mode' control opens a guided, self-narrating briefing overlay that steps through the loop's story and reaches a beat where the app shows its checker contradicting itself (status blocked vs an agent verdict of PASS) with links to the upstream issue and PRs; the overlay closes and returns to the dashboard.",
+  "priority": "p1",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    {
+      "type": "assertion",
+      "description": "Verify the page header presents the idea as 'the brief: build the loop' followed by a large line 'so we pointed the loop at itself', and the dashboard ring and iteration log are present below it"
+    },
+    { "type": "action", "description": "Click the 'judge mode' button in the stats area to start the guided briefing" },
+    {
+      "type": "assertion",
+      "description": "Verify a full-screen briefing dialog opens over the dimmed dashboard, showing a first beat titled about the app being its own build log with the number of iterations"
+    },
+    { "type": "action", "description": "Advance the briefing forward four times using its next control until the 'Checker On Trial' beat" },
+    {
+      "type": "assertion",
+      "description": "Verify a beat appears contrasting the checker's status 'blocked' against an agent conclusion of 'PASS', mentioning failedStepIndex null, with links to a GitHub issue (#208) and pull requests"
+    },
+    { "type": "action", "description": "Close the briefing (its close control or Escape)" },
+    {
+      "type": "assertion",
+      "description": "Verify the briefing dialog is dismissed and the normal dashboard (ring, iteration log, audit trail) is visible and interactive again"
+    }
+  ]
+}
