@@ -2,7 +2,7 @@
 
 A dashboard watching itself being built.
 
-**Live:** _URL pending first deploy_ · **Hackathon:** TestSprite S3 — Build the Loop
+**Live:** https://ouroboros-phi.vercel.app/ (mirror: https://yazan-o.github.io/ouroboros/) · **Hackathon:** TestSprite S3 — Build the Loop
 
 ## What it is
 
