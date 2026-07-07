@@ -57,6 +57,10 @@ export default function AuditTrail({
       <h2 className="font-display text-sm tracking-[0.2em] text-muted">
         AUDIT TRAIL
       </h2>
+      <p className="mt-1 font-mono text-xs text-muted">
+        the complete ledger — all iterations, independent of the replay position
+        above
+      </p>
 
       <div className="mt-4 w-full max-w-full overflow-x-auto border border-border bg-bg">
         <table className="w-full min-w-[70rem] border-collapse font-mono text-xs">
