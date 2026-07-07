@@ -39,7 +39,7 @@ export type IterationCommits = {
   feature: string;
   fix: string | null;
   bank: string;
-  test: string;
+  test: string | null;
   flag?: string;
 };
 

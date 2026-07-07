@@ -94,7 +94,7 @@ export default function AuditTrail({
                   `Missing lessons.json row for ${iteration.lesson} on iteration ${iteration.n}`,
                 );
               }
-              const testShort = commits.test.slice(0, 8);
+              const testShort = commits.test ? commits.test.slice(0, 8) : null;
 
               return (
                 <tr
@@ -138,14 +138,25 @@ export default function AuditTrail({
                     </div>
                   </td>
                   <td className="px-3 py-2">
-                    <a
-                      className="text-accent underline underline-offset-2"
-                      href={testUrl(iteration.n, commits.test)}
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      {testShort}
-                    </a>
+                    {commits.test && testShort ? (
+                      <a
+                        className="text-accent underline underline-offset-2"
+                        href={testUrl(iteration.n, commits.test)}
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        {testShort}
+                      </a>
+                    ) : (
+                      <a
+                        className="text-accent underline underline-offset-2"
+                        href={`${REPO_URL}/tree/main/.testsprite/results`}
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        full suite
+                      </a>
+                    )}
                   </td>
                 </tr>
               );
