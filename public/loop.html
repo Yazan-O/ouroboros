@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OUROBOROS Scroll Hero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0e0c;
+      --surface: #131a15;
+      --text: #dce7dc;
+      --muted: #778877;
+      --accent: #19c379;
+      --fail: #e0654f;
+      --border: #1e2a20;
+      --bg-rgb: 11, 14, 12;
+      --surface-rgb: 19, 26, 21;
+      --text-rgb: 220, 231, 220;
+      --muted-rgb: 119, 136, 119;
+      --accent-rgb: 25, 195, 121;
+      --fail-rgb: 224, 101, 79;
+      --border-rgb: 30, 42, 32;
+      --font-display: "Chakra Petch", "IBM Plex Mono", monospace;
+      --font-mono: "IBM Plex Mono", monospace;
+      --radius: 6px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      scrollbar-color: var(--accent) var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        linear-gradient(90deg, rgba(var(--border-rgb), .22) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(var(--border-rgb), .18) 1px, transparent 1px),
+        var(--bg);
+      background-size: 96px 96px, 96px 96px, auto;
+      color: var(--text);
+      cursor: none;
+      font-family: var(--font-mono);
+      letter-spacing: 0;
+    }
+
+    .scroll-shell {
+      height: 500vh;
+      position: relative;
+    }
+
+    .stage {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(var(--surface-rgb), .78), rgba(var(--bg-rgb), .96) 48%, var(--bg) 76%),
+        var(--bg);
+      isolation: isolate;
+      --bloom-blur: 18px;
+      --bloom-opacity: .9;
+      --closure-opacity: 0;
+      --ring-shadow-alpha: .22;
+      --ring-shadow-blur: 28px;
+      --segment-glow-alpha: .42;
+      --segment-glow-blur: 12px;
+      --segment-width: 26px;
+      --weld-opacity: 0;
+    }
+
+    .grid-field {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      width: min(68vw, 740px);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(var(--border-rgb), .72);
+      background:
+        linear-gradient(90deg, rgba(var(--border-rgb), .9) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(var(--border-rgb), .78) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(var(--accent-rgb), .12), transparent 68%);
+      background-size: 34px 34px, 34px 34px, auto;
+      opacity: .62;
+    }
+
+    .stage-content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+
+    .left-copy {
+      position: absolute;
+      left: clamp(20px, 2.4vw, 30px);
+      top: 50%;
+      width: min(30vw, 380px);
+      min-height: 370px;
+      transform: translateY(-50%);
+      color: var(--text);
+      will-change: opacity;
+    }
+
+    .section-stack {
+      position: relative;
+      height: clamp(54px, 7vw, 88px);
+      margin-bottom: clamp(12px, 2vw, 22px);
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: clamp(46px, 7vw, 88px);
+      font-weight: 700;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .section-layer,
+    .headline-layer {
+      position: absolute;
+      inset: 0 auto auto 0;
+      opacity: 0;
+      transform: translateY(18px);
+      will-change: opacity, transform;
+    }
+
+    .headline-stack {
+      position: relative;
+      height: clamp(230px, 24vw, 270px);
+      color: var(--text);
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3.3vw, 42px);
+      font-weight: 700;
+      line-height: .96;
+      text-transform: lowercase;
+      text-wrap: balance;
+    }
+
+    .headline-layer {
+      max-width: 7ch;
+      margin: 0;
+    }
+
+    .copy-panel {
+      position: absolute;
+      right: clamp(28px, 6.8vw, 92px);
+      bottom: clamp(34px, 7vh, 78px);
+      width: min(32vw, 410px);
+      color: var(--muted);
+      font-size: clamp(11px, 1vw, 13px);
+      line-height: 1.65;
+      text-align: justify;
+      text-transform: uppercase;
+      will-change: opacity;
+    }
+
+    .copy-panel strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .ring-wrap {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 3;
+      width: clamp(330px, 42vw, 540px);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    .bloom {
+      position: absolute;
+      inset: -13%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(var(--accent-rgb), .34), rgba(var(--fail-rgb), .08) 38%, transparent 69%);
+      filter: blur(var(--bloom-blur));
+      opacity: var(--bloom-opacity);
+    }
+
+    .ring-svg {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 0 var(--ring-shadow-blur) rgba(var(--accent-rgb), var(--ring-shadow-alpha)));
+    }
+
+    .ring-shield {
+      fill: rgba(var(--surface-rgb), .9);
+      stroke: rgba(var(--border-rgb), .95);
+      stroke-width: 1.2;
+    }
+
+    .base-segment {
+      fill: none;
+      stroke: rgba(var(--border-rgb), .95);
+      stroke-width: 26;
+      stroke-linecap: round;
+    }
+
+    .active-segment {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: var(--segment-width);
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 var(--segment-glow-blur) rgba(var(--accent-rgb), var(--segment-glow-alpha)));
+    }
+
+    .rim-segment {
+      fill: none;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), .32));
+    }
+
+    .rim-segment.ok {
+      stroke: var(--accent);
+    }
+
+    .rim-segment.fail {
+      stroke: var(--fail);
+      filter: drop-shadow(0 0 8px rgba(var(--fail-rgb), .36));
+    }
+
+    .closure-ring,
+    .weld-bridge {
+      fill: none;
+      stroke: var(--accent);
+      stroke-linecap: round;
+      pointer-events: none;
+    }
+
+    .closure-ring {
+      stroke-width: var(--segment-width);
+      opacity: var(--closure-opacity);
+      filter: drop-shadow(0 0 var(--segment-glow-blur) rgba(var(--accent-rgb), var(--segment-glow-alpha)));
+    }
+
+    .weld-bridge {
+      stroke-width: 30px;
+      opacity: var(--weld-opacity);
+      filter:
+        drop-shadow(0 0 14px rgba(var(--accent-rgb), .78))
+        drop-shadow(0 0 30px rgba(var(--accent-rgb), .48));
+    }
+
+    .weld-pulse {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2.4;
+      opacity: 0;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .weld-flare {
+      fill: var(--accent);
+      opacity: 0;
+      filter:
+        drop-shadow(0 0 10px rgba(var(--accent-rgb), .82))
+        drop-shadow(0 0 22px rgba(var(--accent-rgb), .5));
+    }
+
+    .orbit-dot,
+    .trail-dot {
+      fill: var(--accent);
+    }
+
+    .trail-dot {
+      opacity: .28;
+    }
+
+    .count-main {
+      fill: var(--text);
+      font-family: var(--font-display);
+      font-size: 74px;
+      font-weight: 700;
+      text-anchor: middle;
+      dominant-baseline: central;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .count-sub {
+      fill: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 500;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+
+    .final-caption {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(44px, 7vh, 76px);
+      z-index: 4;
+      width: min(620px, 62vw);
+      transform: translateX(-50%) translateY(14px);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      opacity: 0;
+      text-align: center;
+      will-change: opacity, transform;
+    }
+
+    .stat-line {
+      font-size: clamp(13px, 1.12vw, 16px);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+
+    .stat-num {
+      color: var(--accent);
+    }
+
+    .proof-line {
+      margin-top: 6px;
+      font-size: clamp(10px, .88vw, 12px);
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .cursor-mark {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 20;
+      width: 18px;
+      height: 22px;
+      transform: translate3d(-40px, -40px, 0);
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .cursor-mark::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      clip-path: polygon(0 0, 100% 48%, 42% 57%, 25% 100%);
+      filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), .62));
+    }
+
+    .cursor-mark::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 6px;
+      width: 5px;
+      height: 8px;
+      background: var(--bg);
+      clip-path: polygon(0 0, 100% 44%, 38% 100%);
+    }
+
+    @media (max-width: 820px) {
+      .left-copy {
+        left: clamp(20px, 7vw, 44px);
+        top: 24vh;
+        width: min(78vw, 430px);
+        min-height: 238px;
+        transform: none;
+      }
+
+      .section-stack {
+        height: 48px;
+        font-size: 46px;
+      }
+
+      .headline-stack {
+        height: 190px;
+        font-size: clamp(36px, 10vw, 56px);
+      }
+
+      .headline-layer {
+        max-width: 10ch;
+      }
+
+      .ring-wrap {
+        top: 56%;
+        width: min(78vw, 390px);
+      }
+
+      .grid-field {
+        top: 56%;
+        width: 92vw;
+      }
+
+      .copy-panel {
+        right: clamp(20px, 7vw, 44px);
+        bottom: 28px;
+        width: min(78vw, 420px);
+        text-align: left;
+      }
+
+      .final-caption {
+        top: auto;
+        bottom: 22px;
+        width: min(82vw, 480px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body {
+        cursor: auto;
+      }
+
+      .scroll-shell {
+        height: auto;
+      }
+
+      .stage {
+        position: relative;
+        min-height: 100vh;
+      }
+
+      .cursor-mark {
+        display: none;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-mark" aria-hidden="true"></div>
+  <main class="scroll-shell" id="scrollShell">
+    <section class="stage" id="stage" aria-label="OUROBOROS agentic build loop">
+      <div class="grid-field" aria-hidden="true"></div>
+      <div class="stage-content">
+        <div class="left-copy">
+          <div class="section-stack" id="sectionStack" aria-hidden="true"></div>
+          <div class="headline-stack" id="headlineStack"></div>
+        </div>
+
+        <div class="ring-wrap" aria-hidden="true">
+          <div class="bloom"></div>
+          <svg class="ring-svg" id="ringSvg" viewBox="-260 -260 520 520" role="img">
+            <title>OUROBOROS ring with thirteen build iterations</title>
+            <circle class="ring-shield" r="215"></circle>
+            <g id="baseSegments"></g>
+            <g id="activeSegments"></g>
+            <g id="closureSegments"></g>
+            <g id="rimSegments"></g>
+            <g id="weldEffects"></g>
+            <g id="trailDots"></g>
+            <circle class="orbit-dot" id="orbitDot" r="6"></circle>
+            <text class="count-main" id="countMain" x="0" y="-10">01</text>
+            <text class="count-sub" x="0" y="56">/13</text>
+          </svg>
+        </div>
+
+        <p class="copy-panel">
+          <strong>Instrument panel:</strong> each arc is one build pass. Green marks the claim that survived the run; red outer rims mark failures caught, isolated, and folded back into the next pass.
+        </p>
+
+        <div class="final-caption" id="finalCaption">
+          <div class="stat-line">
+            <span class="stat-num">13</span> ITERATIONS · <span class="stat-num">7</span> LESSONS · <span class="stat-num">0</span> ESCAPED TO PROD
+          </div>
+          <div class="proof-line">the loop closed. every segment is a claim you can check.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    (() => {
+      const titles = [
+        "the app is its own build log",
+        "a click that broke the ring",
+        "motion that told the truth",
+        "a flight recorder for the build",
+        "the curve that bends",
+        "a diagram of the loop",
+        "evidence you can open",
+        "polished, on every screen",
+        "when growth broke the intro",
+        "a hostile audit, folded in",
+        "every iteration, linkable",
+        "the failures, isolated",
+        "keyboard to the last control"
+      ];
+
+      const failSegments = new Set([1, 2, 4, 8, 9, 11]);
+      const svgNS = "http://www.w3.org/2000/svg";
+      const segmentCount = titles.length;
+      const baseRadius = 150;
+      const rimRadius = 172;
+      const step = 360 / segmentCount;
+      const gap = 5.2;
+      const activePaths = [];
+      const rimPaths = [];
+      const sectionLayers = [];
+      const headlineLayers = [];
+      const trailDots = [];
+      let weldBridgeLength = 0;
+
+      const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+      const easeOut = value => 1 - Math.pow(1 - clamp(value), 3);
+      const polar = (radius, angleDeg) => {
+        const angle = (angleDeg - 90) * Math.PI / 180;
+        return {
+          x: Math.cos(angle) * radius,
+          y: Math.sin(angle) * radius
+        };
+      };
+      const arcPath = (radius, startDeg, endDeg) => {
+        const start = polar(radius, startDeg);
+        const end = polar(radius, endDeg);
+        const large = endDeg - startDeg > 180 ? 1 : 0;
+        return `M ${start.x.toFixed(3)} ${start.y.toFixed(3)} A ${radius} ${radius} 0 ${large} 1 ${end.x.toFixed(3)} ${end.y.toFixed(3)}`;
+      };
+      const makePath = (className, radius, start, end) => {
+        const path = document.createElementNS(svgNS, "path");
+        path.setAttribute("class", className);
+        path.setAttribute("d", arcPath(radius, start, end));
+        return path;
+      };
+
+      const stage = document.getElementById("stage");
+      const countMain = document.getElementById("countMain");
+      const orbitDot = document.getElementById("orbitDot");
+      const baseGroup = document.getElementById("baseSegments");
+      const activeGroup = document.getElementById("activeSegments");
+      const closureGroup = document.getElementById("closureSegments");
+      const rimGroup = document.getElementById("rimSegments");
+      const weldGroup = document.getElementById("weldEffects");
+      const trailGroup = document.getElementById("trailDots");
+      const sectionStack = document.getElementById("sectionStack");
+      const headlineStack = document.getElementById("headlineStack");
+      const finalCaption = document.getElementById("finalCaption");
+      const leftCopy = document.querySelector(".left-copy");
+      const copyPanel = document.querySelector(".copy-panel");
+      const cursor = document.querySelector(".cursor-mark");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      titles.forEach((title, index) => {
+        const start = index * step + gap / 2;
+        const end = (index + 1) * step - gap / 2;
+        const base = makePath("base-segment", baseRadius, start, end);
+        const active = makePath("active-segment", baseRadius, start, end);
+        const rim = makePath(`rim-segment ${failSegments.has(index) ? "fail" : "ok"}`, rimRadius, start, end);
+        baseGroup.appendChild(base);
+        activeGroup.appendChild(active);
+        rimGroup.appendChild(rim);
+        activePaths.push({ path: active, length: 0 });
+        rimPaths.push({ path: rim, length: 0 });
+
+        const number = document.createElement("div");
+        number.className = "section-layer";
+        number.textContent = String(index + 1).padStart(2, "0");
+        sectionStack.appendChild(number);
+        sectionLayers.push(number);
+
+        const headline = document.createElement("h1");
+        headline.className = "headline-layer";
+        headline.textContent = title;
+        headlineStack.appendChild(headline);
+        headlineLayers.push(headline);
+      });
+
+      const closureRing = document.createElementNS(svgNS, "circle");
+      closureRing.setAttribute("class", "closure-ring");
+      closureRing.setAttribute("r", String(baseRadius));
+      closureGroup.appendChild(closureRing);
+
+      const weldBridge = makePath("weld-bridge", baseRadius, 360 - gap / 2, 360 + gap / 2);
+      weldGroup.appendChild(weldBridge);
+
+      const weldPoint = polar(baseRadius, 0);
+      const weldPulse = document.createElementNS(svgNS, "circle");
+      weldPulse.setAttribute("class", "weld-pulse");
+      weldPulse.setAttribute("cx", weldPoint.x.toFixed(2));
+      weldPulse.setAttribute("cy", weldPoint.y.toFixed(2));
+      weldPulse.setAttribute("r", "0");
+      weldGroup.appendChild(weldPulse);
+
+      const weldFlare = document.createElementNS(svgNS, "circle");
+      weldFlare.setAttribute("class", "weld-flare");
+      weldFlare.setAttribute("cx", weldPoint.x.toFixed(2));
+      weldFlare.setAttribute("cy", weldPoint.y.toFixed(2));
+      weldFlare.setAttribute("r", "4");
+      weldGroup.appendChild(weldFlare);
+
+      for (let i = 0; i < 4; i += 1) {
+        const dot = document.createElementNS(svgNS, "circle");
+        dot.setAttribute("class", "trail-dot");
+        dot.setAttribute("r", String(5 - i * .75));
+        trailGroup.appendChild(dot);
+        trailDots.push(dot);
+      }
+
+      const preparePaths = () => {
+        [...activePaths, ...rimPaths].forEach(item => {
+          item.length = item.path.getTotalLength();
+          item.path.style.strokeDasharray = item.length;
+          item.path.style.strokeDashoffset = item.length;
+          item.path.style.opacity = 0;
+        });
+        weldBridgeLength = weldBridge.getTotalLength();
+        weldBridge.style.strokeDasharray = weldBridgeLength;
+        weldBridge.style.strokeDashoffset = weldBridgeLength;
+        weldBridge.style.opacity = 0;
+      };
+
+      const setDot = (dot, progress, radius, opacity = 1) => {
+        const angle = progress * 360;
+        const point = polar(radius, angle);
+        dot.setAttribute("cx", point.x.toFixed(2));
+        dot.setAttribute("cy", point.y.toFixed(2));
+        dot.style.opacity = opacity;
+      };
+
+      const setLayer = (layer, opacity, offset) => {
+        layer.style.opacity = opacity.toFixed(3);
+        layer.style.transform = `translateY(${offset.toFixed(2)}px)`;
+      };
+
+      const updateProgress = rawProgress => {
+        const progress = clamp(rawProgress);
+        const exact = progress >= .999 ? segmentCount - 1 : progress * segmentCount;
+        const index = Math.min(segmentCount - 1, Math.floor(exact));
+        const phase = progress >= .999 ? 1 : exact - index;
+        const fade = index < segmentCount - 1 ? clamp((phase - .72) / .28) : 0;
+        const ignitionLocal = reducedMotion ? .55 : easeOut((progress - .9) / .1);
+        const closureLocal = reducedMotion ? 1 : easeOut((progress - .94) / .06);
+        const weldLocal = reducedMotion ? 1 : easeOut((progress - .955) / .045);
+        const pulseLocal = clamp((progress - .96) / .035);
+        const pulseEase = easeOut(pulseLocal);
+
+        stage.style.setProperty("--bloom-blur", `${(18 + ignitionLocal * 20).toFixed(2)}px`);
+        stage.style.setProperty("--bloom-opacity", (Math.min(1.35, .72 + ignitionLocal * .56)).toFixed(3));
+        stage.style.setProperty("--closure-opacity", (closureLocal * (.5 + ignitionLocal * .34)).toFixed(3));
+        stage.style.setProperty("--ring-shadow-alpha", (.22 + ignitionLocal * .52).toFixed(3));
+        stage.style.setProperty("--ring-shadow-blur", `${(28 + ignitionLocal * 58).toFixed(2)}px`);
+        stage.style.setProperty("--segment-glow-alpha", (.42 + ignitionLocal * .38).toFixed(3));
+        stage.style.setProperty("--segment-glow-blur", `${(12 + ignitionLocal * 26).toFixed(2)}px`);
+        stage.style.setProperty("--segment-width", `${(26 + ignitionLocal * 3).toFixed(2)}px`);
+        stage.style.setProperty("--weld-opacity", (weldLocal * (.42 + ignitionLocal * .58)).toFixed(3));
+
+        weldBridge.style.strokeDashoffset = ((1 - weldLocal) * weldBridgeLength).toFixed(2);
+        weldPulse.setAttribute("r", (8 + pulseEase * 76).toFixed(2));
+        weldPulse.style.opacity = reducedMotion ? "0" : (Math.max(0, 1 - pulseLocal) * .72).toFixed(3);
+        weldFlare.setAttribute("r", (4 + weldLocal * (4 + ignitionLocal * 4)).toFixed(2));
+        weldFlare.style.opacity = (weldLocal * (.5 + ignitionLocal * .5)).toFixed(3);
+
+        activePaths.forEach((item, i) => {
+          const start = i / segmentCount;
+          const span = .82 / segmentCount;
+          const local = easeOut((progress - start) / span);
+          item.path.style.strokeDashoffset = ((1 - local) * item.length).toFixed(2);
+          item.path.style.opacity = (.08 + local * .92).toFixed(3);
+        });
+
+        rimPaths.forEach((item, i) => {
+          const start = i / segmentCount;
+          const span = .82 / segmentCount;
+          const local = easeOut((progress - start) / span);
+          item.path.style.strokeDashoffset = ((1 - local) * item.length).toFixed(2);
+          item.path.style.opacity = (.06 + local * .94).toFixed(3);
+        });
+
+        sectionLayers.forEach((layer, i) => {
+          if (i === index) {
+            setLayer(layer, 1 - fade, -fade * 18);
+          } else if (i === index + 1) {
+            setLayer(layer, fade, 18 - fade * 18);
+          } else {
+            setLayer(layer, 0, 18);
+          }
+        });
+
+        headlineLayers.forEach((layer, i) => {
+          if (i === index) {
+            setLayer(layer, 1 - fade, -fade * 18);
+          } else if (i === index + 1) {
+            setLayer(layer, fade, 18 - fade * 18);
+          } else {
+            setLayer(layer, 0, 18);
+          }
+        });
+
+        countMain.textContent = String(index + 1).padStart(2, "0");
+        setDot(orbitDot, progress, 187, 1);
+        trailDots.forEach((dot, i) => {
+          setDot(dot, clamp(progress - (i + 1) * .012, 0, 1), 187, .32 - i * .055);
+        });
+
+        const captionLocal = easeOut((progress - .945) / .055);
+        const focusLocal = reducedMotion ? 1 : easeOut((progress - .94) / .06);
+        const panelLocal = reducedMotion ? 1 : easeOut((progress - .93) / .045);
+        leftCopy.style.opacity = (1 - focusLocal * .62).toFixed(3);
+        finalCaption.style.opacity = captionLocal.toFixed(3);
+        finalCaption.style.transform = `translateX(-50%) translateY(${(14 - captionLocal * 14).toFixed(2)}px)`;
+        copyPanel.style.opacity = (1 - panelLocal).toFixed(3);
+
+        window.__ouroState = { progress, index, ignitionLocal, closureLocal, weldLocal };
+      };
+
+      const init = () => {
+        preparePaths();
+        updateProgress(reducedMotion ? 1 : 0);
+
+        if (!reducedMotion && window.gsap && window.ScrollTrigger) {
+          gsap.registerPlugin(ScrollTrigger);
+          ScrollTrigger.create({
+            trigger: "#scrollShell",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+            onUpdate: self => updateProgress(self.progress)
+          });
+        } else if (!reducedMotion) {
+          const onScroll = () => {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            updateProgress(max > 0 ? window.scrollY / max : 0);
+          };
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll);
+          onScroll();
+        }
+
+        if (!reducedMotion && window.matchMedia("(pointer: fine)").matches) {
+          window.addEventListener("pointermove", event => {
+            cursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+          }, { passive: true });
+        }
+
+        window.__setOuroProgress = updateProgress;
+        window.__ouroReady = true;
+      };
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
