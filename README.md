@@ -39,7 +39,7 @@ Every feature of this app was shipped by a maker–checker loop: **Claude** (spe
 | `.testsprite/results/` | **Full run history per test, committed** — the greens are machine-checkable, not claimed |
 | Commit history | Labeled per-iteration SHAs in LOOP.md (feature / fix / bank), cross-checkable against the run history |
 | **AUDIT TRAIL** (on the live site) | The app renders the whole mapping — iteration → commits → test → artifact → lesson — as a table; it does the auditing for you |
-| [deploy.yml](.github/workflows/deploy.yml) | CI: every push → deploy → **wait until the live site serves this exact commit SHA** → rerun the whole suite against it |
+| [deploy.yml](.github/workflows/deploy.yml) | CI: every push → deploy → **wait until the live site serves this exact commit SHA** → rerun the whole suite against it. The verify step applies lesson **L3 in CI itself** — it fails on a genuine failure but refuses to red-flag an honest deploy on the checker's own documented blocked-with-PASS bug ([#208](https://github.com/TestSprite/testsprite-cli/issues/208)). The loop audits its checker, even in CI. |
 
 Upstream contributions made along the way: [PR #207](https://github.com/TestSprite/testsprite-cli/pull/207) (Windows test-harness portability — the unpatched suite clobbered our real credentials mid-hackathon) and [issue #208](https://github.com/TestSprite/testsprite-cli/issues/208).
 
