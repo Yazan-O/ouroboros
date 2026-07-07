@@ -10,6 +10,17 @@
       "broke": null,
       "fixed": null,
       "lesson": null
+    },
+    {
+      "n": 2,
+      "ts": "2026-07-07T07:14:00Z",
+      "feature": "interactive ring — click a segment for that iteration's story card",
+      "maker": "claude",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 1 },
+      "broke": "ring arcs invisible to the testing agent — svg role=img flattened the a11y tree, segments not focusable",
+      "fixed": "real accessible controls: tabIndex=0, Enter/Space handler, role=img removed",
+      "lesson": "L1"
     }
   ]
 }
