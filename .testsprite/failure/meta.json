@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "cli-v1",
+  "snapshotId": "snap_6a979db85efaa6f5",
+  "testId": "209afd81-76a1-4e7a-83f7-3b631e371137",
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "codeVersion": "v1",
+  "runIdIfAvailable": "6becb002-1974-42a1-98dd-dd5878fb8f43",
+  "targetUrl": "https://ouroboros-phi.vercel.app/",
+  "failedStepIndex": 2,
+  "failureKind": "unknown",
+  "capturedAt": "2026-07-07T06:39:01.794Z",
+  "fetchedAt": "2026-07-07T06:39:25.218Z"
+}

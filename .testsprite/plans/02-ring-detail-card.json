@@ -1,0 +1,20 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Clicking a ring segment reveals that iteration's detail card",
+  "description": "When a user clicks a colored arc segment of the iteration ring, a detail card appears below the ring describing that iteration; clicking the same segment again dismisses it.",
+  "priority": "p1",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    { "type": "action", "description": "Click a colored arc segment of the circular iteration ring" },
+    {
+      "type": "assertion",
+      "description": "Verify a detail card appears directly below the ring, inside a bordered panel, stating the iteration number, a PASS or FAIL verdict, the feature description, and the maker name"
+    },
+    { "type": "action", "description": "Click the same arc segment of the ring again" },
+    {
+      "type": "assertion",
+      "description": "Verify the detail card below the ring is dismissed and no longer present"
+    }
+  ]
+}

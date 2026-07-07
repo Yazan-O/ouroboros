@@ -1,0 +1,18 @@
+{
+  "testId": "209afd81-76a1-4e7a-83f7-3b631e371137",
+  "status": "failed",
+  "startedAt": null,
+  "finishedAt": "2026-07-07T06:39:01.794Z",
+  "videoUrl": "https://testsprite-videos.s3.us-east-1.amazonaws.com/34b81458-2001-704d-1b6e-fc5c5cdb21ee/1783406339088373//tmp/7a766d57-3f89-47ab-8ebc-b7b94fa0d475/result.webm",
+  "failureAnalysisUrl": null,
+  "snapshotId": "snap_6a979db85efaa6f5",
+  "runIdIfAvailable": "6becb002-1974-42a1-98dd-dd5878fb8f43",
+  "codeVersion": "v1",
+  "targetUrl": "https://ouroboros-phi.vercel.app/",
+  "targetUrlSource": "run",
+  "failedStepIndex": 2,
+  "failureKind": "unknown",
+  "verdict": "failed",
+  "executionStatus": "completed",
+  "summary": "Failed: The hosting page is rendering the loop ring visually, but the colored arc segments are not exposed as accessible interactive elements. This usually happens when the arcs are plain SVG decorations, are covered by another layer, or have pointer-events disabled, so the automated test can only see the non-ring controls (maker/checker/verdict/log) and cannot interact with the ring. As a result, the required detail-card behavior tied to arc clicks cannot be triggered. Underlying error: TEST F…"
+}

@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": "L1",
+    "ts": "2026-07-07T06:58:00Z",
+    "source": "iteration 2 — ring segment click test failed: arcs invisible to the testing agent's interactive-element extraction",
+    "lesson": "Clickable SVG parts need role=button + tabIndex=0 + key handler, and the ancestor svg must not carry role=img (it flattens the subtree to presentational)."
+  }
+]

@@ -27,7 +27,6 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
       <svg
         viewBox={`0 0 ${SIZE} ${SIZE}`}
         className="w-full max-w-90"
-        role="img"
         aria-label={`Loop ring: ${n} iterations`}
       >
         {n === 0 ? (
@@ -48,10 +47,18 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
               <g
                 key={it.n}
                 onClick={() => setSelected(active ? null : it)}
-                className="cursor-pointer"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelected(active ? null : it);
+                  }
+                }}
+                className="cursor-pointer focus:outline-1 focus:outline-accent"
                 data-testid={`ring-segment-${it.n}`}
                 role="button"
-                aria-label={`Iteration ${it.n}: ${it.verdict}`}
+                tabIndex={0}
+                aria-label={`Iteration ${it.n}: ${it.verdict}. Show detail card`}
+                aria-expanded={active}
               >
                 <path d={d} fill="none" stroke="transparent" strokeWidth="36" />
                 <path
