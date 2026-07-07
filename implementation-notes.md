@@ -13,6 +13,12 @@ Working notes for the Ouroboros build (TestSprite S3 hackathon, deadline Jul 10 
 
 (none yet)
 
+## Dev-environment gotchas
+
+- Turbopack persistent cache served stale CSS after edits to globals.css — new rules silently absent from the served chunk. Fix: delete `.next` and restart dev.
+- The preview tab runs `visibility: hidden`, freezing animation clocks and screenshots. Verify animations deterministically: `el.getAnimations()[0].currentTime = t` then read computed transform.
+- Interaction reference (user-picked): FlowTwin (koyeb) — GSAP timelines + SVG. Loop features use this bar: hover segment → iteration card, loop replay, animated learning curve, maker→checker pulse flow.
+
 ## Open items
 
 - Live URL + TestSprite project id pending user account setup.

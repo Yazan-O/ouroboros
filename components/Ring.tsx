@@ -47,6 +47,10 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
           />
         ))
       )}
+      <g className="orbit">
+        <circle cx={C} cy={C - R} r={5} fill="var(--accent)" />
+        <circle cx={C} cy={C - R} r={9} fill="var(--accent)" opacity={0.25} />
+      </g>
       <text
         x={C}
         y={C - 8}

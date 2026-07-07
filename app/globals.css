@@ -40,6 +40,18 @@ body {
   .reveal-3 { animation-delay: 180ms; }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .orbit {
+    animation: orbit 8s linear infinite;
+    transform-origin: center;
+    transform-box: view-box;
+  }
+}
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
 @keyframes reveal {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }
