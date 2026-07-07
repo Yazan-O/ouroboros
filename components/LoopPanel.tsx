@@ -2,6 +2,7 @@
 
 import Ring from "@/components/Ring";
 import Replay from "@/components/Replay";
+import LearningCurve from "@/components/LearningCurve";
 import { useReplay } from "@/lib/useReplay";
 import type { Iteration, Lesson } from "@/lib/loop";
 
@@ -78,6 +79,7 @@ export default function LoopPanel({
         )}
       </section>
 
+      <LearningCurve iterations={visible} lessons={visibleLessons} />
     </>
   );
 }
