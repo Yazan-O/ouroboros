@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import gsap from "gsap";
+import { useEffect, useRef, useState } from "react";
 import type { Iteration } from "@/lib/loop";
 
 const SIZE = 360;
@@ -18,15 +19,78 @@ function arcPath(startDeg: number, endDeg: number): string {
 
 export default function Ring({ iterations }: { iterations: Iteration[] }) {
   const [selected, setSelected] = useState<Iteration | null>(null);
+  const ringRef = useRef<SVGSVGElement | null>(null);
+  const segmentRefs = useRef<(SVGPathElement | null)[]>([]);
+  const centerRef = useRef<SVGGElement | null>(null);
+  const orbitRef = useRef<SVGGElement | null>(null);
+  const playedIntro = useRef(false);
   const n = iterations.length;
   const gap = n > 1 ? Math.min(4, 90 / n) : 0;
   const span = n > 0 ? 360 / n : 0;
 
+  useEffect(() => {
+    if (playedIntro.current) return;
+    playedIntro.current = true;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const segments = segmentRefs.current.filter(Boolean) as SVGPathElement[];
+    const center = centerRef.current;
+    const orbit = orbitRef.current;
+    const ring = ringRef.current;
+
+    if (!center || !orbit || !ring) return;
+
+    segments.forEach((segment) => {
+      const length = segment.getTotalLength();
+      segment.style.strokeDasharray = `${length}`;
+      segment.style.strokeDashoffset = `${length}`;
+    });
+
+    gsap.set(segments, { opacity: 1 });
+    gsap.set(center, { opacity: 0, y: 6 });
+    gsap.set(orbit, { opacity: 0 });
+
+    const timeline = gsap.timeline({
+      defaults: { ease: "power3.out" },
+      onComplete: () => {
+        segments.forEach((segment) => {
+          segment.style.strokeDasharray = "";
+          segment.style.strokeDashoffset = "";
+          segment.style.opacity = "";
+        });
+        gsap.set(center, { clearProps: "opacity,transform" });
+        gsap.set(orbit, { clearProps: "opacity" });
+      },
+    });
+
+    segments.forEach((segment, i) => {
+      timeline.to(
+        segment,
+        { strokeDashoffset: 0, duration: 0.5 },
+        i === 0 ? 0 : "<0.32",
+      );
+    });
+
+    timeline
+      .to(center, { opacity: 1, y: 0, duration: 0.26 }, ">-0.04")
+      .to(
+        orbit,
+        {
+          opacity: 1,
+          duration: 0.15,
+          onStart: () => ring.classList.remove("ring-intro"),
+        },
+        ">",
+      );
+  }, []);
+
   return (
     <div>
       <svg
+        ref={ringRef}
         viewBox={`0 0 ${SIZE} ${SIZE}`}
-        className="w-full max-w-90"
+        className="ring-intro w-full max-w-90"
         aria-label={`Loop ring: ${n} iterations`}
       >
         {n === 0 ? (
@@ -62,43 +126,49 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
               >
                 <path d={d} fill="none" stroke="transparent" strokeWidth="36" />
                 <path
+                  ref={(node) => {
+                    segmentRefs.current[i] = node;
+                  }}
+                  className="ring-segment-path"
                   d={d}
                   fill="none"
                   stroke={it.verdict === "pass" ? "var(--accent)" : "var(--fail)"}
                   strokeWidth={active ? 16 : 10}
                   strokeLinecap="butt"
-                  style={{ transition: "stroke-width 150ms ease-out" }}
+                  style={{ transition: "stroke-width var(--dur-fast) var(--ease-out)" }}
                 />
               </g>
             );
           })
         )}
-        <g className="orbit">
+        <g ref={orbitRef} className="ring-orbit orbit">
           <circle cx={C} cy={C - R} r={5} fill="var(--accent)" />
           <circle cx={C} cy={C - R} r={9} fill="var(--accent)" opacity={0.25} />
         </g>
-        <text
-          x={C}
-          y={C - 8}
-          textAnchor="middle"
-          fill="var(--text)"
-          fontFamily="var(--font-chakra)"
-          fontSize="44"
-          fontWeight="600"
-        >
-          {n}
-        </text>
-        <text
-          x={C}
-          y={C + 22}
-          textAnchor="middle"
-          fill="var(--muted)"
-          fontFamily="var(--font-plex-mono)"
-          fontSize="12"
-          letterSpacing="2"
-        >
-          ITERATIONS
-        </text>
+        <g ref={centerRef} className="ring-center">
+          <text
+            x={C}
+            y={C - 8}
+            textAnchor="middle"
+            fill="var(--text)"
+            fontFamily="var(--font-chakra)"
+            fontSize="44"
+            fontWeight="600"
+          >
+            {n}
+          </text>
+          <text
+            x={C}
+            y={C + 22}
+            textAnchor="middle"
+            fill="var(--muted)"
+            fontFamily="var(--font-plex-mono)"
+            fontSize="12"
+            letterSpacing="2"
+          >
+            ITERATIONS
+          </text>
+        </g>
       </svg>
 
       {selected && (
