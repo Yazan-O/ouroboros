@@ -1,6 +1,5 @@
 "use client";
 
-import type { KeyboardEvent } from "react";
 import type { ReplayController } from "@/lib/useReplay";
 
 export type ReplayProps = {
@@ -17,30 +16,6 @@ export default function Replay({ replay, className = "" }: ReplayProps) {
   const currentSpeed = replay.speed === 2 ? 2 : 1;
   const nextSpeed = currentSpeed === 1 ? 2 : 1;
 
-  function onKeyDown(event: KeyboardEvent<HTMLElement>) {
-    const target = event.target as HTMLElement;
-    const isButton = target.closest("button") !== null;
-
-    if (isButton && (event.key === " " || event.key === "Enter")) return;
-
-    if (event.key === " " || event.key === "Spacebar") {
-      event.preventDefault();
-      replay.toggle();
-      return;
-    }
-
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      replay.step(-1);
-      return;
-    }
-
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      replay.step(1);
-    }
-  }
-
   return (
     <section
       aria-label="Flight recorder replay transport"
@@ -51,7 +26,6 @@ export default function Replay({ replay, className = "" }: ReplayProps) {
         className,
       ].join(" ")}
       data-testid="replay-transport"
-      onKeyDown={onKeyDown}
       tabIndex={0}
     >
       <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] items-center gap-x-4 gap-y-2 md:flex md:gap-4">

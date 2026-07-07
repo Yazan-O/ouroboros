@@ -1,0 +1,18 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Deep link opens an iteration's story card and offers a copy-link button",
+  "description": "Loading the page with a query parameter selecting iteration 2 opens that iteration's story card directly, and the card provides a button to copy a shareable permalink.",
+  "priority": "p1",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage with the query string ?i=2 appended to the URL" },
+    {
+      "type": "assertion",
+      "description": "Verify a story card is already open below the ring showing ITERATION #2, a PASS or FAIL verdict, and an evidence section with a run id — without the user having clicked anything"
+    },
+    {
+      "type": "assertion",
+      "description": "Verify the open story card contains a button to copy a shareable link to this iteration"
+    }
+  ]
+}

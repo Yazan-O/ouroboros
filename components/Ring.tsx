@@ -18,23 +18,66 @@ function arcPath(startDeg: number, endDeg: number): string {
   } ${C + R * Math.sin(e)}`;
 }
 
-export default function Ring({ iterations }: { iterations: Iteration[] }) {
-  const [selected, setSelected] = useState<Iteration | null>(null);
+type RingProps = {
+  iterations: Iteration[];
+  selectedIteration: number | null;
+  onSelectIteration: (iteration: number | null) => void;
+};
+
+export default function Ring({
+  iterations,
+  selectedIteration,
+  onSelectIteration,
+}: RingProps) {
+  const [copied, setCopied] = useState(false);
   const ringRef = useRef<SVGSVGElement | null>(null);
   const segmentRefs = useRef<(SVGPathElement | null)[]>([]);
   const centerRef = useRef<SVGGElement | null>(null);
   const orbitRef = useRef<SVGGElement | null>(null);
   const playedIntro = useRef(false);
+  const copyTimerRef = useRef<number | null>(null);
   const n = iterations.length;
   const gap = n > 1 ? Math.min(4, 90 / n) : 0;
   const span = n > 0 ? 360 / n : 0;
+  const selected =
+    selectedIteration === null
+      ? null
+      : iterations.find((it) => it.n === selectedIteration) ?? null;
   const evidence = selected ? evidenceByIteration[selected.n] : undefined;
 
   useEffect(() => {
-    if (selected && !iterations.some((it) => it.n === selected.n)) {
-      setSelected(null);
+    if (
+      selectedIteration !== null &&
+      !iterations.some((it) => it.n === selectedIteration)
+    ) {
+      onSelectIteration(null);
     }
-  }, [iterations, selected]);
+  }, [iterations, onSelectIteration, selectedIteration]);
+
+  useEffect(() => {
+    setCopied(false);
+  }, [selectedIteration]);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimerRef.current !== null) {
+        window.clearTimeout(copyTimerRef.current);
+      }
+    };
+  }, []);
+
+  async function copyPermalink() {
+    if (!selected || typeof window === "undefined") return;
+
+    const permalink = `${window.location.origin}${window.location.pathname}?i=${selected.n}`;
+    await navigator.clipboard.writeText(permalink);
+    setCopied(true);
+
+    if (copyTimerRef.current !== null) {
+      window.clearTimeout(copyTimerRef.current);
+    }
+    copyTimerRef.current = window.setTimeout(() => setCopied(false), 1400);
+  }
 
   useEffect(() => {
     if (playedIntro.current) return;
@@ -119,13 +162,9 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
         ) : (
           iterations.map((it, i) => {
             const d = arcPath(i * span + gap / 2, (i + 1) * span - gap / 2);
-            const active = selected?.n === it.n;
+            const active = selectedIteration === it.n;
             return (
-              <g
-                key={it.n}
-                onClick={() => setSelected(active ? null : it)}
-                className="cursor-pointer"
-              >
+              <g key={it.n}>
                 <path d={d} fill="none" stroke="transparent" strokeWidth="36" />
                 {it.tests.fail > 0 && (
                   <path
@@ -183,7 +222,7 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
       </svg>
       {iterations.map((it, i) => {
         const mid = (((i + 0.5) * span - 90) * Math.PI) / 180;
-        const active = selected?.n === it.n;
+        const active = selectedIteration === it.n;
         return (
           <button
             key={it.n}
@@ -191,8 +230,8 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
             data-testid={`ring-segment-${it.n}`}
             aria-label={`Open story card for iteration ${it.n} (${it.verdict})`}
             aria-expanded={active}
-            onClick={() => setSelected(active ? null : it)}
-            className="absolute size-11 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline focus-visible:outline-accent"
+            onClick={() => onSelectIteration(active ? null : it.n)}
+            className="absolute size-11 -translate-x-1/2 -translate-y-1/2 rounded-full cursor-pointer focus-visible:outline focus-visible:outline-accent"
             style={{
               left: `${50 + ((Math.cos(mid) * R) / SIZE) * 100}%`,
               top: `${50 + ((Math.sin(mid) * R) / SIZE) * 100}%`,
@@ -224,6 +263,17 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
               {selected.verdict.toUpperCase()}
             </span>
           </p>
+          <button
+            type="button"
+            data-testid="copy-permalink"
+            aria-label={`Copy permalink for iteration ${selected.n}`}
+            onClick={() => {
+              void copyPermalink().catch(() => setCopied(false));
+            }}
+            className="border border-border bg-bg px-2 py-1 text-xs text-accent focus:outline-1 focus:outline-accent"
+          >
+            {copied ? "copied" : "copy link"}
+          </button>
           <p>{selected.feature}</p>
           <p className="text-muted">
             maker {selected.maker} · tests {selected.tests.pass} pass /{" "}

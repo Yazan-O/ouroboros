@@ -1,0 +1,24 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Keyboard shortcuts overlay opens and closes",
+  "description": "The dashboard exposes a keyboard shortcuts help overlay: a visible hint tells the user to press the question-mark key, pressing it opens a modal listing the shortcuts, and Escape closes it.",
+  "priority": "p2",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    {
+      "type": "assertion",
+      "description": "Verify a small unobtrusive hint on the page tells the user they can press the question-mark key to see keyboard shortcuts"
+    },
+    { "type": "action", "description": "Press the question-mark key (shift and forward-slash) on the page body" },
+    {
+      "type": "assertion",
+      "description": "Verify a modal dialog appears listing keyboard shortcuts such as arrow keys to step the replay and a key to filter failures"
+    },
+    { "type": "action", "description": "Press the Escape key" },
+    {
+      "type": "assertion",
+      "description": "Verify the keyboard shortcuts modal is dismissed and no longer visible"
+    }
+  ]
+}

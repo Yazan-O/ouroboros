@@ -1,0 +1,24 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Failures-only filter narrows the loop to iterations that caught a failure",
+  "description": "Toggling the failures-only filter reduces the iteration log to just the iterations whose loop caught and fixed a test failure, and toggling it off restores the full list.",
+  "priority": "p1",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    {
+      "type": "assertion",
+      "description": "Verify the ITERATION LOG initially lists many iterations (ten entries), including some marked pass with no failure and some describing a caught failure"
+    },
+    { "type": "action", "description": "Click the failures-only filter toggle near the loop stats" },
+    {
+      "type": "assertion",
+      "description": "Verify the ITERATION LOG now shows only the smaller set of iterations that describe a caught failure (each mentioning something that broke), and no longer shows the failure-free iterations"
+    },
+    { "type": "action", "description": "Click the same filter toggle again to turn it off" },
+    {
+      "type": "assertion",
+      "description": "Verify the ITERATION LOG returns to showing the full list of iterations again"
+    }
+  ]
+}
