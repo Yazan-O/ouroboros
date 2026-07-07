@@ -1,0 +1,27 @@
+{
+  "2": {
+    "runId": "6becb002-1974-42a1-98dd-dd5878fb8f43",
+    "rootCause": "The colored arc segments are not exposed as accessible interactive elements — the automated tester can only see the non-ring controls and cannot interact with the ring.",
+    "fixTarget": "Expose the arc segments as real interactive targets: role='button', tabindex='0', key handlers; remove the a11y-flattening role='img' from the svg.",
+    "bundlePath": ".testsprite/failure/",
+    "links": [
+      { "label": "failure bundle", "href": "https://github.com/Yazan-O/ouroboros/tree/main/.testsprite/failure" }
+    ]
+  },
+  "3": {
+    "runId": "86ccc90d (first run)",
+    "rootCause": "The orbiting dot did not demonstrate observable movement across screenshots — cloud browsers may run with prefers-reduced-motion, where a static dot is the correct accessible behavior.",
+    "fixTarget": "Refine the test plan to assert settled end-states, never continuous ambient motion (lesson L2). App unchanged.",
+    "bundlePath": null,
+    "links": []
+  },
+  "5": {
+    "runId": "6983d67c-85cb-4804-aee9-5e9366c82e56",
+    "rootCause": "Checker returned status 'blocked' while its own conclusion read 'PASS — all checks succeeded' with zero failed steps.",
+    "fixTarget": "Verdict recorded from the evidence (lesson L3); discrepancy reported upstream.",
+    "bundlePath": null,
+    "links": [
+      { "label": "issue #208", "href": "https://github.com/TestSprite/testsprite-cli/issues/208" }
+    ]
+  }
+}

@@ -20,6 +20,21 @@ export type Lesson = {
   lesson: string;
 };
 
+export type EvidenceLink = {
+  label: string;
+  href: string;
+};
+
+export type Evidence = {
+  runId: string;
+  rootCause: string;
+  fixTarget: string;
+  bundlePath: string | null;
+  links: EvidenceLink[];
+};
+
+export type EvidenceByIteration = Partial<Record<number, Evidence>>;
+
 export async function getLoopData(): Promise<{
   iterations: Iteration[];
   lessons: Lesson[];

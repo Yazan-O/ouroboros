@@ -2,6 +2,7 @@
 
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
+import { evidenceByIteration } from "@/lib/evidence";
 import type { Iteration } from "@/lib/loop";
 
 const SIZE = 360;
@@ -27,6 +28,7 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
   const n = iterations.length;
   const gap = n > 1 ? Math.min(4, 90 / n) : 0;
   const span = n > 0 ? 360 / n : 0;
+  const evidence = selected ? evidenceByIteration[selected.n] : undefined;
 
   useEffect(() => {
     if (playedIntro.current) return;
@@ -195,6 +197,30 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
           {selected.fixed && <p>fixed: {selected.fixed}</p>}
           {selected.lesson && (
             <p className="text-accent">lesson banked: {selected.lesson}</p>
+          )}
+          {evidence && (
+            <div
+              className="border-t border-border pt-3 font-mono text-xs space-y-1"
+              data-testid="iteration-evidence"
+            >
+              <p>run {evidence.runId}</p>
+              <p className="line-clamp-3 break-normal hyphens-none text-muted">
+                {evidence.rootCause}
+              </p>
+              <p>fix target: {evidence.fixTarget}</p>
+              {evidence.links.map((link) => (
+                <p key={`${link.label}-${link.href}`}>
+                  <a
+                    className="text-accent underline underline-offset-2"
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    {link.label}
+                  </a>
+                </p>
+              ))}
+            </div>
           )}
         </aside>
       )}
