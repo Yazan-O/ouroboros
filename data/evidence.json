@@ -23,5 +23,32 @@
     "links": [
       { "label": "issue #208", "href": "https://github.com/TestSprite/testsprite-cli/issues/208" }
     ]
+  },
+  "6": {
+    "runId": "30b6f979-b19f-4152-984f-83295d60ecef",
+    "rootCause": "The harness diagram's 11px 'pass' connector label was unreadable in the tester's screenshots; boxes and connectors verified, label check failed.",
+    "fixTarget": "Meaning-carrying labels at ≥13px SVG (lesson L4); raised to 13.5px weight-500, rerun verified the label.",
+    "bundlePath": ".testsprite/runs/t6-blocked/",
+    "links": [
+      { "label": "run artifact", "href": "https://github.com/Yazan-O/ouroboros/tree/main/.testsprite/runs/t6-blocked" }
+    ]
+  },
+  "7": {
+    "runId": "817df5db-128c-42dc-9b58-2aef65fdf2bc",
+    "rootCause": "The tester clicked the replay rail's diamond ('Seek to iteration 2') instead of the ring arc — two controls shared the entity name.",
+    "fixTarget": "Diverge accessible names and name the widget type in plans (lesson L5); rerun passed 17/17.",
+    "bundlePath": ".testsprite/runs/t7-fail/",
+    "links": [
+      { "label": "run artifact", "href": "https://github.com/Yazan-O/ouroboros/tree/main/.testsprite/runs/t7-fail" }
+    ]
+  },
+  "9": {
+    "runId": "bcb5f08a-f47e-4aa4-93b6-bf4fad91d289",
+    "rootCause": "At 8 iterations the per-segment intro left arcs invisible 3+ seconds; the tester indexed mid-intro and found no clickable ring, then missed SVG-child controls intermittently.",
+    "fixTarget": "Intro capped at a 0.9s total budget (lesson L6) and controls hardened into real HTML button hit-targets; rerun verified 4/4.",
+    "bundlePath": ".testsprite/runs/t7-l6/",
+    "links": [
+      { "label": "run artifact", "href": "https://github.com/Yazan-O/ouroboros/tree/main/.testsprite/runs/t7-l6" }
+    ]
   }
 }

@@ -6,37 +6,37 @@ const NODES = [
     id: "write",
     label: "WRITE",
     subLabel: "maker \u00b7 claude + codex",
-    x: 30,
+    x: 14,
     y: 54,
-    width: 180,
+    width: 220,
     height: 72,
   },
   {
     id: "verify",
     label: "VERIFY",
     subLabel: "checker \u00b7 testsprite cloud",
-    x: 270,
+    x: 250,
     y: 54,
-    width: 180,
+    width: 220,
     height: 72,
   },
   {
     id: "bank",
     label: "BANK",
     subLabel: "durable suite",
-    x: 510,
+    x: 486,
     y: 54,
-    width: 180,
+    width: 220,
     height: 72,
   },
   {
     id: "lesson",
     label: "LESSON",
     subLabel: "LESSONS.md",
-    x: 270,
+    x: 250,
     y: 174,
-    width: 180,
-    height: 60,
+    width: 220,
+    height: 64,
   },
 ];
 
@@ -153,7 +153,7 @@ export default function HarnessFlow() {
                 textAnchor="middle"
                 fill="var(--muted)"
                 fontFamily="var(--font-plex-mono)"
-                fontSize="10.5"
+                fontSize="13"
               >
                 {node.subLabel}
               </text>
@@ -189,7 +189,7 @@ export default function HarnessFlow() {
 
           <text
             x={(verify.x + verify.width + bank.x) / 2}
-            y={78}
+            y={44}
             textAnchor="middle"
             fill="var(--accent)"
             fontFamily="var(--font-plex-mono)"

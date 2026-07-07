@@ -6,7 +6,7 @@
 TestSprite S3 hackathon — *Build the Loop*.
 
 > **The app is its own build log** · **no fix without a lesson** · **the loop audited its checker**
-> 9 loop iterations · 6 lessons (L1–L6), every failure distilled into a rule before its fix · 8 banked cloud tests, suite green · a 21/21-step replay test · 5 mobile bugs caught in one audit · full suite re-verified by CI on every deploy · 1 upstream PR + 1 upstream issue filed on the checker itself
+> 10 loop iterations · 6 lessons (L1–L6), every failure distilled into a rule before its fix · 8 banked cloud tests, latest run of every test `passed` — **full run histories committed** in [`.testsprite/results/`](.testsprite/results) · a 21/21-step replay test · 5 mobile bugs caught in one audit · CI waits until the live site serves the exact commit SHA, then re-runs the whole suite · 1 upstream PR + 1 upstream issue (5 documented occurrences) filed on the checker itself
 
 ## The idea
 
@@ -36,8 +36,10 @@ Every feature of this app was shipped by a maker–checker loop: **Claude** (spe
 | [loop/HARNESS.md](loop/HARNESS.md) | The protocol (two makers, one checker, one memory) |
 | `.testsprite/failure/` | A real committed failure bundle (root cause, DOM snapshot, video) |
 | `.testsprite/plans/` | Every cloud-test plan, as authored |
-| Commit history | One commit per iteration, cross-checkable against LOOP.md and the run history |
-| [deploy.yml](.github/workflows/deploy.yml) | CI: every push → deploy → **the whole TestSprite suite reruns against the fresh deploy** |
+| `.testsprite/results/` | **Full run history per test, committed** — the greens are machine-checkable, not claimed |
+| Commit history | Labeled per-iteration SHAs in LOOP.md (feature / fix / bank), cross-checkable against the run history |
+| **AUDIT TRAIL** (on the live site) | The app renders the whole mapping — iteration → commits → test → artifact → lesson — as a table; it does the auditing for you |
+| [deploy.yml](.github/workflows/deploy.yml) | CI: every push → deploy → **wait until the live site serves this exact commit SHA** → rerun the whole suite against it |
 
 Upstream contributions made along the way: [PR #207](https://github.com/TestSprite/testsprite-cli/pull/207) (Windows test-harness portability — the unpatched suite clobbered our real credentials mid-hackathon) and [issue #208](https://github.com/TestSprite/testsprite-cli/issues/208).
 

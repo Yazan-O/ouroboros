@@ -57,6 +57,9 @@ export default function RootLayout({
         <footer
           className="reveal reveal-5 mx-auto w-full max-w-5xl overflow-x-auto border-t border-border px-4 py-4 font-mono text-[0.68rem] text-muted md:px-6 md:text-xs"
           data-testid="footer"
+          data-commit={
+            process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.GITHUB_SHA ?? "dev"
+          }
         >
           <div className="flex items-center justify-between gap-4 whitespace-nowrap">
             <span>built by its own loop</span>

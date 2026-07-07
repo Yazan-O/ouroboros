@@ -31,6 +31,10 @@ Each lesson is injected into every subsequent maker spec. The effect is visible 
 
 Validating a bounty fix for the CLI's own repo, the unpatched test suite **overwrote our real `~/.testsprite/credentials` with a test fixture** mid-hackathon — every CLI call suddenly failed with `fetch failed` against `127.0.0.1`. Twenty minutes of forensics later, that war story became the motivation section of [PR #207](https://github.com/TestSprite/testsprite-cli/pull/207) (Windows test-harness portability, 1846/1846 tests green). The loop's tooling improved the checker's tooling.
 
+## The audit we ran on ourselves
+
+Near the end we turned the harness inward: a second agent, prompted as a hostile judge, cross-examined every LOOP.md claim against git and the committed artifacts. It found what we couldn't see from inside: our greens were *under-evidenced* (we had committed failure bundles but not passing run results — the repo could prove our failures and only claim our successes), the ring rendered every arc green even though the story was about failures, and CI re-ran the suite without proving the deploy it tested was fresh. Iteration 10 fixed all of it: full run histories committed per test (`.testsprite/results/`), red failure-rims on fixed-after-failure arcs, and a CI gate that refuses to verify until the live site serves the exact commit SHA. The lesson generalizes: **a loop that only archives its failures is still telling a curated story — bank the proof of the passes too.**
+
 ## Numbers
 
 See [LOOP.md](LOOP.md) for the full iteration log, `.testsprite/plans/` for every test as authored, and the commit history for the one-commit-per-iteration audit trail. CI reruns the entire suite against every fresh deploy.

@@ -14,6 +14,8 @@ function markerList(total: number): number[] {
 
 export default function Replay({ replay, className = "" }: ReplayProps) {
   const progress = replay.total > 0 ? (replay.index / replay.total) * 100 : 0;
+  const currentSpeed = replay.speed === 2 ? 2 : 1;
+  const nextSpeed = currentSpeed === 1 ? 2 : 1;
 
   function onKeyDown(event: KeyboardEvent<HTMLElement>) {
     const target = event.target as HTMLElement;
@@ -144,6 +146,24 @@ export default function Replay({ replay, className = "" }: ReplayProps) {
         <output className="col-start-2 w-full text-left font-display text-xs text-muted tabular-nums md:w-36 md:shrink-0 md:text-right">
           ITERATION {replay.visibleCount} / {replay.total}
         </output>
+
+        <button
+          aria-label={`Set replay speed to ${nextSpeed}×`}
+          aria-pressed={replay.speed === 2}
+          className={[
+            "col-start-2 h-8 w-12 border border-border bg-bg text-xs text-accent",
+            "rounded-[var(--radius)]",
+            "focus:outline-1 focus:outline-accent",
+            "disabled:cursor-not-allowed disabled:text-muted",
+            "md:shrink-0",
+          ].join(" ")}
+          data-testid="replay-speed"
+          disabled={replay.total === 0}
+          onClick={() => replay.setSpeed(nextSpeed)}
+          type="button"
+        >
+          {currentSpeed}×
+        </button>
       </div>
     </section>
   );

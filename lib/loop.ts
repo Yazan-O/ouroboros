@@ -35,6 +35,16 @@ export type Evidence = {
 
 export type EvidenceByIteration = Partial<Record<number, Evidence>>;
 
+export type IterationCommits = {
+  feature: string;
+  fix: string | null;
+  bank: string;
+  test: string;
+  flag?: string;
+};
+
+export type CommitsByIteration = Record<string, IterationCommits>;
+
 export async function getLoopData(): Promise<{
   iterations: Iteration[];
   lessons: Lesson[];

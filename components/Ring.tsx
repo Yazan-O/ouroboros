@@ -31,6 +31,12 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
   const evidence = selected ? evidenceByIteration[selected.n] : undefined;
 
   useEffect(() => {
+    if (selected && !iterations.some((it) => it.n === selected.n)) {
+      setSelected(null);
+    }
+  }, [iterations, selected]);
+
+  useEffect(() => {
     if (playedIntro.current) return;
     playedIntro.current = true;
 
@@ -98,7 +104,6 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
         ref={ringRef}
         viewBox={`0 0 ${SIZE} ${SIZE}`}
         className="ring-intro block w-full"
-        aria-label={`Loop ring: ${n} iterations`}
         aria-hidden="true"
       >
         {n === 0 ? (
@@ -122,6 +127,15 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
                 className="cursor-pointer"
               >
                 <path d={d} fill="none" stroke="transparent" strokeWidth="36" />
+                {it.tests.fail > 0 && (
+                  <path
+                    d={d}
+                    fill="none"
+                    stroke="var(--fail)"
+                    strokeWidth="18"
+                    strokeLinecap="butt"
+                  />
+                )}
                 <path
                   ref={(node) => {
                     segmentRefs.current[i] = node;
@@ -188,6 +202,13 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
       })}
       </div>
 
+      <p
+        className="mt-2 w-full max-w-full font-mono text-xs text-muted md:max-w-90"
+        data-testid="ring-legend"
+      >
+        green = banked · red rim = failures caught, then fixed
+      </p>
+
       {selected && (
         <aside
           className="mt-4 w-full max-w-full space-y-2 border border-border bg-surface p-4 font-mono text-sm md:max-w-90"
@@ -218,7 +239,7 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
               className="border-t border-border pt-3 font-mono text-xs space-y-1"
               data-testid="iteration-evidence"
             >
-              <p>run {evidence.runId}</p>
+              <p>run id {evidence.runId}</p>
               <p className="line-clamp-3 break-normal hyphens-none text-muted">
                 {evidence.rootCause}
               </p>

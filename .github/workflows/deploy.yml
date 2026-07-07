@@ -41,5 +41,14 @@ jobs:
       TESTSPRITE_API_KEY: ${{ secrets.TESTSPRITE_API_KEY }}
       PROJECT_ID: ${{ vars.TESTSPRITE_PROJECT_ID }}
     steps:
+      - name: wait until Vercel serves this exact commit
+        run: |
+          for i in $(seq 1 40); do
+            if curl -s https://ouroboros-phi.vercel.app/ | grep -q "data-commit=\"$GITHUB_SHA\""; then
+              echo "fresh deploy confirmed: $GITHUB_SHA"; exit 0
+            fi
+            sleep 15
+          done
+          echo "Vercel never served $GITHUB_SHA — refusing to verify a stale deploy"; exit 1
       - run: npm i -g @testsprite/testsprite-cli
       - run: testsprite test rerun --all --project "$PROJECT_ID" --wait --timeout 600 --output json
