@@ -34,3 +34,12 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    env:
+      TESTSPRITE_API_KEY: ${{ secrets.TESTSPRITE_API_KEY }}
+      PROJECT_ID: ${{ vars.TESTSPRITE_PROJECT_ID }}
+    steps:
+      - run: npm i -g @testsprite/testsprite-cli
+      - run: testsprite test rerun --all --project "$PROJECT_ID" --wait --timeout 600 --output json
