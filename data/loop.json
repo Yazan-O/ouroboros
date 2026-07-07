@@ -32,6 +32,17 @@
       "broke": "over-strict test assertion: orbit dot must visibly move — flaky under reduced-motion cloud browsers",
       "fixed": "plan refined to settled end-state assertions (L2); app unchanged",
       "lesson": "L2"
+    },
+    {
+      "n": 4,
+      "ts": "2026-07-07T07:58:00Z",
+      "feature": "flight-recorder replay — scrub and replay the loop's own history",
+      "maker": "codex",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 0 },
+      "broke": null,
+      "fixed": null,
+      "lesson": null
     }
   ]
 }

@@ -1,0 +1,25 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Replay transport rewinds and replays the loop history",
+  "description": "The flight-recorder transport below the ring lets a user rewind the dashboard to an earlier iteration via the diamond markers and replay the history to the end with the play button; the ring, log, and stats all follow the selected position.",
+  "priority": "p0",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    {
+      "type": "assertion",
+      "description": "Verify a replay transport bar appears between the ring-and-stats row and the ITERATION LOG, containing a play button, a horizontal rail with small diamond markers, and a readout of the form 'ITERATION k / N' where N equals the number of ITERATION LOG entries"
+    },
+    { "type": "action", "description": "Click the first (leftmost) diamond marker on the replay rail" },
+    {
+      "type": "assertion",
+      "description": "Verify the readout now says ITERATION 1, the ITERATION LOG shows exactly one entry (#1), and the stats block's 'lessons learned' count decreased"
+    },
+    { "type": "action", "description": "Click the play button" },
+    { "type": "action", "description": "Wait about six seconds for the replay to finish" },
+    {
+      "type": "assertion",
+      "description": "Verify the readout has returned to its maximum position (ITERATION N / N with equal numbers), and the ITERATION LOG again lists all N entries"
+    }
+  ]
+}
