@@ -1,3 +1,4 @@
+import HarnessFlow from "@/components/HarnessFlow";
 import LoopPanel from "@/components/LoopPanel";
 import { getLoopData } from "@/lib/loop";
 
@@ -16,6 +17,7 @@ export default async function Home() {
       </header>
 
       <LoopPanel iterations={iterations} lessons={lessons} />
+      <HarnessFlow />
     </main>
   );
 }
