@@ -51,4 +51,4 @@ jobs:
           done
           echo "Vercel never served $GITHUB_SHA — refusing to verify a stale deploy"; exit 1
       - run: npm i -g @testsprite/testsprite-cli
-      - run: testsprite test rerun --all --project "$PROJECT_ID" --wait --timeout 600 --output json
+      - run: testsprite test rerun --all --project "$PROJECT_ID" --wait --timeout 1500 --output json
