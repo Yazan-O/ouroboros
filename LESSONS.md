@@ -11,3 +11,9 @@ Format per lesson: `## Lx — <one-line pattern>` then **From:** (iteration + fa
 **From:** iteration 2 — test "Clicking a ring segment reveals that iteration's detail card" failed: the cloud testing agent found no clickable arc segments; only non-ring controls were exposed as interactive.
 
 **Rule:** every clickable SVG element gets `role="button"` + `tabIndex={0}` + an Enter/Space key handler — and the ancestor `<svg>` must NOT carry `role="img"`, which flattens its whole subtree to presentational and hides the controls from the accessibility tree (what testing agents and screen readers read). Specs for interactive SVG must state this explicitly.
+
+## L2 — Never cloud-assert continuous ambient motion; assert end-states
+
+**From:** iteration 3 — test "Ring intro completes..." failed only on "verify the dot changes position over time": the cloud browser may run with prefers-reduced-motion (where a static dot is the CORRECT, accessible behavior), and screenshot-sampled motion checks are flaky by construction.
+
+**Rule:** test plans assert the settled end-state a user lands on (all segments visible, count correct, controls present), never that decoration is currently animating. Ambient motion is progressive enhancement — verified locally, not in the checker.

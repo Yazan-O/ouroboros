@@ -1,0 +1,19 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Ring intro completes and leaves all iteration segments visible",
+  "description": "On page load the ring plays a short draw-in intro; within a few seconds every iteration arc segment is fully visible, the centered iteration count matches the iteration log entries, and the orbiting dot is moving around the ring.",
+  "priority": "p1",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    { "type": "action", "description": "Wait about three seconds for the ring's draw-in intro to finish" },
+    {
+      "type": "assertion",
+      "description": "Verify the circular ring shows colored arc segments (green or red) forming a full circle around a centered iteration count, and that the count equals the number of entries in the ITERATION LOG section below"
+    },
+    {
+      "type": "assertion",
+      "description": "Verify a small bright dot is present on the ring's circumference and changes position over time (orbiting), rather than being static"
+    }
+  ]
+}

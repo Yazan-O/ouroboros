@@ -21,6 +21,17 @@
       "broke": "ring arcs invisible to the testing agent — svg role=img flattened the a11y tree, segments not focusable",
       "fixed": "real accessible controls: tabIndex=0, Enter/Space handler, role=img removed",
       "lesson": "L1"
+    },
+    {
+      "n": 3,
+      "ts": "2026-07-07T07:36:00Z",
+      "feature": "motion tokens + GSAP ring draw-on intro",
+      "maker": "codex",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 1 },
+      "broke": "over-strict test assertion: orbit dot must visibly move — flaky under reduced-motion cloud browsers",
+      "fixed": "plan refined to settled end-state assertions (L2); app unchanged",
+      "lesson": "L2"
     }
   ]
 }

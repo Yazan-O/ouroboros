@@ -1,0 +1,12 @@
+[
+  { "type": "action", "description": "Navigate to the homepage" },
+  { "type": "action", "description": "Wait about three seconds for the ring's draw-in intro to finish" },
+  {
+    "type": "assertion",
+    "description": "Verify the circular ring shows colored arc segments (green or red) forming a full circle around a centered iteration count, and that the count equals the number of entries in the ITERATION LOG section below"
+  },
+  {
+    "type": "assertion",
+    "description": "Verify a small bright dot is rendered on the ring's circumference and the label ITERATIONS appears under the centered count"
+  }
+]
