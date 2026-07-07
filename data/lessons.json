@@ -22,5 +22,11 @@
     "ts": "2026-07-07T09:05:00Z",
     "source": "iteration 6 — the harness diagram's 11px 'pass' label was unreadable in the cloud tester's screenshots",
     "lesson": "Meaning-carrying labels in data graphics render at >=13px SVG (720 viewBox): if it's only legible because you know what it says, it isn't legible."
+  },
+  {
+    "id": "L5",
+    "ts": "2026-07-07T09:40:00Z",
+    "source": "iteration 7 — the tester clicked the replay diamond ('Seek to iteration 2') instead of the ring segment; two controls shared the entity name",
+    "lesson": "Plan steps must name the widget type and exclude same-entity look-alikes; accessible names for actions (Seek to...) and reveals (Open story card...) should diverge."
   }
 ]

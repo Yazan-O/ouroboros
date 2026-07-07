@@ -29,3 +29,9 @@ Format per lesson: `## Lx — <one-line pattern>` then **From:** (iteration + fa
 **From:** iteration 6 — the harness diagram's 'pass' connector label rendered at 11px SVG (≈14px on screen); the cloud tester verified the boxes and connectors but could not read the label in its screenshots.
 
 **Rule:** text that carries meaning in a data graphic renders at ≥13px SVG in a 720-wide viewBox (≈17px on screen). If a label is only legible because you know what it says, it isn't legible — for vision-based checkers or for humans.
+
+## L5 — When two controls share an entity name, the plan must name the widget type and exclude the look-alike
+
+**From:** iteration 7 — the plan said "click the ring arc segment for iteration 2"; the testing agent clicked the replay rail's diamond marker instead (aria-label "Seek to iteration 2") — both controls reference the same entity.
+
+**Rule:** plan steps targeting a control on a page with same-entity look-alikes name the widget type AND exclude the sibling ("the colored arc of the large circular ring — not the small diamond markers on the replay rail"). Accessible names should diverge too: actions ("Seek to…") vs. reveals ("Open story card…").

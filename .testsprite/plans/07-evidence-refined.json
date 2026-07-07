@@ -1,0 +1,19 @@
+[
+  { "type": "action", "description": "Navigate to the homepage" },
+  {
+    "type": "action",
+    "description": "In the large circular ring graphic at the top (the donut of colored arcs), click the colored arc for iteration 2 — not the small diamond markers on the replay rail below it"
+  },
+  {
+    "type": "assertion",
+    "description": "Verify a story card appears directly below the ring containing an evidence section separated by a top border: a run id line, a root-cause sentence mentioning arc segments not being exposed as interactive, and a 'fix target' line"
+  },
+  {
+    "type": "action",
+    "description": "Click the same colored arc of the large ring again to close the card, then click the colored arc for iteration 4 in the large ring"
+  },
+  {
+    "type": "assertion",
+    "description": "Verify the story card for iteration 4 shows PASS and contains no evidence section"
+  }
+]

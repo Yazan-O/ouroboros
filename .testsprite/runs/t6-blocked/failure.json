@@ -1,0 +1,9 @@
+{
+  "rootCauseHypothesis": "TEST BLOCKED: PASS: The THE HARNESS diagram on the homepage matches the requested specification.\n\nVerified items (all observed in the visible page and screenshot):\n- Four labeled boxes are present with the expected labels and positions: WRITE (left, with sublabel \"maker · claude + codex\"), VERIFY (center, with sublabel \"checker · testsprite cloud\"), BANK (right, with sublabel \"durable suite\") in a top row, and LESSON (below VERIFY, with sublabel \"LESSONS.md\").\n- The connector from VERIFY to BANK is a green dashed arrow labeled \"pass\" (visible on the diagram).\n- The connector from VERIFY down to LESSON is a red dashed arrow labeled \"fail\", and a red dashed path loops from LESSON back toward WRITE, forming the requested loop.\n\nAdditional evidence: the page's SVG element has aria-label: \"Harness flow: WRITE to VERIFY, pass to BANK, fail to LESSON, then back to WRITE\", which matches the observed diagram. No login or additional interactions were required.\n\nAll user assertions are satisfied. No further actions will be performed.",
+  "recommendedFixTarget": {
+    "kind": "selector",
+    "reference": ".md",
+    "rationale": null
+  },
+  "evidence": []
+}

@@ -123,7 +123,7 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
                 data-testid={`ring-segment-${it.n}`}
                 role="button"
                 tabIndex={0}
-                aria-label={`Iteration ${it.n}: ${it.verdict}. Show detail card`}
+                aria-label={`Open story card for iteration ${it.n} (${it.verdict})`}
                 aria-expanded={active}
               >
                 <path d={d} fill="none" stroke="transparent" strokeWidth="36" />

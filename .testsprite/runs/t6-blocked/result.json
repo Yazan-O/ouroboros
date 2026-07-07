@@ -1,0 +1,18 @@
+{
+  "testId": "e148ba09-ebf0-415a-8b63-4520d5c32a5b",
+  "status": "blocked",
+  "startedAt": "2026-07-07T14:45:52.129Z",
+  "finishedAt": "2026-07-07T14:46:55.503Z",
+  "videoUrl": "https://testsprite-videos.s3.us-east-1.amazonaws.com/34b81458-2001-704d-1b6e-fc5c5cdb21ee/1783435615319619//tmp/30c42b3d-73ea-485f-ae3d-d9f668ffbff5/result.webm",
+  "failureAnalysisUrl": null,
+  "snapshotId": "snap_25414998bb4e86fe",
+  "runIdIfAvailable": "30b6f979-b19f-4152-984f-83295d60ecef",
+  "codeVersion": "v1",
+  "targetUrl": "https://ouroboros-phi.vercel.app/",
+  "targetUrlSource": "run",
+  "failedStepIndex": 3,
+  "failureKind": null,
+  "verdict": "blocked",
+  "executionStatus": "completed",
+  "summary": "Blocked before a verdict could be produced: TEST BLOCKED: PASS: The THE HARNESS diagram on the homepage matches the requested specification.\n\nVerified items (all observed in the visible page and screenshot):\n- Four labeled boxes are present with the expected labels and positions: WRITE (left, with sublabel \"maker · claude + codex\"), VERIFY (center, with sublabel \"checker · testsprite cloud\"), BANK (right, with sublabel \"durable suite\") in a top row, and LESSON (below VERIFY, with sublabel \"LESS…"
+}

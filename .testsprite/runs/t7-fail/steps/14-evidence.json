@@ -1,0 +1,8 @@
+[
+  {
+    "kind": "snapshot",
+    "stepIndex": 14,
+    "summary": "Step 14 'Click the 'Seek to iteration 2' button to open iteration 2's story card and inspect the detail card for an evidence block' passed.",
+    "path": "steps/14-snapshot.html"
+  }
+]
