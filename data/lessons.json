@@ -10,5 +10,11 @@
     "ts": "2026-07-07T07:20:00Z",
     "source": "iteration 3 — orbit-motion assertion failed: cloud browsers may run reduced-motion, and screenshot-sampled motion checks are flaky",
     "lesson": "Never cloud-assert continuous ambient motion; assert the settled end-state. Decoration animation is progressive enhancement, verified locally."
+  },
+  {
+    "id": "L3",
+    "ts": "2026-07-07T08:15:00Z",
+    "source": "iteration 5 — runs returned status blocked while the agent's own conclusion said PASS with all steps green (platform quirk, reported upstream)",
+    "lesson": "Audit the checker's verdict against its observations: a status flag that contradicts its own evidence gets one fresh run, then record what the evidence shows and report the discrepancy."
   }
 ]

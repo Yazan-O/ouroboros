@@ -43,6 +43,17 @@
       "broke": null,
       "fixed": null,
       "lesson": null
+    },
+    {
+      "n": 5,
+      "ts": "2026-07-07T08:20:00Z",
+      "feature": "learning curve — stacked run bars + cumulative lessons step-line",
+      "maker": "codex",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 0 },
+      "broke": "checker returned status 'blocked' while its own conclusion said PASS with all steps green",
+      "fixed": "verdict recorded from the evidence; platform discrepancy reported upstream",
+      "lesson": "L3"
     }
   ]
 }

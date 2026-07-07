@@ -1,0 +1,19 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Learning curve chart shows per-iteration runs and banked lessons",
+  "description": "Below the iteration log, a LEARNING CURVE section shows a bar chart with one stacked column per iteration (green passed runs, red failed runs), a dashed cumulative-lessons line, and a bordered list row per banked lesson.",
+  "priority": "p1",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    { "type": "action", "description": "Scroll down to the LEARNING CURVE section below the iteration log" },
+    {
+      "type": "assertion",
+      "description": "Verify the LEARNING CURVE section shows a chart inside a bordered panel with one column of stacked bars per iteration (as many columns as ITERATION LOG entries), iteration numbers along the bottom axis, and a run-count axis on the left"
+    },
+    {
+      "type": "assertion",
+      "description": "Verify below the chart there is one bordered lesson row per banked lesson, each showing a lesson id (like L1) in green, a one-line rule, and its source iteration; the number of rows equals the 'lessons learned' count in the stats block"
+    }
+  ]
+}

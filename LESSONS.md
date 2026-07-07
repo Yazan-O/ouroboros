@@ -17,3 +17,9 @@ Format per lesson: `## Lx — <one-line pattern>` then **From:** (iteration + fa
 **From:** iteration 3 — test "Ring intro completes..." failed only on "verify the dot changes position over time": the cloud browser may run with prefers-reduced-motion (where a static dot is the CORRECT, accessible behavior), and screenshot-sampled motion checks are flaky by construction.
 
 **Rule:** test plans assert the settled end-state a user lands on (all segments visible, count correct, controls present), never that decoration is currently animating. Ambient motion is progressive enhancement — verified locally, not in the checker.
+
+## L3 — Audit the checker's verdict against its observations
+
+**From:** iterations 3 and 5 — runs came back status `blocked` while the testing agent's own conclusion read "PASS — all checks succeeded" with every observation verified (reported upstream).
+
+**Rule:** never consume the status flag alone. Read the run's observations and step counts; a verdict that contradicts its own evidence gets one fresh run, then is recorded as what the evidence shows, with the discrepancy logged and reported. The checker keeps the loop honest — and the loop keeps the checker honest.
