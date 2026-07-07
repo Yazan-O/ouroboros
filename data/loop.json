@@ -54,6 +54,28 @@
       "broke": "checker returned status 'blocked' while its own conclusion said PASS with all steps green",
       "fixed": "verdict recorded from the evidence; platform discrepancy reported upstream",
       "lesson": "L3"
+    },
+    {
+      "n": 6,
+      "ts": "2026-07-07T09:50:00Z",
+      "feature": "harness cycle diagram — WRITE→VERIFY→BANK with the fail→LESSON loop",
+      "maker": "codex",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 1 },
+      "broke": "11px 'pass' connector label unreadable in the tester's screenshots",
+      "fixed": "labels raised to 13.5px weight-500 (L4); rerun verified the label",
+      "lesson": "L4"
+    },
+    {
+      "n": 7,
+      "ts": "2026-07-07T10:05:00Z",
+      "feature": "checker evidence inside story cards — failure-bundle excerpts",
+      "maker": "codex",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 1 },
+      "broke": "tester clicked the replay diamond ('Seek to iteration 2') instead of the ring arc — look-alike controls",
+      "fixed": "accessible names diverged + plan names the widget type (L5); rerun 17/17",
+      "lesson": "L5"
     }
   ]
 }
