@@ -50,5 +50,14 @@
     "links": [
       { "label": "run artifact", "href": "https://github.com/Yazan-O/ouroboros/tree/main/.testsprite/runs/t7-l6" }
     ]
+  },
+  "13": {
+    "runId": "0447a447 (test) — first run failed",
+    "rootCause": "The 'press ? for shortcuts' hint carried aria-label='Open keyboard shortcuts', which overrides the visible text in the accessibility tree — so the a11y-tree-reading cloud tester never saw the '?' the test needed to confirm.",
+    "fixTarget": "Remove the masking aria-label so the visible text is the accessible name (lesson L7 — third of the a11y trio after L1 and L5).",
+    "bundlePath": null,
+    "links": [
+      { "label": "lesson L7", "href": "https://github.com/Yazan-O/ouroboros/blob/main/LESSONS.md" }
+    ]
   }
 }

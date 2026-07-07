@@ -7,6 +7,9 @@
   "6": { "feature": "c3b4fb1", "fix": "3773608", "bank": "3d11ec8", "test": "e148ba09-ebf0-415a-8b63-4520d5c32a5b", "flag": "pass-by-evidence at the time; later run flagged passed" },
   "7": { "feature": "b265f6e", "fix": "1b9d750", "bank": "3d11ec8", "test": "215f4e47-f2e1-4be5-b219-2263b9383ef4" },
   "8": { "feature": "017ac75", "fix": null, "bank": "1076935", "test": "fa60727a-b65d-47c8-ba92-e3c195fe745e" },
-  "9": { "feature": "e80e947", "fix": "7105515", "bank": "1076935", "test": "215f4e47-f2e1-4be5-b219-2263b9383ef4", "flag": "pass-by-evidence at the time; latest run flagged passed" },
-  "10": { "feature": "d23c1a7", "fix": "30e6136", "bank": "08c0b17", "test": null, "flag": "verified by SHA-gated CI: full suite 8/8 against the exact commit" }
+  "9": { "feature": "e80e947", "fix": "7105515", "bank": "1076935", "test": "215f4e47-f2e1-4be5-b219-2263b9383ef4", "flag": "shares test 215f4e47 with iteration 7 — this iteration hardened that same ring/story-card feature; latest run passed" },
+  "10": { "feature": "d23c1a7", "fix": "dfb21f5", "bank": "08c0b17", "test": null, "flag": "bank 08c0b17's CI failed on a build error; dfb21f5 fixed it and passed the full SHA-gated suite against the live commit" },
+  "11": { "feature": "baf38ab", "fix": null, "bank": "319e7e0", "test": "877e0b8b-5973-48fe-a198-b9f9f2cf503c" },
+  "12": { "feature": "baf38ab", "fix": null, "bank": "319e7e0", "test": "31d2747b-c94b-4f39-a79c-bd7e3bc949ff" },
+  "13": { "feature": "baf38ab", "fix": "319e7e0", "bank": "319e7e0", "test": "0447a447-116e-4866-a9e9-a4d1f4e15139", "flag": "failed first (aria-label masked the hint text — L7), fixed in 319e7e0; rerun agent verdict PASS, status blocked per issue #208, failedStepIndex null" }
 }
