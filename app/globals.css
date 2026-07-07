@@ -44,6 +44,8 @@ body {
   }
   .reveal-2 { animation-delay: 90ms; }
   .reveal-3 { animation-delay: 180ms; }
+  .reveal-4 { animation-delay: 270ms; }
+  .reveal-5 { animation-delay: 360ms; }
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,0 +1,19 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Harness diagram explains the loop topology",
+  "description": "A THE HARNESS section at the bottom of the page shows a cycle diagram: WRITE flows to VERIFY; a green pass connector leads to BANK; a red fail connector drops to LESSON, which loops back to WRITE.",
+  "priority": "p2",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    { "type": "action", "description": "Scroll to the THE HARNESS section near the bottom of the page" },
+    {
+      "type": "assertion",
+      "description": "Verify a diagram inside a bordered panel shows four labeled boxes — WRITE (maker), VERIFY (checker), BANK (durable suite), LESSON (LESSONS.md) — with WRITE, VERIFY, and BANK in a top row and LESSON below VERIFY"
+    },
+    {
+      "type": "assertion",
+      "description": "Verify the connector from VERIFY to BANK is green and labeled 'pass', and a red connector labeled 'fail' leads from VERIFY down to LESSON and back toward WRITE, forming a visible loop"
+    }
+  ]
+}

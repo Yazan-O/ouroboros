@@ -52,7 +52,7 @@ export default function Replay({ replay, className = "" }: ReplayProps) {
       onKeyDown={onKeyDown}
       tabIndex={0}
     >
-      <div className="flex items-center gap-4">
+      <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] items-center gap-x-4 gap-y-2 md:flex md:gap-4">
         <button
           aria-label={replay.playing ? "Pause replay" : "Play replay"}
           aria-pressed={replay.playing}
@@ -141,7 +141,7 @@ export default function Replay({ replay, className = "" }: ReplayProps) {
           </div>
         </div>
 
-        <output className="w-36 shrink-0 text-right font-display text-xs text-muted tabular-nums">
+        <output className="col-start-2 w-full text-left font-display text-xs text-muted tabular-nums md:w-36 md:shrink-0 md:text-right">
           ITERATION {replay.visibleCount} / {replay.total}
         </output>
       </div>

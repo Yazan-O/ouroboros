@@ -88,11 +88,11 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
   }, []);
 
   return (
-    <div>
+    <div className="w-full min-w-0">
       <svg
         ref={ringRef}
         viewBox={`0 0 ${SIZE} ${SIZE}`}
-        className="ring-intro w-full max-w-90"
+        className="ring-intro block w-full max-w-full md:max-w-90"
         aria-label={`Loop ring: ${n} iterations`}
       >
         {n === 0 ? (
@@ -175,7 +175,7 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
 
       {selected && (
         <aside
-          className="mt-4 max-w-90 border border-border bg-surface p-4 font-mono text-sm space-y-2"
+          className="mt-4 w-full max-w-full space-y-2 border border-border bg-surface p-4 font-mono text-sm md:max-w-90"
           data-testid="iteration-detail"
         >
           <p className="flex justify-between">

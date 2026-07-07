@@ -23,9 +23,9 @@ export default function LoopPanel({
 
   return (
     <>
-      <section className="reveal reveal-2 mt-12 grid gap-12 md:grid-cols-[auto_1fr] items-center">
+      <section className="reveal reveal-2 mt-12 grid gap-8 md:grid-cols-[auto_1fr] md:items-center md:gap-12">
         <Ring iterations={visible} />
-        <div className="font-mono text-sm space-y-3" data-testid="loop-stats">
+        <div className="min-w-0 space-y-3 font-mono text-sm" data-testid="loop-stats">
           <p>
             <span className="text-muted">maker</span> claude fable · codex
             gpt-5.5
@@ -68,7 +68,7 @@ export default function LoopPanel({
                 >
                   {it.verdict}
                 </span>
-                <span className="flex-1">
+                <span className="min-w-0 flex-1 break-words">
                   {it.feature}
                   {it.broke ? ` — broke: ${it.broke}` : ""}
                   {it.fixed ? ` — fixed: ${it.fixed}` : ""}

@@ -119,7 +119,7 @@ export default function LearningCurve({
 
   return (
     <section
-      className="mt-16"
+      className="reveal reveal-4 mt-16"
       data-testid="learning-curve"
       aria-labelledby="learning-curve-title"
     >
@@ -153,10 +153,10 @@ export default function LearningCurve({
         LEARNING CURVE
       </h2>
 
-      <div className="mt-4 border border-border bg-surface p-3">
+      <div className="mt-4 overflow-x-auto border border-border bg-surface p-3">
         <svg
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-          className="block h-auto w-full"
+          className="block h-auto w-[720px] min-w-[720px] md:w-full md:min-w-0"
           aria-label={`Learning curve: ${count} iterations and ${lessons.length} lessons`}
         >
           <line
@@ -322,10 +322,13 @@ export default function LearningCurve({
                 className="grid min-w-0 gap-2 border border-border px-3 py-2 md:grid-cols-[4rem_minmax(0,1fr)_9rem]"
               >
                 <span className="text-accent">{lesson.id}</span>
-                <span className="min-w-0 truncate" title={lesson.lesson}>
+                <span className="min-w-0 break-words md:truncate" title={lesson.lesson}>
                   {lesson.lesson}
                 </span>
-                <span className="min-w-0 truncate text-muted" title={lesson.source}>
+                <span
+                  className="min-w-0 break-words text-muted md:truncate"
+                  title={lesson.source}
+                >
                   {sourceLabel}
                 </span>
               </li>

@@ -1,0 +1,20 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "Iteration story card surfaces the checker's failure evidence",
+  "description": "Opening the story card of an iteration that failed shows an evidence block with the cloud run id, the root cause from the failure bundle, and the fix target; iterations without failures show no evidence block.",
+  "priority": "p1",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    { "type": "action", "description": "Click the ring arc segment for iteration 2" },
+    {
+      "type": "assertion",
+      "description": "Verify the detail card below the ring contains an evidence section separated by a top border, showing a run id line, a root-cause sentence mentioning the arc segments not being exposed as interactive, and a 'fix target' line"
+    },
+    { "type": "action", "description": "Click the ring arc segment for iteration 2 again to close the card, then click the segment for iteration 4" },
+    {
+      "type": "assertion",
+      "description": "Verify the detail card for iteration 4 shows PASS and contains no evidence section"
+    }
+  ]
+}
