@@ -98,6 +98,17 @@
       "broke": "at 8 iterations the draw-in left arcs invisible 3+ seconds; agent indexed mid-intro and found no clickable ring, then missed SVG-child controls intermittently",
       "fixed": "intro capped at a 0.9s total budget (L6) + controls hardened into real HTML button hit-targets (L1 update); agent verified 4/4",
       "lesson": "L6"
+    },
+    {
+      "n": 10,
+      "ts": "2026-07-07T17:40:00Z",
+      "feature": "trust audit — hostile agent review turned into committed proof",
+      "maker": "claude",
+      "verdict": "pass",
+      "tests": { "pass": 8, "fail": 0 },
+      "broke": "greens under-evidenced (only failures had committed bundles), ring hid its failures, stale card on scrub, sub-AA contrast, CI freshness unproven",
+      "fixed": "run histories committed for all 8 tests, failure-rim viz + audit trail table, stale-selection clear, contrast raised, SHA-gated CI — full suite green against the exact commit",
+      "lesson": null
     }
   ]
 }
