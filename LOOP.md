@@ -1,6 +1,8 @@
 # LOOP.md — agent-written iteration log
 
-One line per iteration, written by the agent as the loop runs: maker first, then what ran, what broke, what got fixed. Structured mirror of every line lives in `data/loop.json` — which this app itself renders.
+One line per iteration, written by the agent as the loop runs: maker first, then what ran, what broke, what got fixed. Structured mirror of every line lives in `data/loop.json` — **which this app itself renders: the app is its own build log.** Open the [live site](https://ouroboros-phi.vercel.app/), click any ring segment, and you're reading this file with the checker's evidence attached.
+
+Every line below is backed by three things you can cross-check: a commit (one per iteration), a TestSprite cloud run (ids in-line), and — for failures — a lesson in [LESSONS.md](LESSONS.md) recorded *before* the fix (**no fix without a lesson**). When the checker's own verdict misbehaved, the loop caught that too (**the loop audited its checker** — L3, reported upstream as [testsprite-cli#208](https://github.com/TestSprite/testsprite-cli/issues/208)).
 
 ---
 
