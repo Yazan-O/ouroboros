@@ -233,11 +233,10 @@ export default function LoopPanel({
             <button
               type="button"
               data-testid="shortcuts-hint"
-              aria-label="Open keyboard shortcuts"
               onClick={() => setShortcutsOpen(true)}
               className="border border-border bg-bg px-2 py-1 text-xs text-muted focus:outline-1 focus:outline-accent"
             >
-              press ? for shortcuts
+              press ? for keyboard shortcuts
             </button>
           </div>
         </div>

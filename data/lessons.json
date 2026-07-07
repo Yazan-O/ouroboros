@@ -34,5 +34,11 @@
     "ts": "2026-07-07T10:45:00Z",
     "source": "iteration 9 — per-segment intro timing made the ring invisible for 3+ seconds once the loop hit 8 iterations; the tester indexed mid-intro and found no clickable arcs",
     "lesson": "Cap the total duration of data-driven entrances (budget / item count, never per-item x count); interactive controls must be visible within ~1s no matter how much the data grows."
+  },
+  {
+    "id": "L7",
+    "ts": "2026-07-07T19:20:00Z",
+    "source": "iteration 13 — the 'press ? for shortcuts' hint's aria-label ('Open keyboard shortcuts') overrode its visible text, hiding the '?' from the accessibility-tree-reading cloud tester",
+    "lesson": "A control whose visible text is the information must not carry an aria-label that omits it — the label wins in the a11y tree and hides the text from agents and screen readers. Omit it or mirror the info. (Third a11y lesson: L1 hid controls, L5 confused names, L7 hid content.)"
   }
 ]

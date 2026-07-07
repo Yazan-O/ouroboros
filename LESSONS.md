@@ -43,3 +43,9 @@ Format per lesson: `## Lx — <one-line pattern>` then **From:** (iteration + fa
 **From:** iteration 9 — the ring intro drew each segment for 0.5s with fixed overlap; at 2 iterations the invisible window was ~1s, at 8 iterations 3+ seconds. The cloud tester indexed the page mid-intro and found no clickable arcs — the L1 symptom returned, caused by the app's own data growth.
 
 **Rule:** cap the TOTAL duration of any data-driven entrance (divide a fixed time budget by item count, don't multiply). Interactive controls must be present and visible within ~1 second regardless of how much the data grows — an intro that lengthens with content is a regression ratchet.
+
+## L7 — A control's aria-label overrides its visible text; never let it hide load-bearing information
+
+**From:** iteration 13 — the "press ? for shortcuts" hint carried `aria-label="Open keyboard shortcuts"`. The visible text names the key; the aria-label doesn't. The cloud tester reads the accessibility tree (the L1 lesson), where the aria-label *replaces* the visible text — so the "?" the test needed to confirm was invisible to it.
+
+**Rule:** when a control's visible text is itself the information (a hint, a value, a status), do not add an aria-label that omits it — the aria-label wins in the accessibility tree and hides the text from testing agents and screen-reader users alike. Omit the label so the text is the accessible name, or mirror the same information in it. (Third of the a11y trio: L1 hid controls, L5 confused their names, L7 hid their content.)
