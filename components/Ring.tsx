@@ -66,11 +66,15 @@ export default function Ring({ iterations }: { iterations: Iteration[] }) {
       },
     });
 
+    // Fixed total budget (L6): the draw-in never exceeds ~0.9s no matter how
+    // many iterations exist, so controls are visible within a second.
+    const per = Math.min(0.5, 0.9 / segments.length);
+    const overlap = (per * 0.64).toFixed(3);
     segments.forEach((segment, i) => {
       timeline.to(
         segment,
-        { strokeDashoffset: 0, duration: 0.5 },
-        i === 0 ? 0 : "<0.32",
+        { strokeDashoffset: 0, duration: per },
+        i === 0 ? 0 : `<${overlap}`,
       );
     });
 

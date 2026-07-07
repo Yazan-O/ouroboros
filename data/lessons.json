@@ -28,5 +28,11 @@
     "ts": "2026-07-07T09:40:00Z",
     "source": "iteration 7 — the tester clicked the replay diamond ('Seek to iteration 2') instead of the ring segment; two controls shared the entity name",
     "lesson": "Plan steps must name the widget type and exclude same-entity look-alikes; accessible names for actions (Seek to...) and reveals (Open story card...) should diverge."
+  },
+  {
+    "id": "L6",
+    "ts": "2026-07-07T10:45:00Z",
+    "source": "iteration 9 — per-segment intro timing made the ring invisible for 3+ seconds once the loop hit 8 iterations; the tester indexed mid-intro and found no clickable arcs",
+    "lesson": "Cap the total duration of data-driven entrances (budget / item count, never per-item x count); interactive controls must be visible within ~1s no matter how much the data grows."
   }
 ]

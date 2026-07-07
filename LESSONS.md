@@ -35,3 +35,9 @@ Format per lesson: `## Lx — <one-line pattern>` then **From:** (iteration + fa
 **From:** iteration 7 — the plan said "click the ring arc segment for iteration 2"; the testing agent clicked the replay rail's diamond marker instead (aria-label "Seek to iteration 2") — both controls reference the same entity.
 
 **Rule:** plan steps targeting a control on a page with same-entity look-alikes name the widget type AND exclude the sibling ("the colored arc of the large circular ring — not the small diamond markers on the replay rail"). Accessible names should diverge too: actions ("Seek to…") vs. reveals ("Open story card…").
+
+## L6 — Entrance choreography must scale sub-linearly with data and never gate interactivity
+
+**From:** iteration 9 — the ring intro drew each segment for 0.5s with fixed overlap; at 2 iterations the invisible window was ~1s, at 8 iterations 3+ seconds. The cloud tester indexed the page mid-intro and found no clickable arcs — the L1 symptom returned, caused by the app's own data growth.
+
+**Rule:** cap the TOTAL duration of any data-driven entrance (divide a fixed time budget by item count, don't multiply). Interactive controls must be present and visible within ~1 second regardless of how much the data grows — an intro that lengthens with content is a regression ratchet.
