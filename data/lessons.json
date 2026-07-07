@@ -16,5 +16,11 @@
     "ts": "2026-07-07T08:15:00Z",
     "source": "iteration 5 — runs returned status blocked while the agent's own conclusion said PASS with all steps green (platform quirk, reported upstream)",
     "lesson": "Audit the checker's verdict against its observations: a status flag that contradicts its own evidence gets one fresh run, then record what the evidence shows and report the discrepancy."
+  },
+  {
+    "id": "L4",
+    "ts": "2026-07-07T09:05:00Z",
+    "source": "iteration 6 — the harness diagram's 11px 'pass' label was unreadable in the cloud tester's screenshots",
+    "lesson": "Meaning-carrying labels in data graphics render at >=13px SVG (720 viewBox): if it's only legible because you know what it says, it isn't legible."
   }
 ]

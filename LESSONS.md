@@ -23,3 +23,9 @@ Format per lesson: `## Lx — <one-line pattern>` then **From:** (iteration + fa
 **From:** iterations 3 and 5 — runs came back status `blocked` while the testing agent's own conclusion read "PASS — all checks succeeded" with every observation verified (reported upstream).
 
 **Rule:** never consume the status flag alone. Read the run's observations and step counts; a verdict that contradicts its own evidence gets one fresh run, then is recorded as what the evidence shows, with the discrepancy logged and reported. The checker keeps the loop honest — and the loop keeps the checker honest.
+
+## L4 — Diagram labels must be legible at screenshot scale
+
+**From:** iteration 6 — the harness diagram's 'pass' connector label rendered at 11px SVG (≈14px on screen); the cloud tester verified the boxes and connectors but could not read the label in its screenshots.
+
+**Rule:** text that carries meaning in a data graphic renders at ≥13px SVG in a 720-wide viewBox (≈17px on screen). If a label is only legible because you know what it says, it isn't legible — for vision-based checkers or for humans.

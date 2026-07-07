@@ -189,21 +189,23 @@ export default function HarnessFlow() {
 
           <text
             x={(verify.x + verify.width + bank.x) / 2}
-            y={75}
+            y={78}
             textAnchor="middle"
             fill="var(--accent)"
             fontFamily="var(--font-plex-mono)"
-            fontSize="11"
+            fontSize="13.5"
+            fontWeight="500"
             letterSpacing="1.4"
           >
             pass
           </text>
           <text
             x={centerX(verify) + 18}
-            y={154}
+            y={156}
             fill="var(--fail)"
             fontFamily="var(--font-plex-mono)"
-            fontSize="11"
+            fontSize="13.5"
+            fontWeight="500"
             letterSpacing="1.4"
           >
             fail
