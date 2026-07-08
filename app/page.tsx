@@ -50,7 +50,7 @@ export default async function Home() {
             </span>
           </p>
           <p className="mt-8 font-mono text-xs leading-relaxed text-muted">
-            an app whose only content is its own build — 13 iterations, every
+            an app whose only content is its own build — 14 iterations, every
             failure the checker caught, every lesson it learned, checkable down
             to the commit.
           </p>

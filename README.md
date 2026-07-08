@@ -2,7 +2,7 @@
 
 ### The brief was *build the loop.* So we pointed the loop at itself.
 
-**An app whose only content is its own build.** Claude writes each feature, Codex implements, the TestSprite CLI verifies it against the live site — and the app renders that loop's own history: 13 iterations, every failure the checker caught, every lesson it learned, checkable down to the commit. It even caught its own checker contradicting itself, and shipped fixes to the checker's tools.
+**An app whose only content is its own build.** Claude writes each feature, Codex implements, the TestSprite CLI verifies it against the live site — and the app renders that loop's own history: 14 iterations, every failure the checker caught, every lesson it learned, checkable down to the commit. It even caught its own checker contradicting itself, and shipped fixes to the checker's tools.
 
 **Live: https://ouroboros-phi.vercel.app/** (mirror: https://yazan-o.github.io/ouroboros/)
 TestSprite S3 hackathon — *Build the Loop*.
