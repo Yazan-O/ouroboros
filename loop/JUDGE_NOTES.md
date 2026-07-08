@@ -2,8 +2,8 @@
 
 ## Beats
 
-1. `THE LOOP` pulls `iterations.length` from `data/loop.json`: `13 iterations`, framed as the app's own build log.
-2. `CAUGHT, NOT HIDDEN` pulls `tests.fail > 0` from `data/loop.json`: `6 failures`, plus iteration 2 `broke` and `fixed` fossil text.
+1. `THE LOOP` pulls `iterations.length` from `data/loop.json`: the current iteration count, framed as the app's own build log.
+2. `CAUGHT, NOT HIDDEN` pulls `tests.fail > 0` from `data/loop.json`: the caught-failure count, plus iteration 2 `broke` and `fixed` fossil text.
 3. `NO FIX WITHOUT A LESSON` pulls all 7 ids and lesson rules from `data/lessons.json`.
 4. `THE CHECKER ON TRIAL` renders the contradiction: status `blocked` versus `PASS — all checks succeeded`, `failedStepIndex null`, with links to issue #208, PR #207, and PR #213.
 5. `EVERY CLAIM CHECKABLE` pulls committed run count from unique non-null `test` ids in `data/commits.json` (`11`, because iterations 7 and 9 share one run id) and linked commit entries (`13`).

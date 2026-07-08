@@ -8,7 +8,7 @@
     { "type": "action", "description": "Navigate to the homepage" },
     {
       "type": "assertion",
-      "description": "Verify the ITERATION LOG initially lists many iterations (ten entries), including some marked pass with no failure and some describing a caught failure"
+      "description": "Verify the ITERATION LOG initially lists many iterations (many entries), including some marked pass with no failure and some describing a caught failure"
     },
     { "type": "action", "description": "Click the failures-only filter toggle near the loop stats" },
     {

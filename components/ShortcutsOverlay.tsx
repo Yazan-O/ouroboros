@@ -9,6 +9,7 @@ type ShortcutsOverlayProps = {
 
 const shortcuts = [
   ["?", "open shortcuts"],
+  ["J", "start the judge briefing"],
   ["Esc", "close overlay or story card"],
   ["Left / Right", "step replay"],
   ["Space", "play or pause replay"],

@@ -59,5 +59,14 @@
     "links": [
       { "label": "lesson L7", "href": "https://github.com/Yazan-O/ouroboros/blob/main/LESSONS.md" }
     ]
+  },
+  "15": {
+    "runId": "1af81937 (test) — first run failed on two a11y assertions",
+    "rootCause": "The new judge-mode CTA's aria-label masked its own visible invitation (L7 again), and the Loop Card rendered its wordmark, tagline, and PR references as SVG text only — invisible to the a11y-tree-reading cloud tester.",
+    "fixTarget": "Drop the CTA's masking aria-label so its visible text is the accessible name; give the Loop Card a real visible HTML caption carrying its words (lesson L8 — content-SVG needs a text equivalent).",
+    "bundlePath": null,
+    "links": [
+      { "label": "lesson L8", "href": "https://github.com/Yazan-O/ouroboros/blob/main/LESSONS.md" }
+    ]
   }
 }

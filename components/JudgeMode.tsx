@@ -86,7 +86,7 @@ export default function JudgeMode({
         heading: "THE CHECKER ON TRIAL",
         fact: "THE LOOP AUDITED ITS CHECKER",
         caption:
-          "reported as issue #208, and we fixed the checker's own tools:",
+          "reported as issue #208, and we opened PRs to fix the checker's own tools:",
       },
       {
         heading: "EVERY CLAIM CHECKABLE",

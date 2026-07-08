@@ -13,5 +13,5 @@
   "12": { "feature": "baf38ab", "fix": null, "bank": "319e7e0", "test": "31d2747b-c94b-4f39-a79c-bd7e3bc949ff" },
   "13": { "feature": "baf38ab", "fix": "319e7e0", "bank": "319e7e0", "test": "0447a447-116e-4866-a9e9-a4d1f4e15139", "flag": "failed first (aria-label masked the hint text — L7), fixed in 319e7e0; rerun agent verdict PASS, status blocked per issue #208, failedStepIndex null" },
   "14": { "feature": "186eddc", "fix": null, "bank": "ea6999c", "test": "f6c69559-ad46-4e0b-89b0-52a8e13354e2", "flag": "presentation layer: Judge Mode 186eddc + ring glow 843d0bf + pitch hero 808542f; test passed 21/21" },
-  "15": { "feature": "fd60a40", "fix": null, "bank": "fd60a40", "test": "1af81937-ee29-4b9e-bde3-09aff4a0453c", "flag": "amplifiers (CTA + Loop Card + Fossils); test caught two a11y regressions (L7 masking + L8 SVG-only content), fixed; rerun expected pass" }
+  "15": { "feature": "fd60a40", "fix": "5f390b1", "bank": "1c7c772", "test": "1af81937-ee29-4b9e-bde3-09aff4a0453c", "flag": "amplifiers (CTA + Loop Card + Fossils); test caught two a11y regressions (L7 masking in 3817417, L8 SVG-only content fixed in 5f390b1); rerun passed 4/4, run history committed in 1c7c772" }
 }

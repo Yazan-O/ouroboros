@@ -236,7 +236,6 @@ export default function LoopPanel({
         type="button"
         data-testid="judge-cta"
         onClick={openJudge}
-        aria-label="Judging this? Start the 3-minute briefing"
         className="judge-cta reveal reveal-2 mt-8 flex w-full items-center justify-between gap-4 border border-accent/40 bg-surface px-5 py-4 text-left transition-colors hover:border-accent focus:outline-1 focus:outline-accent"
       >
         <span className="min-w-0">
