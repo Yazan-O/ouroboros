@@ -8,9 +8,26 @@ import type { Iteration } from "@/lib/loop";
 const SIZE = 360;
 const R = 140;
 const C = SIZE / 2;
+const GITHUB_BLOB_ROOT = "https://github.com/Yazan-O/ouroboros/blob/main/";
+const SNAPSHOT_PATH_BY_BUNDLE: Record<string, string> = {
+  ".testsprite/failure/": ".testsprite/failure/steps/01-snapshot.html",
+  ".testsprite/runs/t6-blocked/":
+    ".testsprite/runs/t6-blocked/steps/02-snapshot.html",
+  ".testsprite/runs/t7-fail/":
+    ".testsprite/runs/t7-fail/steps/15-snapshot.html",
+  ".testsprite/runs/t7-l6/": ".testsprite/runs/t7-l6/steps/01-snapshot.html",
+};
 
 function fixed4(value: number): string {
   return value.toFixed(4);
+}
+
+function snapshotHrefForBundle(bundlePath: string | null | undefined): string | null {
+  if (!bundlePath) return null;
+
+  const normalizedPath = bundlePath.endsWith("/") ? bundlePath : `${bundlePath}/`;
+  const snapshotPath = SNAPSHOT_PATH_BY_BUNDLE[normalizedPath];
+  return snapshotPath ? `${GITHUB_BLOB_ROOT}${snapshotPath}` : null;
 }
 
 function arcPath(startDeg: number, endDeg: number): string {
@@ -55,6 +72,10 @@ export default function Ring({
       ? null
       : iterations.find((it) => it.n === selectedIteration) ?? null;
   const evidence = selected ? evidenceByIteration[selected.n] : undefined;
+  const isFossil = Boolean(selected?.broke && evidence);
+  const fossilSnapshotHref = isFossil
+    ? snapshotHrefForBundle(evidence?.bundlePath)
+    : null;
 
   useEffect(() => {
     if (
@@ -313,14 +334,55 @@ export default function Ring({
           )}
           {evidence && (
             <div
-              className="border-t border-border pt-3 font-mono text-xs space-y-1"
+              className={
+                isFossil
+                  ? "space-y-2 border-l-2 border-fail px-3 py-3 font-mono text-xs"
+                  : "border-t border-border pt-3 font-mono text-xs space-y-1"
+              }
+              style={
+                isFossil
+                  ? {
+                      background: "rgba(var(--fail-rgb), 0.08)",
+                      boxShadow: "inset 0 0 0 1px rgba(var(--fail-rgb), 0.16)",
+                    }
+                  : undefined
+              }
               data-testid="iteration-evidence"
             >
+              {isFossil && (
+                <p>
+                  <span className="font-semibold tracking-[0.14em] text-fail">
+                    THE FOSSIL
+                  </span>
+                  <span className="text-muted">
+                    {" "}
+                    - the exact failure the checker caught, preserved
+                  </span>
+                </p>
+              )}
               <p>run id {evidence.runId}</p>
-              <p className="line-clamp-3 break-normal hyphens-none text-muted">
+              <p
+                className={
+                  isFossil
+                    ? "break-normal hyphens-none text-muted"
+                    : "line-clamp-3 break-normal hyphens-none text-muted"
+                }
+              >
                 {evidence.rootCause}
               </p>
               <p>fix target: {evidence.fixTarget}</p>
+              {fossilSnapshotHref && (
+                <p>
+                  <a
+                    className="font-semibold text-fail underline underline-offset-2 focus:outline-1 focus:outline-accent"
+                    href={fossilSnapshotHref}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    open the exact broken state →
+                  </a>
+                </p>
+              )}
               {evidence.links.map((link) => (
                 <p key={`${link.label}-${link.href}`}>
                   <a

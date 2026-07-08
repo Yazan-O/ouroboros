@@ -1,5 +1,6 @@
 import AuditTrail from "@/components/AuditTrail";
 import HarnessFlow from "@/components/HarnessFlow";
+import LoopCard from "@/components/LoopCard";
 import LoopPanel from "@/components/LoopPanel";
 import { getLoopData } from "@/lib/loop";
 
@@ -65,6 +66,7 @@ export default async function Home() {
       <LoopPanel iterations={iterations} lessons={lessons} />
       <HarnessFlow />
       <AuditTrail iterations={iterations} lessons={lessons} />
+      <LoopCard />
     </main>
   );
 }
