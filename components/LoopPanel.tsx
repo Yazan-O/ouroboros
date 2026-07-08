@@ -9,6 +9,114 @@ import JudgeMode from "@/components/JudgeMode";
 import { useReplay } from "@/lib/useReplay";
 import type { Iteration, Lesson } from "@/lib/loop";
 
+const COUNT_ROLL_MS = 260;
+
+function usePrefersReducedMotion(): boolean {
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(query.matches);
+
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return reducedMotion;
+}
+
+function RollingNumber({
+  value,
+  reducedMotion,
+  className = "",
+}: {
+  value: number;
+  reducedMotion: boolean;
+  className?: string;
+}) {
+  const valueRef = useRef(value);
+  const timerRef = useRef<number | null>(null);
+  const [roll, setRoll] = useState({
+    current: value,
+    previous: value,
+    rolling: false,
+    version: 0,
+  });
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const previous = valueRef.current;
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+
+    if (reducedMotion) {
+      valueRef.current = value;
+      setRoll((state) => ({
+        current: value,
+        previous: value,
+        rolling: false,
+        version: state.version + 1,
+      }));
+      return;
+    }
+
+    if (previous === value) return;
+    valueRef.current = value;
+
+    setRoll((state) => ({
+      current: value,
+      previous,
+      rolling: true,
+      version: state.version + 1,
+    }));
+
+    timerRef.current = window.setTimeout(() => {
+      setRoll((state) => ({
+        ...state,
+        previous: state.current,
+        rolling: false,
+      }));
+      timerRef.current = null;
+    }, COUNT_ROLL_MS);
+  }, [reducedMotion, value]);
+
+  if (reducedMotion) {
+    return <span className={className}>{value}</span>;
+  }
+
+  return (
+    <span className={["rolling-number", className].join(" ")}>
+      <span className="sr-only">{value}</span>
+      {roll.rolling && (
+        <span
+          key={`previous-${roll.version}`}
+          className="rolling-number-prev"
+          aria-hidden="true"
+        >
+          {roll.previous}
+        </span>
+      )}
+      <span
+        key={`current-${roll.version}`}
+        className={roll.rolling ? "rolling-number-current" : undefined}
+        aria-hidden="true"
+      >
+        {roll.current}
+      </span>
+    </span>
+  );
+}
+
 function replaceIterationParam(iteration: number | null) {
   if (typeof window === "undefined") return;
 
@@ -69,6 +177,7 @@ export default function LoopPanel({
   const [failuresOnly, setFailuresOnly] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [judgeOpen, setJudgeOpen] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
   const replay = useReplay(iterations.length);
   const { step, toggle } = replay;
   const visible = iterations.slice(0, replay.visibleCount);
@@ -263,6 +372,10 @@ export default function LoopPanel({
       <section className="reveal reveal-3 mt-12 grid gap-8 md:grid-cols-[auto_1fr] md:items-center md:gap-12">
         <Ring
           iterations={displayIterations}
+          totalIterations={iterations.length}
+          replayIndex={replay.index}
+          centerCount={displayIterations.length}
+          reducedMotion={reducedMotion}
           selectedIteration={selectedIteration}
           onSelectIteration={selectIteration}
         />
@@ -277,13 +390,32 @@ export default function LoopPanel({
           </p>
           <p>
             <span className="text-muted">verdicts</span>{" "}
-            <span className="text-accent">{passes} banked</span> ·{" "}
-            <span className="text-fail">{caughtFailures} caught &amp; fixed</span>{" "}
+            <span className="text-accent">
+              <RollingNumber
+                value={passes}
+                reducedMotion={reducedMotion}
+                className="min-w-[2ch]"
+              />{" "}
+              banked
+            </span>{" "}
+            ·{" "}
+            <span className="text-fail">
+              <RollingNumber
+                value={caughtFailures}
+                reducedMotion={reducedMotion}
+                className="min-w-[2ch]"
+              />{" "}
+              caught &amp; fixed
+            </span>{" "}
             · <span className="text-muted">0 escaped to prod</span>
           </p>
           <p>
             <span className="text-muted">lessons learned</span>{" "}
-            {displayLessonCount}
+            <RollingNumber
+              value={displayLessonCount}
+              reducedMotion={reducedMotion}
+              className="min-w-[2ch]"
+            />
           </p>
           <div className="flex flex-wrap gap-2 pt-1">
             <button

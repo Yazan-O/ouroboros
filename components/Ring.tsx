@@ -9,6 +9,7 @@ const SIZE = 360;
 const R = 140;
 const C = SIZE / 2;
 const GITHUB_BLOB_ROOT = "https://github.com/Yazan-O/ouroboros/blob/main/";
+const COUNT_ROLL_MS = 260;
 const SNAPSHOT_PATH_BY_BUNDLE: Record<string, string> = {
   ".testsprite/failure/": ".testsprite/failure/steps/01-snapshot.html",
   ".testsprite/runs/t6-blocked/":
@@ -20,6 +21,11 @@ const SNAPSHOT_PATH_BY_BUNDLE: Record<string, string> = {
 
 function fixed4(value: number): string {
   return value.toFixed(4);
+}
+
+function clamp01(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  return Math.min(1, Math.max(0, value));
 }
 
 function snapshotHrefForBundle(bundlePath: string | null | undefined): string | null {
@@ -41,14 +47,89 @@ function arcPath(startDeg: number, endDeg: number): string {
   return `M ${startX} ${startY} A ${R} ${R} 0 ${large} 1 ${endX} ${endY}`;
 }
 
+function segmentProgress(
+  iteration: number,
+  replayIndex: number,
+  reducedMotion: boolean,
+): number {
+  return reducedMotion ? 1 : clamp01(replayIndex - (iteration - 1));
+}
+
+function useRollingInteger(value: number, reducedMotion: boolean) {
+  const valueRef = useRef(value);
+  const timerRef = useRef<number | null>(null);
+  const [roll, setRoll] = useState({
+    current: value,
+    previous: value,
+    rolling: false,
+    version: 0,
+  });
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const previous = valueRef.current;
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+
+    if (reducedMotion) {
+      valueRef.current = value;
+      setRoll((state) => ({
+        current: value,
+        previous: value,
+        rolling: false,
+        version: state.version + 1,
+      }));
+      return;
+    }
+
+    if (previous === value) return;
+    valueRef.current = value;
+
+    setRoll((state) => ({
+      current: value,
+      previous,
+      rolling: true,
+      version: state.version + 1,
+    }));
+
+    timerRef.current = window.setTimeout(() => {
+      setRoll((state) => ({
+        ...state,
+        previous: state.current,
+        rolling: false,
+      }));
+      timerRef.current = null;
+    }, COUNT_ROLL_MS);
+  }, [reducedMotion, value]);
+
+  return roll;
+}
+
 type RingProps = {
   iterations: Iteration[];
+  totalIterations: number;
+  replayIndex: number;
+  centerCount: number;
+  reducedMotion: boolean;
   selectedIteration: number | null;
   onSelectIteration: (iteration: number | null) => void;
 };
 
 export default function Ring({
   iterations,
+  totalIterations,
+  replayIndex,
+  centerCount,
+  reducedMotion,
   selectedIteration,
   onSelectIteration,
 }: RingProps) {
@@ -60,8 +141,10 @@ export default function Ring({
   const playedIntro = useRef(false);
   const copyTimerRef = useRef<number | null>(null);
   const n = iterations.length;
-  const gap = n > 1 ? Math.min(4, 90 / n) : 0;
-  const span = n > 0 ? 360 / n : 0;
+  const slotCount = Math.max(totalIterations, n);
+  const gap = slotCount > 1 ? Math.min(4, 90 / slotCount) : 0;
+  const span = slotCount > 0 ? 360 / slotCount : 0;
+  const centerRoll = useRollingInteger(centerCount, reducedMotion);
   const orbitTrail = [
     { angle: -6, radius: 4.25, opacity: 0.28 },
     { angle: -12, radius: 3.5, opacity: 0.2 },
@@ -194,12 +277,18 @@ export default function Ring({
             />
           ) : (
             iterations.map((it, i) => {
-              const d = arcPath(i * span + gap / 2, (i + 1) * span - gap / 2);
+              const slot = Math.min(slotCount - 1, Math.max(0, it.n - 1));
+              const startDeg = slot * span + gap / 2;
+              const fullEndDeg = (slot + 1) * span - gap / 2;
+              const progress = segmentProgress(it.n, replayIndex, reducedMotion);
+              const endDeg = startDeg + (fullEndDeg - startDeg) * progress;
+              const d = arcPath(startDeg, endDeg);
+              const hitPath = arcPath(startDeg, fullEndDeg);
               const active = selectedIteration === it.n;
               return (
                 <g key={it.n}>
-                  <path d={d} fill="none" stroke="transparent" strokeWidth="36" />
-                  {it.tests.fail > 0 && (
+                  <path d={hitPath} fill="none" stroke="transparent" strokeWidth="36" />
+                  {it.tests.fail > 0 && progress > 0 && (
                     <path
                       className="ring-fail-rim"
                       d={d}
@@ -220,7 +309,12 @@ export default function Ring({
                     strokeWidth={active ? 16 : 10}
                     strokeLinecap="butt"
                     data-verdict={it.verdict}
-                    style={{ transition: "stroke-width var(--dur-fast) var(--ease-out)" }}
+                    style={{
+                      opacity: reducedMotion ? 1 : clamp01(progress * 3),
+                      transition: reducedMotion
+                        ? undefined
+                        : "stroke-width var(--dur-fast) var(--ease-out), opacity var(--dur-med) var(--ease)",
+                    }}
                   />
                 </g>
               );
@@ -242,7 +336,24 @@ export default function Ring({
             <circle className="ring-orbit-halo" cx={C} cy={C - R} r={9} opacity={0.25} />
           </g>
           <g ref={centerRef} className="ring-center">
+            {centerRoll.rolling && (
+              <text
+                key={`center-prev-${centerRoll.version}`}
+                className="ring-center-count-prev"
+                x={C}
+                y={C - 8}
+                textAnchor="middle"
+                fill="var(--text)"
+                fontFamily="var(--font-chakra)"
+                fontSize="44"
+                fontWeight="600"
+              >
+                {centerRoll.previous}
+              </text>
+            )}
             <text
+              key={`center-current-${centerRoll.version}`}
+              className={centerRoll.rolling ? "ring-center-count-current" : undefined}
               x={C}
               y={C - 8}
               textAnchor="middle"
@@ -251,7 +362,7 @@ export default function Ring({
               fontSize="44"
               fontWeight="600"
             >
-              {n}
+              {centerRoll.current}
             </text>
             <text
               x={C}
@@ -267,7 +378,8 @@ export default function Ring({
           </g>
         </svg>
         {iterations.map((it, i) => {
-          const mid = (((i + 0.5) * span - 90) * Math.PI) / 180;
+          const slot = Math.min(slotCount - 1, Math.max(0, it.n - 1));
+          const mid = (((slot + 0.5) * span - 90) * Math.PI) / 180;
           const active = selectedIteration === it.n;
           const left = fixed4(50 + ((Math.cos(mid) * R) / SIZE) * 100);
           const top = fixed4(50 + ((Math.sin(mid) * R) / SIZE) * 100);

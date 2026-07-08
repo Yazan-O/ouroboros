@@ -84,6 +84,18 @@ body {
   fill: var(--accent);
 }
 
+.rolling-number {
+  display: inline-grid;
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  vertical-align: -0.08em;
+}
+
+.rolling-number > span {
+  grid-area: 1 / 1;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
     animation: reveal var(--dur-med) var(--ease) both;
@@ -110,10 +122,50 @@ body {
   .ring-intro .ring-orbit {
     animation-play-state: paused;
   }
+
+  .rolling-number-prev {
+    animation: count-roll-prev var(--dur-med) var(--ease) both;
+  }
+
+  .rolling-number-current {
+    animation: count-roll-current var(--dur-med) var(--ease) both;
+  }
+
+  .ring-center-count-prev {
+    animation: ring-count-prev var(--dur-med) var(--ease) both;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .ring-center-count-current {
+    animation: ring-count-current var(--dur-med) var(--ease) both;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 }
 
 @keyframes orbit {
   to { transform: rotate(360deg); }
+}
+
+@keyframes count-roll-prev {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-70%); }
+}
+
+@keyframes count-roll-current {
+  from { opacity: 0; transform: translateY(70%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ring-count-prev {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-8px) scale(0.96); }
+}
+
+@keyframes ring-count-current {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @media (prefers-reduced-motion: no-preference) {

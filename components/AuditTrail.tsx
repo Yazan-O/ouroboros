@@ -62,29 +62,38 @@ export default function AuditTrail({
         above
       </p>
 
-      <div className="mt-4 w-full max-w-full overflow-x-auto border border-border bg-bg">
-        <table className="w-full min-w-[70rem] border-collapse font-mono text-xs">
+      <div className="mt-4 w-full max-w-full overflow-x-auto border border-border bg-bg lg:overflow-x-visible">
+        <table className="w-full min-w-[56rem] table-fixed border-collapse font-mono text-xs lg:min-w-0">
+          <colgroup>
+            <col className="w-[4%]" />
+            <col className="w-[24%]" />
+            <col className="w-[8%]" />
+            <col className="w-[8%]" />
+            <col className="w-[8%]" />
+            <col className="w-[38%]" />
+            <col className="w-[10%]" />
+          </colgroup>
           <thead className="text-muted">
             <tr className="border-b border-border">
-              <th scope="col" className="px-3 py-2 text-left font-normal">
+              <th scope="col" className="px-2 py-2 text-left font-normal">
                 #
               </th>
-              <th scope="col" className="px-3 py-2 text-left font-normal">
-                feature
+              <th scope="col" className="px-2 py-2 text-left font-normal">
+                feat
               </th>
-              <th scope="col" className="px-3 py-2 text-left font-normal">
-                maker
+              <th scope="col" className="px-2 py-2 text-left font-normal">
+                by
               </th>
-              <th scope="col" className="px-3 py-2 text-left font-normal">
-                verdict
+              <th scope="col" className="px-2 py-2 text-left font-normal">
+                result
               </th>
-              <th scope="col" className="px-3 py-2 text-left font-normal">
-                lesson id
+              <th scope="col" className="px-2 py-2 text-left font-normal">
+                lesson
               </th>
-              <th scope="col" className="px-3 py-2 text-left font-normal">
-                commits
+              <th scope="col" className="px-2 py-2 text-left font-normal">
+                shas
               </th>
-              <th scope="col" className="px-3 py-2 text-left font-normal">
+              <th scope="col" className="px-2 py-2 text-left font-normal">
                 test
               </th>
             </tr>
@@ -105,16 +114,16 @@ export default function AuditTrail({
                   key={iteration.n}
                   className="border-b border-border last:border-b-0"
                 >
-                  <td className="px-3 py-2 text-muted tabular-nums">
+                  <td className="px-2 py-2 text-muted tabular-nums">
                     {iteration.n}
                   </td>
-                  <td className="px-3 py-2">
-                    <span className="block max-w-[60ch] truncate" title={iteration.feature}>
+                  <td className="px-2 py-2">
+                    <span className="block max-w-[26ch] truncate" title={iteration.feature}>
                       {iteration.feature}
                     </span>
                   </td>
-                  <td className="px-3 py-2">{iteration.maker}</td>
-                  <td className="px-3 py-2">
+                  <td className="px-2 py-2">{iteration.maker}</td>
+                  <td className="px-2 py-2">
                     {commits.flag ? (
                       <span className="text-muted">{commits.flag}</span>
                     ) : (
@@ -127,21 +136,21 @@ export default function AuditTrail({
                       </span>
                     )}
                   </td>
-                  <td className="px-3 py-2">
+                  <td className="px-2 py-2">
                     {lesson ? (
                       <span title={lesson.lesson}>{lesson.id}</span>
                     ) : (
                       <span className="text-muted">-</span>
                     )}
                   </td>
-                  <td className="px-3 py-2">
-                    <div className="flex flex-wrap gap-x-3 gap-y-1">
-                      <CommitLink label="feature" sha={commits.feature} />
+                  <td className="px-2 py-2">
+                    <div className="flex flex-wrap gap-x-2 gap-y-1">
+                      <CommitLink label="feat" sha={commits.feature} />
                       <CommitLink label="fix" sha={commits.fix} />
                       <CommitLink label="bank" sha={commits.bank} />
                     </div>
                   </td>
-                  <td className="px-3 py-2">
+                  <td className="px-2 py-2">
                     {commits.test && testShort ? (
                       <a
                         className="text-accent underline underline-offset-2"
@@ -158,7 +167,7 @@ export default function AuditTrail({
                         target="_blank"
                         rel="noopener"
                       >
-                        full suite
+                        suite
                       </a>
                     )}
                   </td>
