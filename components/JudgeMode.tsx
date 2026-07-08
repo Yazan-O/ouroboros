@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import commitsData from "@/data/commits.json";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 import type { CommitsByIteration, Iteration, Lesson } from "@/lib/loop";
 
 const BEAT_COUNT = 6;
@@ -104,6 +105,7 @@ export default function JudgeMode({
   );
 
   const atLastBeat = beatIndex === BEAT_COUNT - 1;
+  useFocusTrap(dialogRef, open);
 
   const previousBeat = useCallback(() => {
     setBeatIndex((index) => Math.max(0, index - 1));

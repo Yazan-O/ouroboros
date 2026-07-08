@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 
 type ShortcutsOverlayProps = {
   open: boolean;
@@ -20,21 +21,36 @@ export default function ShortcutsOverlay({
   open,
   onClose,
 }: ShortcutsOverlayProps) {
+  const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeRef = useRef<HTMLButtonElement | null>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+
+  useFocusTrap(dialogRef, open);
 
   useEffect(() => {
-    if (open) closeRef.current?.focus();
+    if (!open) return;
+
+    openerRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    closeRef.current?.focus({ preventScroll: true });
+
+    return () => {
+      openerRef.current?.focus({ preventScroll: true });
+      openerRef.current = null;
+    };
   }, [open]);
 
   if (!open) return null;
 
   return (
     <div
+      ref={dialogRef}
       className="fixed inset-0 z-50 grid place-items-center bg-bg/90 px-4 font-mono text-text"
       data-testid="shortcuts-overlay"
       role="dialog"
       aria-modal="true"
       aria-label="Keyboard shortcuts"
+      tabIndex={-1}
     >
       <div className="w-full max-w-md border border-border bg-surface p-4">
         <div className="flex items-start justify-between gap-4">

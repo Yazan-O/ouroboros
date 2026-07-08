@@ -38,12 +38,32 @@ const cloudTests = new Set(
 ).size;
 
 const statCells = [
-  { value: String(iterations.length), label: "ITERATIONS" },
-  { value: String(caughtFailures.length), label: "CAUGHT + FIXED" },
-  { value: String(lessons.length), label: `LESSONS L1-L${lessons.length}` },
-  { value: String(cloudTests), label: "CLOUD TESTS" },
-  { value: "0", label: "ESCAPED TO PROD" },
-  { value: "CAUGHT", label: "ITS OWN CHECKER" },
+  {
+    value: String(iterations.length),
+    label: "ITERATIONS",
+    tone: "accent",
+    size: "normal",
+  },
+  {
+    value: String(caughtFailures.length),
+    label: "CAUGHT + FIXED",
+    tone: "accent",
+    size: "normal",
+  },
+  {
+    value: String(lessons.length),
+    label: `LESSONS L1-L${lessons.length}`,
+    tone: "accent",
+    size: "normal",
+  },
+  {
+    value: String(cloudTests),
+    label: "CLOUD TESTS",
+    tone: "accent",
+    size: "normal",
+  },
+  { value: "0", label: "ESCAPED TO PROD", tone: "fail", size: "normal" },
+  { value: "CAUGHT", label: "ITS OWN CHECKER", tone: "accent", size: "compact" },
 ];
 
 function fixed4(value: number): string {
@@ -245,8 +265,8 @@ function drawStatGrid(ctx: CanvasRenderingContext2D, tokens: CanvasTokens) {
     const x = gridX + colW * col + 30;
     const y = gridY + rowH * row;
 
-    ctx.fillStyle = stat.value === "0" ? tokens.fail : tokens.accent;
-    ctx.font = `600 ${stat.value === "CAUGHT" ? 31 : 44}px ${tokens.fontDisplay}`;
+    ctx.fillStyle = stat.tone === "fail" ? tokens.fail : tokens.accent;
+    ctx.font = `600 ${stat.size === "compact" ? 31 : 44}px ${tokens.fontDisplay}`;
     ctx.textAlign = "left";
     ctx.fillText(stat.value, x, y + 61);
     ctx.fillStyle = tokens.muted;
@@ -627,9 +647,9 @@ export default function LoopCard() {
                   <text
                     x={x}
                     y={y + 61}
-                    fill={stat.value === "0" ? "var(--fail)" : "var(--accent)"}
+                    fill={stat.tone === "fail" ? "var(--fail)" : "var(--accent)"}
                     fontFamily="var(--font-chakra)"
-                    fontSize={stat.value === "CAUGHT" ? 31 : 44}
+                    fontSize={stat.size === "compact" ? 31 : 44}
                     fontWeight="600"
                   >
                     {stat.value}

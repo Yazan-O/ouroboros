@@ -104,11 +104,19 @@ export default function LearningCurve({
   );
   const scale = makeScale(maxY);
   let cumulativeLessons = 0;
-  const lessonPoints = ordered.map((iteration, index) => {
+  const curveRows = ordered.map((iteration) => {
     cumulativeLessons += lessonsByIteration.get(iteration.n) ?? 0;
     return {
+      iteration: iteration.n,
+      pass: Math.max(0, iteration.tests.pass),
+      fail: Math.max(0, iteration.tests.fail),
+      cumulativeLessons,
+    };
+  });
+  const lessonPoints = curveRows.map((row, index) => {
+    return {
       x: PLOT.left + index * band + band / 2,
-      y: yFor(cumulativeLessons, maxY),
+      y: yFor(row.cumulativeLessons, maxY),
     };
   });
   const lessonPath = stepPath(lessonPoints);
@@ -302,6 +310,33 @@ export default function LearningCurve({
             </text>
           )}
         </svg>
+        <table className="sr-only">
+          <caption>Learning curve data by iteration</caption>
+          <thead>
+            <tr>
+              <th scope="col">Iteration</th>
+              <th scope="col">Passing runs</th>
+              <th scope="col">Failing runs</th>
+              <th scope="col">Cumulative lessons</th>
+            </tr>
+          </thead>
+          <tbody>
+            {curveRows.length === 0 ? (
+              <tr>
+                <td colSpan={4}>No iterations recorded.</td>
+              </tr>
+            ) : (
+              curveRows.map((row) => (
+                <tr key={row.iteration}>
+                  <th scope="row">Iteration {row.iteration}</th>
+                  <td>{row.pass}</td>
+                  <td>{row.fail}</td>
+                  <td>{row.cumulativeLessons}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
 
       <ol className="mt-3 space-y-2 font-mono text-xs">
