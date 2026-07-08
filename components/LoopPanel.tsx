@@ -231,7 +231,37 @@ export default function LoopPanel({
       <div aria-live="polite" className="sr-only" data-testid="live-region">
         {liveMessage}
       </div>
-      <section className="reveal reveal-2 mt-12 grid gap-8 md:grid-cols-[auto_1fr] md:items-center md:gap-12">
+
+      <button
+        type="button"
+        data-testid="judge-cta"
+        onClick={openJudge}
+        aria-label="Start the guided judge briefing"
+        className="judge-cta reveal reveal-2 mt-8 flex w-full items-center justify-between gap-4 border border-accent/40 bg-surface px-5 py-4 text-left transition-colors hover:border-accent focus:outline-1 focus:outline-accent"
+      >
+        <span className="min-w-0">
+          <span className="flex items-center gap-2 font-display text-sm tracking-[0.16em] text-accent">
+            <span aria-hidden="true">▶</span> JUDGING THIS? START THE 3-MINUTE
+            BRIEFING
+          </span>
+          <span className="mt-1 block font-mono text-xs text-muted">
+            the app walks you through its own case — the loop, the failures it
+            caught, and its checker on trial. or press{" "}
+            <kbd className="rounded-[var(--radius)] border border-border px-1 text-accent">
+              J
+            </kbd>{" "}
+            anytime.
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          className="shrink-0 font-mono text-xl text-accent transition-transform group-hover:translate-x-1"
+        >
+          →
+        </span>
+      </button>
+
+      <section className="reveal reveal-3 mt-12 grid gap-8 md:grid-cols-[auto_1fr] md:items-center md:gap-12">
         <Ring
           iterations={displayIterations}
           selectedIteration={selectedIteration}
