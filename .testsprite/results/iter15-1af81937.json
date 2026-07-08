@@ -1,0 +1,47 @@
+{
+  "runs": [
+    {
+      "runId": "b6e90294-456d-4845-9dfc-ab6c7eaecfb3",
+      "status": "passed",
+      "source": "cli",
+      "isRerun": false,
+      "createdFrom": null,
+      "createdAt": "2026-07-08T04:48:19.607Z",
+      "startedAt": "2026-07-08T04:48:19.977Z",
+      "finishedAt": "2026-07-08T04:50:42.688Z",
+      "codeVersion": "v1",
+      "failureKind": null,
+      "targetUrl": "https://ouroboros-phi.vercel.app/",
+      "targetUrlSource": "run"
+    },
+    {
+      "runId": "30a8bf9b-bceb-4516-a286-6617901c36fc",
+      "status": "failed",
+      "source": "cli",
+      "isRerun": false,
+      "createdFrom": null,
+      "createdAt": "2026-07-08T04:43:06.780Z",
+      "startedAt": "2026-07-08T04:43:07.166Z",
+      "finishedAt": "2026-07-08T04:45:02.930Z",
+      "codeVersion": "v1",
+      "failureKind": "assertion",
+      "targetUrl": "https://ouroboros-phi.vercel.app/",
+      "targetUrlSource": "run"
+    },
+    {
+      "runId": "09424c8c-cfa5-4a18-b33d-134d8c35eee2",
+      "status": "failed",
+      "source": "cli",
+      "isRerun": false,
+      "createdFrom": null,
+      "createdAt": "2026-07-08T04:28:02.400Z",
+      "startedAt": "2026-07-08T04:28:02.832Z",
+      "finishedAt": "2026-07-08T04:33:28.703Z",
+      "codeVersion": "v1",
+      "failureKind": "unknown",
+      "targetUrl": "https://ouroboros-phi.vercel.app/",
+      "targetUrlSource": "run"
+    }
+  ],
+  "nextCursor": null
+}
