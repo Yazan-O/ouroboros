@@ -1,0 +1,19 @@
+{
+  "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
+  "type": "frontend",
+  "name": "The invitation and the trophy — judge CTA plus the shareable Loop Card",
+  "description": "A prominent invitation near the top invites a judge to start the guided briefing, and a Loop Card section at the bottom presents the submission's proof numbers as a shareable trophy with a download button.",
+  "priority": "p2",
+  "planSteps": [
+    { "type": "action", "description": "Navigate to the homepage" },
+    {
+      "type": "assertion",
+      "description": "Verify a prominent, accent-colored invitation appears near the top of the page reading like 'Judging this? Start the 3-minute briefing', clearly inviting the visitor to begin a guided briefing"
+    },
+    { "type": "action", "description": "Scroll to the bottom of the page to the LOOP CARD section" },
+    {
+      "type": "assertion",
+      "description": "Verify a trophy-style Loop Card shows the wordmark OUROBOROS, the tagline 'the loop that built itself', a stat grid with labelled counts for iterations, lessons, and cloud tests plus a '0 escaped to prod' stat, references to the upstream pull requests and issue (PR #207, PR #213, issue #208), and a 'download PNG' button"
+    }
+  ]
+}

@@ -40,7 +40,7 @@ const cloudTests = new Set(
 const statCells = [
   { value: String(iterations.length), label: "ITERATIONS" },
   { value: String(caughtFailures.length), label: "CAUGHT + FIXED" },
-  { value: String(lessons.length), label: "LESSONS L1-L7" },
+  { value: String(lessons.length), label: `LESSONS L1-L${lessons.length}` },
   { value: String(cloudTests), label: "CLOUD TESTS" },
   { value: "0", label: "ESCAPED TO PROD" },
   { value: "CAUGHT", label: "ITS OWN CHECKER" },
@@ -427,6 +427,15 @@ export default function LoopCard() {
 
   return (
     <section className="reveal reveal-5 mt-16" data-testid="loop-card">
+      {/* L8: the trophy is an SVG, so its words also live here as real text —
+          readable by screen readers and testing agents, not just by sighted users. */}
+      <p className="sr-only" data-testid="loop-card-text">
+        Ouroboros — the loop that built itself. {iterations.length} iterations,{" "}
+        {caughtFailures.length} caught &amp; fixed, {lessons.length} lessons L1–L
+        {lessons.length}, {cloudTests} cloud tests, 0 escaped to prod, caught its
+        own checker. Upstream filed: PR #207 + PR #213, issue #208.
+        ouroboros-phi.vercel.app
+      </p>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="font-display text-sm tracking-[0.2em] text-muted">
           LOOP CARD

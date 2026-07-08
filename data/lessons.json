@@ -40,5 +40,11 @@
     "ts": "2026-07-07T19:20:00Z",
     "source": "iteration 13 — the 'press ? for shortcuts' hint's aria-label ('Open keyboard shortcuts') overrode its visible text, hiding the '?' from the accessibility-tree-reading cloud tester",
     "lesson": "A control whose visible text is the information must not carry an aria-label that omits it — the label wins in the a11y tree and hides the text from agents and screen readers. Omit it or mirror the info. (Third a11y lesson: L1 hid controls, L5 confused names, L7 hid content.)"
+  },
+  {
+    "id": "L8",
+    "ts": "2026-07-07T23:40:00Z",
+    "source": "iteration 15 — the Loop Card's wordmark/tagline/stats were SVG text only, invisible to the a11y-tree-reading cloud tester (and the judge-CTA re-tripped L7 with a masking aria-label)",
+    "lesson": "Content-bearing SVG needs a real text equivalent (an sr-only HTML block or role=img + full aria-label); decorative SVG gets aria-hidden. If an agent or screen reader can't read the graphic's words, neither can a judge on assistive tech. (Fourth a11y lesson.)"
   }
 ]

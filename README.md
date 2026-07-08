@@ -2,13 +2,13 @@
 
 ### The brief was *build the loop.* So we pointed the loop at itself.
 
-**An app whose only content is its own build.** Claude writes each feature, Codex implements, the TestSprite CLI verifies it against the live site — and the app renders that loop's own history: 14 iterations, every failure the checker caught, every lesson it learned, checkable down to the commit. It even caught its own checker contradicting itself, and shipped fixes to the checker's tools.
+**An app whose only content is its own build.** Claude writes each feature, Codex implements, the TestSprite CLI verifies it against the live site — and the app renders that loop's own history: 15 iterations, every failure the checker caught, every lesson it learned, checkable down to the commit. It even caught its own checker contradicting itself, and shipped fixes to the checker's tools.
 
 **Live: https://ouroboros-phi.vercel.app/** (mirror: https://yazan-o.github.io/ouroboros/)
 TestSprite S3 hackathon — *Build the Loop*.
 
 > **The app is its own build log** · **no fix without a lesson** · **the loop audited its checker**
-> 14 loop iterations · 7 lessons (L1–L7), every failure distilled into a rule before its fix · 12 banked cloud tests · press **J** on the live site for a self-narrating briefing that puts the checker on trial, **full run histories committed** in [`.testsprite/results/`](.testsprite/results) · a 21/21-step replay test · deep-linkable iterations, a failures-only filter, and full keyboard nav · a hostile red-team's findings folded back in as iteration 10 · CI waits until the live site serves the exact commit SHA, then re-runs the whole suite · 2 upstream PRs + 1 issue (5 documented occurrences) on the checker itself
+> 15 loop iterations · 8 lessons (L1–L8), every failure distilled into a rule before its fix · 13 banked cloud tests · press **J** on the live site for a self-narrating briefing that puts the checker on trial, **full run histories committed** in [`.testsprite/results/`](.testsprite/results) · a 21/21-step replay test · deep-linkable iterations, a failures-only filter, and full keyboard nav · a hostile red-team's findings folded back in as iteration 10 · CI waits until the live site serves the exact commit SHA, then re-runs the whole suite · 2 upstream PRs + 1 issue (5 documented occurrences) on the checker itself
 
 ## The idea
 

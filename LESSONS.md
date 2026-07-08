@@ -49,3 +49,9 @@ Format per lesson: `## Lx — <one-line pattern>` then **From:** (iteration + fa
 **From:** iteration 13 — the "press ? for shortcuts" hint carried `aria-label="Open keyboard shortcuts"`. The visible text names the key; the aria-label doesn't. The cloud tester reads the accessibility tree (the L1 lesson), where the aria-label *replaces* the visible text — so the "?" the test needed to confirm was invisible to it.
 
 **Rule:** when a control's visible text is itself the information (a hint, a value, a status), do not add an aria-label that omits it — the aria-label wins in the accessibility tree and hides the text from testing agents and screen-reader users alike. Omit the label so the text is the accessible name, or mirror the same information in it. (Third of the a11y trio: L1 hid controls, L5 confused their names, L7 hid their content.)
+
+## L8 — SVG that carries content (not decoration) needs a real text equivalent
+
+**From:** iteration 15 — the Loop Card rendered its wordmark, tagline, stats, and PR references as SVG `<text>` only; the a11y-tree-reading cloud tester couldn't find "the loop that built itself" or the upstream references. Same root as L1, on the *content* side: a graphic that is information, not decoration, is invisible without a text layer. (The judge-CTA also re-tripped L7 — its aria-label masked its own visible invitation.)
+
+**Rule:** decide per SVG — decorative (`aria-hidden`, fine to be text-free) or content-bearing (must expose its text). Content-bearing SVGs get a real text equivalent: an adjacent `sr-only` HTML block with the same words, or `role="img"` + a complete `aria-label`. If a testing agent or screen reader can't read your graphic's words, neither can a judge using assistive tech. (Fourth a11y lesson: L1 hid controls, L5 confused names, L7 hid a control's text, L8 hides a graphic's text.)

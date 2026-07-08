@@ -153,6 +153,17 @@
       "broke": null,
       "fixed": null,
       "lesson": null
+    },
+    {
+      "n": 15,
+      "ts": "2026-07-07T23:55:00Z",
+      "feature": "the invitation & the trophy — a prominent 'start the briefing' CTA, the shareable Loop Card (download PNG), and Failure Fossils (the exact broken state, preserved)",
+      "maker": "codex",
+      "verdict": "pass",
+      "tests": { "pass": 1, "fail": 1 },
+      "broke": "the checker caught two a11y regressions: the CTA's aria-label masked its visible invitation (L7 again), and the Loop Card's text was SVG-only, invisible to the a11y tree",
+      "fixed": "CTA accessible name now matches its visible text; the Loop Card gained an sr-only text layer (L8) — decision recorded: content-SVG needs a text equivalent",
+      "lesson": "L8"
     }
   ]
 }
