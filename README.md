@@ -2,13 +2,13 @@
 
 ### The brief was *build the loop.* So we pointed the loop at itself.
 
-**An app whose only content is its own build.** Claude writes each feature, Codex implements, the TestSprite CLI verifies it against the live site — and the app renders that loop's own history: 15 iterations, every failure the checker caught, every lesson it learned, checkable down to the commit. It even caught its own checker contradicting itself, and opened PRs proposing fixes to the checker's own tools.
+**An app whose only content is its own build.** Claude writes each feature, Codex implements, and the TestSprite CLI is the only thing that calls it done — real cloud tests against the live site. The app renders that loop's own history: 15 iterations, every failure the checker caught, every lesson it learned, checkable down to the commit. It even audited its own checker — catching a run that reported `blocked` while the agent's own conclusion said PASS — flagged it upstream as #208, and shipped two more fixes back into the CLI along the way.
 
-**Live: https://ouroboros-phi.vercel.app/** (mirror: https://yazan-o.github.io/ouroboros/)
+**Live: https://yazan-o.github.io/ouroboros/** (mirror: https://ouroboros-phi.vercel.app/)
 TestSprite S3 hackathon — *Build the Loop*.
 
 > **The app is its own build log** · **no fix without a lesson** · **the loop audited its checker**
-> 15 loop iterations · 8 lessons (L1–L8), every failure distilled into a rule before its fix · 13 banked cloud tests · press **J** on the live site for a self-narrating briefing that puts the checker on trial, **full run histories committed** in [`.testsprite/results/`](.testsprite/results) · a multi-step replay test that passed end-to-end · deep-linkable iterations, a failures-only filter, and full keyboard nav · a hostile red-team's findings folded back in as iteration 10 · CI waits until the live site serves the exact commit SHA, then re-runs the whole suite · 2 upstream PRs + 1 issue (5 documented occurrences) on the checker itself
+> 15 loop iterations · 8 lessons (L1–L8), every failure distilled into a rule before its fix · 13 banked cloud tests · press **J** on the live site for a self-narrating briefing that ends on the loop auditing its own checker · **full run histories committed** in [`.testsprite/results/`](.testsprite/results) · a multi-step replay test that passed end-to-end · deep-linkable iterations, a failures-only filter, and full keyboard nav · a hostile red-team's findings folded back in as iteration 10 · CI waits until the live site serves the exact commit SHA, then re-runs the whole suite — **0 regressions, 0 escaped to prod** · 2 upstream PRs + 1 issue (5 documented occurrences) on the checker itself
 
 ## The idea
 
@@ -43,7 +43,7 @@ Every feature of this app was shipped by a maker–checker loop: **Claude** (spe
 | **AUDIT TRAIL** (on the live site) | The app renders the whole mapping — iteration → commits → test → artifact → lesson — as a table; it does the auditing for you |
 | [deploy.yml](.github/workflows/deploy.yml) + [verify-suite.mjs](.github/scripts/verify-suite.mjs) | CI: every push → deploy → **wait until the live site serves this exact commit SHA** → rerun the whole suite against it. The verify step is honest and loud (lesson L3): it **fails the build on any genuine failure** — including a `blocked` run that carries a real `failedStepIndex` — and it **surfaces** the checker's own documented blocked-with-PASS bug ([#208](https://github.com/TestSprite/testsprite-cli/issues/208)) as a visible warning in the step summary rather than hiding behind it. We don't mute our checker — we explain it. |
 
-Upstream contributions made along the way: [PR #207](https://github.com/TestSprite/testsprite-cli/pull/207) (Windows test-harness portability — the unpatched suite clobbered our real credentials mid-hackathon) and [issue #208](https://github.com/TestSprite/testsprite-cli/issues/208).
+Upstream contributions made along the way: [PR #207](https://github.com/TestSprite/testsprite-cli/pull/207) (Windows test-harness portability — the unpatched suite clobbered our real credentials mid-hackathon), [PR #213](https://github.com/TestSprite/testsprite-cli/pull/213) (validate `doctor --output` through the shared output-mode validator), and [issue #208](https://github.com/TestSprite/testsprite-cli/issues/208) (the blocked-with-PASS status bug). The two PRs are separate CLI fixes we shipped back; #208 is the bug our loop caught.
 
 ## Run locally
 

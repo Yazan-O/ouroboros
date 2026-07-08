@@ -354,7 +354,7 @@ export default function LoopPanel({
           </span>
           <span className="mt-1 block font-mono text-xs text-muted">
             the app walks you through its own case — the loop, the failures it
-            caught, and its checker on trial. or press{" "}
+            caught, and the one time it caught its own checker. or press{" "}
             <kbd className="rounded-[var(--radius)] border border-border px-1 text-accent">
               J
             </kbd>{" "}

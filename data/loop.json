@@ -146,7 +146,7 @@
     {
       "n": 14,
       "ts": "2026-07-07T22:30:00Z",
-      "feature": "the presentation layer — Judge Mode (press J: a self-narrating briefing climaxing in 'The Checker On Trial'), the ring's glow, and the hero that states the idea",
+      "feature": "the presentation layer — Judge Mode (press J: a self-narrating briefing climaxing in the loop auditing its own checker), the ring's glow, and the hero that states the idea",
       "maker": "codex",
       "verdict": "pass",
       "tests": { "pass": 1, "fail": 0 },

@@ -71,7 +71,7 @@ export default function JudgeMode({
       {
         heading: "THE LOOP",
         fact: "THE APP IS ITS OWN BUILD LOG",
-        caption: `${iterationCount} iterations, each shipped by a maker–checker loop and rendered by the app itself.`,
+        caption: `${iterationCount} iterations, each shipped by a maker–checker loop and rendered by the app itself — 0 regressions across the whole run.`,
       },
       {
         heading: "CAUGHT, NOT HIDDEN",
@@ -84,10 +84,10 @@ export default function JudgeMode({
         caption: "A fix only counts after the loop writes down the rule it learned.",
       },
       {
-        heading: "THE CHECKER ON TRIAL",
-        fact: "THE LOOP AUDITED ITS CHECKER",
+        heading: "THE LOOP CHECKS ITS OWN CHECKER",
+        fact: "STATUS SAID BLOCKED — EVIDENCE SAID PASS",
         caption:
-          "reported as issue #208, and we opened PRs to fix the checker's own tools:",
+          "We read the checker's own evidence, not just its status flag — flagged the contradiction as #208, and shipped two more fixes back into the CLI along the way:",
       },
       {
         heading: "EVERY CLAIM CHECKABLE",
@@ -98,7 +98,7 @@ export default function JudgeMode({
         heading: "THE VERDICT",
         fact: "THE LOOP CLOSED",
         caption:
-          "built for the TestSprite loop — and it audited the loop's own checker.",
+          "built for the TestSprite loop — real cloud tests the only gate, 0 regressions shipped, and it even audited its own checker. Verified output is the only output that ships.",
       },
     ],
     [caughtFailures, iterationCount, orderedLessons.length],
@@ -282,11 +282,11 @@ export default function JudgeMode({
           {beatIndex === 3 && (
             <div className="space-y-4 font-mono">
               <div className="grid gap-3 md:grid-cols-2">
-                <div className="border border-fail bg-bg p-4">
-                  <p className="font-display text-xs tracking-[0.18em] text-fail">
-                    TESTSPRITE STATUS
+                <div className="border border-border bg-bg p-4">
+                  <p className="font-display text-xs tracking-[0.18em] text-warn">
+                    STATUS FIELD
                   </p>
-                  <p className="mt-3 text-3xl font-semibold text-fail md:text-5xl">
+                  <p className="mt-3 text-3xl font-semibold text-warn md:text-5xl">
                     status 'blocked'
                   </p>
                 </div>
@@ -300,6 +300,9 @@ export default function JudgeMode({
                   <p className="mt-2 text-sm text-muted">failedStepIndex null</p>
                 </div>
               </div>
+              <p className="text-center text-xs uppercase tracking-[0.18em] text-muted">
+                both readouts — same run
+              </p>
               <nav aria-label="Checker audit links" className="flex flex-wrap gap-2 text-sm">
                 <a
                   href="https://github.com/TestSprite/testsprite-cli/issues/208"

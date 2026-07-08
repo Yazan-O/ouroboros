@@ -7,10 +7,12 @@
   --muted: #778877;
   --accent: #19c379;
   --fail: #e0654f;
+  --warn: #d8a24a;
   --border: #1e2a20;
   --surface-rgb: 19, 26, 21;
   --accent-rgb: 25, 195, 121;
   --fail-rgb: 224, 101, 79;
+  --warn-rgb: 216, 162, 74;
   --border-rgb: 30, 42, 32;
   --radius: 2px;
   --dur-fast: 150ms;
@@ -28,6 +30,7 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-fail: var(--fail);
+  --color-warn: var(--warn);
   --color-border: var(--border);
   --font-display: var(--font-chakra);
   --font-sans: var(--font-plex-sans);
