@@ -361,11 +361,20 @@ export default function JudgeMode({
         </section>
 
         <div className="space-y-4">
-          <div className="h-1 bg-bg" aria-hidden="true">
+          <div
+            className="judge-progress relative h-1.5 overflow-visible rounded-full"
+            aria-hidden="true"
+          >
             <div
-              className="h-full bg-accent"
-              style={{ width: `${reducedMotion ? 0 : progress}%` }}
+              className="judge-progress-fill h-full rounded-full"
+              style={{ width: `${reducedMotion ? 100 : progress}%` }}
             />
+            {!reducedMotion && progress > 0 && progress < 100 && (
+              <span
+                className="judge-progress-head"
+                style={{ left: `${progress}%` }}
+              />
+            )}
           </div>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-2" aria-label="Judge briefing progress">
