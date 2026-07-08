@@ -427,15 +427,6 @@ export default function LoopCard() {
 
   return (
     <section className="reveal reveal-5 mt-16" data-testid="loop-card">
-      {/* L8: the trophy is an SVG, so its words also live here as real text —
-          readable by screen readers and testing agents, not just by sighted users. */}
-      <p className="sr-only" data-testid="loop-card-text">
-        Ouroboros — the loop that built itself. {iterations.length} iterations,{" "}
-        {caughtFailures.length} caught &amp; fixed, {lessons.length} lessons L1–L
-        {lessons.length}, {cloudTests} cloud tests, 0 escaped to prod, caught its
-        own checker. Upstream filed: PR #207 + PR #213, issue #208.
-        ouroboros-phi.vercel.app
-      </p>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="font-display text-sm tracking-[0.2em] text-muted">
           LOOP CARD
@@ -452,6 +443,17 @@ export default function LoopCard() {
           {isDownloading ? "rendering PNG" : "download PNG"}
         </button>
       </div>
+
+      <p
+        className="mt-3 font-mono text-xs text-muted"
+        data-testid="loop-card-text"
+      >
+        <span className="text-text">Ouroboros</span> — the loop that built
+        itself · {iterations.length} iterations · {lessons.length} lessons ·{" "}
+        {cloudTests} cloud tests · 0 escaped to prod · caught its own checker ·
+        upstream: PR #207, PR #213, issue #208 ·{" "}
+        <span className="text-accent">ouroboros-phi.vercel.app</span>
+      </p>
 
       <div className="mt-4 overflow-hidden border border-border bg-bg">
         <svg
