@@ -41,6 +41,7 @@ jobs:
       TESTSPRITE_API_KEY: ${{ secrets.TESTSPRITE_API_KEY }}
       PROJECT_ID: ${{ vars.TESTSPRITE_PROJECT_ID }}
     steps:
+      - uses: actions/checkout@v4  # needed so verify-suite.mjs is on the runner
       - name: wait until Vercel serves this exact commit
         run: |
           for i in $(seq 1 40); do
