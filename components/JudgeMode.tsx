@@ -71,7 +71,7 @@ export default function JudgeMode({
       {
         heading: "THE LOOP",
         fact: "THE APP IS ITS OWN BUILD LOG",
-        caption: `${iterationCount} iterations, each shipped by a maker–checker loop and rendered by the app itself — 0 regressions across the whole run.`,
+        caption: `${iterationCount} iterations, each shipped by a maker–checker loop and rendered by the app itself.`,
       },
       {
         heading: "CAUGHT, NOT HIDDEN",
@@ -87,7 +87,7 @@ export default function JudgeMode({
         heading: "THE LOOP CHECKS ITS OWN CHECKER",
         fact: "STATUS SAID BLOCKED — EVIDENCE SAID PASS",
         caption:
-          "We read the checker's own evidence, not just its status flag — flagged the contradiction as #208, and shipped two more fixes back into the CLI along the way:",
+          "We read the checker's own evidence, not just its status flag — flagged the contradiction as #208, and opened two separate CLI PRs along the way:",
       },
       {
         heading: "EVERY CLAIM CHECKABLE",
@@ -98,7 +98,7 @@ export default function JudgeMode({
         heading: "THE VERDICT",
         fact: "THE LOOP CLOSED",
         caption:
-          "built for the TestSprite loop — real cloud tests the only gate, 0 regressions shipped, and it even audited its own checker. Verified output is the only output that ships.",
+          "built for the TestSprite loop — real cloud tests the only gate, every failure caught and fixed in the open, and it even audited its own checker. Verified output is the only output that ships.",
       },
     ],
     [caughtFailures, iterationCount, orderedLessons.length],
@@ -301,7 +301,7 @@ export default function JudgeMode({
                 </div>
               </div>
               <p className="text-center text-xs uppercase tracking-[0.18em] text-muted">
-                both readouts — same run
+                as reported upstream in issue #208 — 5 documented occurrences
               </p>
               <nav aria-label="Checker audit links" className="flex flex-wrap gap-2 text-sm">
                 <a
@@ -336,7 +336,7 @@ export default function JudgeMode({
             <div className="grid gap-3 font-mono text-sm md:grid-cols-[1fr_auto_1fr] md:items-center">
               <div className="border border-border bg-bg p-4">
                 <p className="font-display text-xs tracking-[0.18em] text-muted">
-                  COMMITTED RUN HISTORIES
+                  CLOUD TESTS, HISTORIES COMMITTED
                 </p>
                 <p className="mt-2 text-5xl font-semibold text-accent">
                   {committedRunCount}
@@ -345,7 +345,7 @@ export default function JudgeMode({
               <p className="hidden text-muted md:block">→</p>
               <div className="border border-border bg-bg p-4">
                 <p className="font-display text-xs tracking-[0.18em] text-muted">
-                  LINKED COMMITS
+                  ITERATIONS WITH LINKED COMMITS
                 </p>
                 <p className="mt-2 text-5xl font-semibold text-accent">
                   {linkedCommitCount}
@@ -358,7 +358,7 @@ export default function JudgeMode({
             <p className="max-w-4xl font-display text-3xl font-semibold leading-tight tracking-[0.08em] md:text-6xl">
               <span className="text-accent">{iterationCount}</span> ITERATIONS ·{" "}
               <span className="text-accent">{orderedLessons.length}</span> LESSONS ·{" "}
-              <span className="text-accent">0</span> ESCAPED TO PROD
+              <span className="text-accent">{caughtFailures}</span> CAUGHT &amp; FIXED
             </p>
           )}
         </section>

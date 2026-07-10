@@ -2,13 +2,13 @@
 
 ### The brief was *build the loop.* So we pointed the loop at itself.
 
-**An app whose only content is its own build.** Claude writes each feature, Codex implements, and the TestSprite CLI is the only thing that calls it done — real cloud tests against the live site. The app renders that loop's own history: 15 iterations, every failure the checker caught, every lesson it learned, checkable down to the commit. It even audited its own checker — catching a run that reported `blocked` while the agent's own conclusion said PASS — flagged it upstream as #208, and shipped two more fixes back into the CLI along the way.
+**An app whose only content is its own build.** Claude writes each feature, Codex implements, and the TestSprite CLI is the only thing that calls it done — real cloud tests against the live site. The app renders that loop's own history: 15 iterations, every failure the checker caught, every lesson it learned, checkable down to the commit. It even audited its own checker — catching a run that reported `blocked` while the agent's own conclusion said PASS — flagged it upstream as #208, and opened two separate CLI PRs along the way (both currently open).
 
 **Live: https://yazan-o.github.io/ouroboros/** (mirror: https://ouroboros-phi.vercel.app/)
 TestSprite S3 hackathon — *Build the Loop*.
 
 > **The app is its own build log** · **no fix without a lesson** · **the loop audited its checker**
-> 15 loop iterations · 8 lessons (L1–L8), every failure distilled into a rule before its fix · 13 banked cloud tests · press **J** on the live site for a self-narrating briefing that ends on the loop auditing its own checker · **full run histories committed** in [`.testsprite/results/`](.testsprite/results) · a multi-step replay test that passed end-to-end · deep-linkable iterations, a failures-only filter, and full keyboard nav · a hostile red-team's findings folded back in as iteration 10 · CI waits until the live site serves the exact commit SHA, then re-runs the whole suite — **0 regressions, 0 escaped to prod** · 2 upstream PRs + 1 issue (5 documented occurrences) on the checker itself
+> 15 loop iterations · 8 lessons (L1–L8), every failure distilled into a rule before its fix · 13 banked cloud tests · press **J** on the live site for a self-narrating briefing that ends on the loop auditing its own checker · **per-test run histories committed** in [`.testsprite/results/`](.testsprite/results) · a multi-step replay test that passed end-to-end · deep-linkable iterations, a failures-only filter, and full keyboard nav · a hostile red-team's findings folded back in as iteration 10 · CI waits until the live site serves the exact commit SHA, then re-runs the whole suite — **every failure caught, logged, and fixed in the open** · 2 upstream PRs + 1 issue (5 documented occurrences) on the checker itself
 
 ## The idea
 

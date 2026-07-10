@@ -7,7 +7,7 @@
 3. `NO FIX WITHOUT A LESSON` pulls all 7 ids and lesson rules from `data/lessons.json`.
 4. `THE LOOP CHECKS ITS OWN CHECKER` renders the contradiction, read as evidence: status field `blocked` versus agent conclusion `PASS — all checks succeeded`, `failedStepIndex null`, with links to issue #208, PR #207, and PR #213.
 5. `EVERY CLAIM CHECKABLE` pulls committed run count from unique non-null `test` ids in `data/commits.json` (`11`, because iterations 7 and 9 share one run id) and linked commit entries (`13`).
-6. `THE VERDICT` renders `15 ITERATIONS · 8 LESSONS · 0 ESCAPED TO PROD` from loop and lesson counts, with the zero escaped stat fixed by the project claim.
+6. `THE VERDICT` renders `15 ITERATIONS · 8 LESSONS · 7 CAUGHT & FIXED` from loop and lesson counts, all derived from `data/loop.json`.
 
 ## Test IDs
 

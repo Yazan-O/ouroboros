@@ -1,8 +1,8 @@
 {
   "projectId": "cc4ddafd-00e9-4a9c-9ad5-c07b933e83bf",
   "type": "frontend",
-  "name": "Judge Mode runs a self-narrating briefing that puts the checker on trial",
-  "description": "A 'judge mode' control opens a guided, self-narrating briefing overlay that steps through the loop's story and reaches a beat where the app shows its checker contradicting itself (status blocked vs an agent verdict of PASS) with links to the upstream issue and PRs; the overlay closes and returns to the dashboard.",
+  "name": "Judge Mode runs a self-narrating briefing where the loop checks its own checker",
+  "description": "A 'judge mode' control opens a guided, self-narrating briefing overlay that steps through the loop's story and reaches a beat where the app shows its checker's status contradicting the checker's own evidence (status blocked vs an agent conclusion of PASS) with links to the upstream issue and PRs; the overlay closes and returns to the dashboard.",
   "priority": "p1",
   "planSteps": [
     { "type": "action", "description": "Navigate to the homepage" },
@@ -15,7 +15,7 @@
       "type": "assertion",
       "description": "Verify a full-screen briefing dialog opens over the dimmed dashboard, showing a first beat titled about the app being its own build log with the number of iterations"
     },
-    { "type": "action", "description": "Advance the briefing forward four times using its next control until the 'Checker On Trial' beat" },
+    { "type": "action", "description": "Advance the briefing forward three times using its next control until the beat titled 'The Loop Checks Its Own Checker' (beat 4 of 6)" },
     {
       "type": "assertion",
       "description": "Verify a beat appears contrasting the checker's status 'blocked' against an agent conclusion of 'PASS', mentioning failedStepIndex null, with links to a GitHub issue (#208) and pull requests"

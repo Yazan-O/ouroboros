@@ -42,15 +42,23 @@ jobs:
       PROJECT_ID: ${{ vars.TESTSPRITE_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v4  # needed so verify-suite.mjs is on the runner
-      - name: wait until Vercel serves this exact commit
+      - name: wait until both deploys serve this exact commit
+        # The TestSprite project targets the Vercel URL, and the submission's
+        # primary URL is GitHub Pages — the gate requires BOTH to serve this
+        # SHA so the suite verifies the same artifact judges will see.
         run: |
-          for i in $(seq 1 40); do
-            if curl -s https://ouroboros-phi.vercel.app/ | grep -q "data-commit=\"$GITHUB_SHA\""; then
-              echo "fresh deploy confirmed: $GITHUB_SHA"; exit 0
+          for target in "https://ouroboros-phi.vercel.app/" "https://yazan-o.github.io/ouroboros/"; do
+            fresh=""
+            for i in $(seq 1 40); do
+              if curl -s "$target" | grep -q "data-commit=\"$GITHUB_SHA\""; then
+                echo "fresh deploy confirmed at $target: $GITHUB_SHA"; fresh=1; break
+              fi
+              sleep 15
+            done
+            if [ -z "$fresh" ]; then
+              echo "$target never served $GITHUB_SHA — refusing to verify a stale deploy"; exit 1
             fi
-            sleep 15
           done
-          echo "Vercel never served $GITHUB_SHA — refusing to verify a stale deploy"; exit 1
       - run: npm i -g @testsprite/testsprite-cli
       # Run the whole suite against the fresh deploy, then verify HONESTLY and
       # LOUDLY (see .github/scripts/verify-suite.mjs): the build fails on any

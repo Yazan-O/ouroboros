@@ -172,6 +172,7 @@ export default function LoopPanel({
 }) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const judgeTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const judgeInvokerRef = useRef<HTMLElement | null>(null);
   const initialLinkRead = useRef(false);
   const [selectedIteration, setSelectedIteration] = useState<number | null>(null);
   const [failuresOnly, setFailuresOnly] = useState(false);
@@ -215,14 +216,17 @@ export default function LoopPanel({
     replaceIterationParam(iteration);
   }, []);
 
-  const openJudge = useCallback(() => {
+  const openJudge = useCallback((invoker?: HTMLElement | null) => {
+    judgeInvokerRef.current = invoker ?? judgeTriggerRef.current;
     setJudgeOpen(true);
   }, []);
 
   const closeJudge = useCallback(() => {
     setJudgeOpen(false);
     window.setTimeout(() => {
-      judgeTriggerRef.current?.focus({ preventScroll: true });
+      (judgeInvokerRef.current ?? judgeTriggerRef.current)?.focus({
+        preventScroll: true,
+      });
     }, 0);
   }, []);
 
@@ -292,7 +296,11 @@ export default function LoopPanel({
 
       if (event.key.toLowerCase() === "j") {
         event.preventDefault();
-        openJudge();
+        openJudge(
+          document.activeElement instanceof HTMLElement
+            ? document.activeElement
+            : null,
+        );
         return;
       }
 
@@ -344,12 +352,12 @@ export default function LoopPanel({
       <button
         type="button"
         data-testid="judge-cta"
-        onClick={openJudge}
+        onClick={(event) => openJudge(event.currentTarget)}
         className="judge-cta reveal reveal-2 mt-8 flex w-full items-center justify-between gap-4 border border-accent/40 bg-surface px-5 py-4 text-left transition-colors hover:border-accent focus:outline-1 focus:outline-accent"
       >
         <span className="min-w-0">
           <span className="flex items-center gap-2 font-display text-sm tracking-[0.16em] text-accent">
-            <span aria-hidden="true">▶</span> JUDGING THIS? START THE 3-MINUTE
+            <span aria-hidden="true">▶</span> JUDGING THIS? START THE 30-SECOND
             BRIEFING
           </span>
           <span className="mt-1 block font-mono text-xs text-muted">
@@ -381,8 +389,8 @@ export default function LoopPanel({
         />
         <div className="min-w-0 space-y-3 font-mono text-sm" data-testid="loop-stats">
           <p>
-            <span className="text-muted">maker</span> claude fable · codex
-            gpt-5.5
+            <span className="text-muted">maker</span> claude (spec + judge) ·
+            codex (implement)
           </p>
           <p>
             <span className="text-muted">checker</span> testsprite cli — cloud
@@ -407,7 +415,7 @@ export default function LoopPanel({
               />{" "}
               caught &amp; fixed
             </span>{" "}
-            · <span className="text-muted">0 escaped to prod</span>
+            · <span className="text-muted">none hidden</span>
           </p>
           <p>
             <span className="text-muted">lessons learned</span>{" "}
@@ -443,7 +451,7 @@ export default function LoopPanel({
               type="button"
               data-testid="judge-mode-trigger"
               aria-label="Start the guided judge briefing"
-              onClick={openJudge}
+              onClick={(event) => openJudge(event.currentTarget)}
               className="border border-border bg-bg px-2 py-1 text-xs text-accent focus:outline-1 focus:outline-accent"
             >
               judge mode ▶

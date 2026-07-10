@@ -467,7 +467,7 @@
 
         <div class="final-caption" id="finalCaption">
           <div class="stat-line">
-            <span class="stat-num">15</span> ITERATIONS · <span class="stat-num">8</span> LESSONS · <span class="stat-num">0</span> ESCAPED TO PROD
+            <span class="stat-num">15</span> ITERATIONS · <span class="stat-num">8</span> LESSONS · <span class="stat-num">7</span> CAUGHT &amp; FIXED
           </div>
           <div class="proof-line">the loop closed. every segment is a claim you can check.</div>
         </div>
@@ -497,7 +497,8 @@
         "the invitation and trophy"
       ];
 
-      const failSegments = new Set([1, 2, 4, 8, 9, 11]);
+      // zero-based; mirrors data/loop.json failure-bearing iterations 2,3,6,7,9,13,15
+      const failSegments = new Set([1, 2, 5, 6, 8, 12, 14]);
       const svgNS = "http://www.w3.org/2000/svg";
       const segmentCount = titles.length;
       const baseRadius = 150;

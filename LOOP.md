@@ -1,6 +1,6 @@
 # LOOP.md — agent-written iteration log
 
-One line per iteration, written by the agent as the loop runs: maker first, then what ran, what broke, what got fixed. Structured mirror of every line lives in `data/loop.json` — **which this app itself renders: the app is its own build log.** Open the [live site](https://ouroboros-phi.vercel.app/), click any ring segment, and you're reading this file with the checker's evidence attached.
+One line per iteration, written by the agent as the loop runs: maker first, then what ran, what broke, what got fixed. Structured mirror of every line lives in `data/loop.json` — **which this app itself renders: the app is its own build log.** Open the [live site](https://yazan-o.github.io/ouroboros/), click any ring segment, and you're reading this file with the checker's evidence attached.
 
 Every line carries labeled provenance you can cross-check: `commits:` are git SHAs in this repo (feature / fix / bank), `test:` is a TestSprite test id whose **full run history is committed** at `.testsprite/results/iter<N>-<id8>.json`, and failures link a lesson in [LESSONS.md](LESSONS.md) recorded *before* the fix (**no fix without a lesson**). Where the platform's status flag contradicted its own passing evidence, the verdict is labeled **pass-by-evidence** and the discrepancy was reported upstream (**the loop audited its checker** — [testsprite-cli#208](https://github.com/TestSprite/testsprite-cli/issues/208)). The AUDIT TRAIL section of the live app renders this same mapping as a table.
 

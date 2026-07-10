@@ -7,7 +7,7 @@ import loopData from "@/data/loop.json";
 
 const CARD_WIDTH = 1200;
 const CARD_HEIGHT = 630;
-const URL_LABEL = "ouroboros-phi.vercel.app";
+const URL_LABEL = "yazan-o.github.io/ouroboros";
 const REPO_LABEL = "github.com/Yazan-O/ouroboros";
 const UPSTREAM_LABEL = "UPSTREAM FILED: PR #207 + PR #213 / ISSUE #208";
 
@@ -62,7 +62,12 @@ const statCells = [
     tone: "accent",
     size: "normal",
   },
-  { value: "0", label: "ESCAPED TO PROD", tone: "fail", size: "normal" },
+  {
+    value: String(iterations.reduce((sum, it) => sum + it.tests.fail, 0)),
+    label: "FAILED RUNS LOGGED",
+    tone: "fail",
+    size: "normal",
+  },
   { value: "CAUGHT", label: "ITS OWN CHECKER", tone: "accent", size: "compact" },
 ];
 
@@ -337,7 +342,7 @@ function drawCanvasCard(ctx: CanvasRenderingContext2D, tokens: CanvasTokens) {
   ctx.fillStyle = tokens.muted;
   ctx.font = `400 14px ${tokens.fontMono}`;
   ctx.fillText(
-    `${iterations.length} iterations / ${lessons.length} lessons / ${cloudTests} cloud tests / 0 escaped to prod / caught its own checker`,
+    `${iterations.length} iterations / ${lessons.length} lessons / ${cloudTests} cloud tests / no failure hidden / caught its own checker`,
     438,
     246,
   );
@@ -470,9 +475,9 @@ export default function LoopCard() {
       >
         <span className="text-text">Ouroboros</span> — the loop that built
         itself · {iterations.length} iterations · {lessons.length} lessons ·{" "}
-        {cloudTests} cloud tests · 0 escaped to prod · caught its own checker ·
+        {cloudTests} cloud tests · no failure hidden · caught its own checker ·
         upstream: PR #207, PR #213, issue #208 ·{" "}
-        <span className="text-accent">ouroboros-phi.vercel.app</span>
+        <span className="text-accent">yazan-o.github.io/ouroboros</span>
       </p>
 
       <div className="mt-4 overflow-hidden border border-border bg-bg">
@@ -620,7 +625,7 @@ export default function LoopCard() {
             fontSize="14"
           >
             {iterations.length} iterations / {lessons.length} lessons / {cloudTests} cloud
-            tests / 0 escaped to prod / caught its own checker
+            tests / no failure hidden / caught its own checker
           </text>
 
           <g>

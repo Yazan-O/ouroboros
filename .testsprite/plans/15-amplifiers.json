@@ -8,12 +8,12 @@
     { "type": "action", "description": "Navigate to the homepage" },
     {
       "type": "assertion",
-      "description": "Verify a prominent, accent-colored invitation appears near the top of the page reading like 'Judging this? Start the 3-minute briefing', clearly inviting the visitor to begin a guided briefing"
+      "description": "Verify a prominent, accent-colored invitation appears near the top of the page reading like 'Judging this? Start the 30-second briefing', clearly inviting the visitor to begin a guided briefing"
     },
     { "type": "action", "description": "Scroll to the bottom of the page to the LOOP CARD section" },
     {
       "type": "assertion",
-      "description": "Verify a trophy-style Loop Card shows the wordmark OUROBOROS, the tagline 'the loop that built itself', a stat grid with labelled counts for iterations, lessons, and cloud tests plus a '0 escaped to prod' stat, references to the upstream pull requests and issue (PR #207, PR #213, issue #208), and a 'download PNG' button"
+      "description": "Verify a trophy-style Loop Card shows the wordmark OUROBOROS, the tagline 'the loop that built itself', a stat grid with labelled counts for iterations, lessons, and cloud tests plus a red 'failed runs logged' stat, references to the upstream pull requests and issue (PR #207, PR #213, issue #208), and a 'download PNG' button"
     }
   ]
 }

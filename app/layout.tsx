@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Chakra_Petch, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const siteUrl = "https://ouroboros-phi.vercel.app";
+const siteUrl = "https://yazan-o.github.io/ouroboros";
 const siteTitle = "Ouroboros - the loop that watches itself";
 const siteDescription =
   "A dashboard built by a maker-checker loop, visualizing the very loop that built it.";
